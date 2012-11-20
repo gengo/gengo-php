@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/gengo/gengo-php.png?branch=master)](https://travis-ci.org/gengo/gengo-php)
+
 Gengo PHP Library (for the [Gengo API](http://gengo.com/))
 ==========================================================================================================================
 Translating your tools and products helps people all over the world access them; this is, of course, a
