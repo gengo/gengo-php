@@ -79,5 +79,40 @@ class PostJobsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($response['opstat'], 'ok');
         $this->assertTrue(isset($response['response']));
         $this->assertEquals($response['response']['job']['body_src'], 'Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside.');
+        return $job_id;
+    }
+
+    /**
+     * @depends test_get_translation_order_jobs
+     */
+    public function test_post_translation_job_comment($job_id)
+    {
+        $job_client = Gengo_Api::factory('job', $this->key, $this->secret);
+        $job_client->setBaseUrl('http://sandbox.gengo.com/v2/');
+        $comment = 'Test comment';
+        $job_client->postComment($job_id, $comment);
+        $job_client->getResponseBody();
+        $body = $job_client->getResponseBody();
+        $response = json_decode($body, true);
+        $this->assertEquals($response['opstat'], 'ok');
+        $this->assertTrue(isset($response['response']));
+
+        return $job_id;
+    }
+
+    /**
+     * @depends test_get_translation_order_jobs
+     */
+    public function test_get_translation_job_comments($job_id)
+    {
+        $job_client = Gengo_Api::factory('job', $this->key, $this->secret);
+        $job_client->setBaseUrl('http://sandbox.gengo.com/v2/');
+        $job_client->getComments($job_id);
+        $job_client->getResponseBody();
+        $body = $job_client->getResponseBody();
+        $response = json_decode($body, true);
+        $this->assertEquals($response['opstat'], 'ok');
+        $this->assertTrue(isset($response['response']));
+        $this->assertEquals($response['response']['thread'][0]['body'], 'Test comment');
     }
 }
