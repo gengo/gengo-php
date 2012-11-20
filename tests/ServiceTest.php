@@ -36,8 +36,6 @@ class ServiceTest extends PHPUnit_Framework_TestCase
         $response = json_decode($body, true);
         $this->assertEquals($response['opstat'], 'ok');
         $this->assertTrue(isset($response['response']));
-        $this->assertTrue(isset($response['response']['credits_spent']));
-        $this->assertTrue(isset($response['response']['user_since']));
 
     }
 }
