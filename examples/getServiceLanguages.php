@@ -14,7 +14,7 @@ $private_key = 'your private-api-key';
 $service = Gengo_Api::factory('service', $api_key, $private_key);
 
 // Request the languages.
-$service->getLanguages(); 
+$service->getLanguages();
 
 // Display server response.
 echo $service->getResponseBody();
