@@ -1,0 +1,8 @@
+language: php
+php:
+  - 5.4
+  - 5.3
+env:
+  global:
+    - secure: "AADiWYLLOB6+4pzxN5EQnxlz1wTV1193cv8ROC7MaoyW91M1goshxQWqVjr+\nyYJvoxx/nht/8vNvtxI13B8IcDpVjuATbw/5TUk2obbUHqbcUnsFI1WO/HyN\nxtrcWuKCB0vU6scChzubQiMR8iJYWTG59x+BjLUakjQGlcWnywA="
+    - GENGO_PUBKEY='pubkeyfortests'

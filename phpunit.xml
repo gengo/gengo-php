@@ -1,0 +1,5 @@
+<testsuites>
+  <testsuite name="Gengo Test Suite">
+    <directory>./tests/</directory>
+  </testsuite>
+</testsuites>
