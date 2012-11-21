@@ -123,9 +123,18 @@ class PostJobsTest extends PHPUnit_Framework_TestCase
             'tier' => 'standard',
             );
 
-        $files['file_01'] = 'examples/testfiles/test_file1.txt';
+        $job2 = array(
+            'type' => 'file',
+            'file_key' => 'file_02',
+            'lc_src' => 'en',
+            'lc_tgt' => 'ja',
+            'tier' => 'standard',
+            );
 
-        $jobs = array('job_01' => $job1);
+        $files['file_01'] = 'examples/testfiles/test_file1.txt';
+        $files['file_02'] = 'examples/testfiles/test_file2.txt';
+
+        $jobs = array('job_01' => $job1, 'job_02' => $job2);
 
         $service = Gengo_Api::factory('service', $this->key, $this->secret);
         $service->setBaseUrl('http://sandbox.gengo.com/v2/');
@@ -139,23 +148,31 @@ class PostJobsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($response['opstat'], 'ok');
         $this->assertTrue(isset($response['response']));
 
-        return $response['response']['jobs']['job_01']['identifier'];
+        $job1_identifier = $response['response']['jobs']['job_01']['identifier'];
+        $job2_identifier = $response['response']['jobs']['job_02']['identifier'];
+
+        return array($job1_identifier, $job2_identifier);
 
     }
 
     /**
      * @depends test_quote
      */
-    public function test_file_upload($identifier)
+    public function test_file_upload($identifiers)
     {
-        $job = array('type' => 'file',
-                     'identifier' => $identifier,
-                     'comment' => "Test comment",
-                     'force' => true,);
+        $job1 = array('type' => 'file',
+                      'identifier' => $identifiers[0],
+                      'comment' => "Test comment",
+                      'force' => true,);
+
+        $job2 = array('type' => 'file',
+                      'identifier' => $identifiers[1],
+                      'comment' => "Test comment",
+                      'force' => true,);
 
         $jobs_client = Gengo_Api::factory('jobs', $this->key, $this->secret);
         $jobs_client->setBaseUrl('http://sandbox.gengo.com/v2/');
-        $jobs = array('filejob_01' => $job);
+        $jobs = array('filejob_01' => $job1, 'filejob_02' => $job2);
         $jobs_client->postJobs($jobs);
 
         $body = $jobs_client->getResponseBody();
@@ -164,6 +181,6 @@ class PostJobsTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(isset($response['response']));
         $this->assertTrue(isset($response['response']['order_id']));
         $this->assertTrue(isset($response['response']['credits_used']));
-        $this->assertEquals($response['response']['job_count'], 1);
+        $this->assertEquals($response['response']['job_count'], 2);
     }
 }
