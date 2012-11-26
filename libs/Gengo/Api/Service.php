@@ -93,7 +93,7 @@ class Gengo_Api_Service extends Gengo_Api
                         throw new Gengo_Exception(sprintf('Job %s is missing file_key parameter', print_r($job, true)));
                     }
                     // make sure the file_key parameter is a valid alphanumeric parameter
-                    if (! preg_match('/^[a-z0-9_]+$/i', $job['file_key']))
+                    if (! preg_match('/^[a-z0-9_-]+$/i', $job['file_key']))
                     {
                         throw new Gengo_Exception(sprintf('"%s" is not a valid file_key parameter', $job['file_key']));
                     }
