@@ -130,13 +130,11 @@ class Gengo_Api_Service extends Gengo_Api
         $data = array('jobs' => $jobs);
 
         // create the query
+        $ts = gmdate('U');
         $params = array('api_key' => $this->config->get('api_key', null, true), '_method' => 'post',
-                        'ts' => gmdate('U'),
+                        'ts' => $ts,
                         'data' => json_encode($data));
-        // sort and sign
-        ksort($params);
-        $enc_params = json_encode($params);
-        $params['api_sig'] = Gengo_Crypto::sign($enc_params, $this->config->get('private_key', null, true));
+        $params['api_sig'] = Gengo_Crypto::sign($ts, $this->config->get('private_key', null, true));
 
         $format = $this->config->get('format', null, true);
         $baseurl = $this->config->get('baseurl', null, true);
