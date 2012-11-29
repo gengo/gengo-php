@@ -15,7 +15,9 @@ Installing the library is simple.
 
 1. Get the repo:
 
-    git clone git://github.com/gengo/gengo-php.git
+```sh
+$ git clone git://github.com/gengo/gengo-php.git
+```
 
 2. Edit the `config.ini` file and set the baseurl to the environment you're sending translations to so that your API keys authenticate correctly.
 
