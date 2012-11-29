@@ -11,13 +11,13 @@ This package contains both a client library for accessing the Gengo Translate AP
 
 Installation & Requirements
 ------------------------------------------------------------------------------------------------------------------------------------------------------
-Installing the library is fairly simple:
+Installing the library is simple.
 
-Get the repo:
+1. Get the repo:
 
     git clone git://github.com/gengo/gengo-php.git
 
-Edit the `config.ini` file and set the baseurl to the environment you're sending translations to so that your API keys authenticate correctly.
+2. Edit the `config.ini` file and set the baseurl to the environment you're sending translations to so that your API keys authenticate correctly.
 
 
 Question, Comments, Complaints, Praise?
