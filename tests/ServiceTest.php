@@ -16,7 +16,6 @@ class ServiceTest extends PHPUnit_Framework_TestCase
     public function test_get_language_pairs()
     {
         $service = Gengo_Api::factory('service', $this->key, $this->secret);
-        $service->setBaseUrl('http://sandbox.gengo.com/v2/');
 
         $service->getLanguagePairs();
         $body = $service->getResponseBody();
@@ -29,7 +28,6 @@ class ServiceTest extends PHPUnit_Framework_TestCase
     public function test_get_languages()
     {
         $service = Gengo_Api::factory('service', $this->key, $this->secret);
-        $service->setBaseUrl('http://sandbox.gengo.com/v2/');
 
         $service->getLanguages();
         $body = $service->getResponseBody();

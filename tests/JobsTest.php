@@ -29,7 +29,6 @@ class PostJobsTest extends PHPUnit_Framework_TestCase
 
         // Get an instance of Jobs Client
         $jobs_client = Gengo_Api::factory('jobs', $this->key, $this->secret);
-        $jobs_client->setBaseUrl('http://sandbox.gengo.com/v2/');
 
         // Post the jobs. The second parameter is optional and determines whether or
         // not the jobs are submitted as a group (default: false).
@@ -51,7 +50,6 @@ class PostJobsTest extends PHPUnit_Framework_TestCase
     public function test_get_translation_order_jobs($order_id)
     {
         $order_client = Gengo_Api::factory('order', $this->key, $this->secret);
-        $order_client->setBaseUrl('http://sandbox.gengo.com/v2/');
         sleep(10);
         $order_client->getOrder($order_id);
         $body = $order_client->getResponseBody();
@@ -69,7 +67,6 @@ class PostJobsTest extends PHPUnit_Framework_TestCase
     public function test_get_translation_job($job_id)
     {
         $job_client = Gengo_Api::factory('job', $this->key, $this->secret);
-        $job_client->setBaseUrl('http://sandbox.gengo.com/v2/');
         $job_client->getJob($job_id);
         $body = $job_client->getResponseBody();
         $response = json_decode($body, true);
@@ -85,7 +82,6 @@ class PostJobsTest extends PHPUnit_Framework_TestCase
     public function test_post_translation_job_comment($job_id)
     {
         $job_client = Gengo_Api::factory('job', $this->key, $this->secret);
-        $job_client->setBaseUrl('http://sandbox.gengo.com/v2/');
         $comment = 'Test comment';
         $job_client->postComment($job_id, $comment);
         $body = $job_client->getResponseBody();
@@ -102,7 +98,6 @@ class PostJobsTest extends PHPUnit_Framework_TestCase
     public function test_get_translation_job_comments($job_id)
     {
         $job_client = Gengo_Api::factory('job', $this->key, $this->secret);
-        $job_client->setBaseUrl('http://sandbox.gengo.com/v2/');
         $job_client->getComments($job_id);
         $body = $job_client->getResponseBody();
         $response = json_decode($body, true);
@@ -137,7 +132,6 @@ class PostJobsTest extends PHPUnit_Framework_TestCase
         $jobs = array('job_01' => $job1, 'job_02' => $job2);
 
         $service = Gengo_Api::factory('service', $this->key, $this->secret);
-        $service->setBaseUrl('http://sandbox.gengo.com/v2/');
 
         $service->quote($jobs, $files);
 
@@ -171,7 +165,6 @@ class PostJobsTest extends PHPUnit_Framework_TestCase
                       'force' => true,);
 
         $jobs_client = Gengo_Api::factory('jobs', $this->key, $this->secret);
-        $jobs_client->setBaseUrl('http://sandbox.gengo.com/v2/');
         $jobs = array('filejob_01' => $job1, 'filejob_02' => $job2);
         $jobs_client->postJobs($jobs);
 

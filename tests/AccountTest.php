@@ -16,7 +16,6 @@ class AccountMethodsTest extends PHPUnit_Framework_TestCase
     public function test_get_balance()
     {
         $service = Gengo_Api::factory('account', $this->key, $this->secret);
-        $service->setBaseUrl('http://sandbox.gengo.com/v2/');
 
         $service->getBalance();
         $body = $service->getResponseBody();
@@ -30,7 +29,6 @@ class AccountMethodsTest extends PHPUnit_Framework_TestCase
     public function test_get_stats()
     {
         $service = Gengo_Api::factory('account', $this->key, $this->secret);
-        $service->setBaseUrl('http://sandbox.gengo.com/v2/');
 
         $service->getStats();
         $body = $service->getResponseBody();
