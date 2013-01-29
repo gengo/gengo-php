@@ -44,5 +44,25 @@ class Gengo_Api_Order extends Gengo_Api
         $this->response = $this->client->get($baseurl, $format, $params);
     }
 
+    /**
+     * translate/order/{id} (DELETE)
+     *
+     * Cancels all jobs in an order that can be cancelled (available jobs)
+     *
+     * This feature is EXPERIMENTAL
+     *
+     * @param string $format The response format, xml or json
+     * @param array|string $params If passed should contain all the
+     * necessary parameters for the request including the api_key and
+     * api_sig
+     */
+    public function cancel($id = null, $format = null, $params = null)
+    {
+        $this->setParams($id, $format, $params);
+        $baseurl = $this->config->get('baseurl', null, true);
+        $baseurl .= "translate/order/{$id}";
+        $this->response = $this->client->delete($baseurl, $format, $params);
+    }
+
 }
 
