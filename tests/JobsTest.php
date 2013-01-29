@@ -1,6 +1,6 @@
 <?php
 
-require_once './init.php';
+require_once '../init.php';
 
 class PostJobsTest extends PHPUnit_Framework_TestCase
 {
@@ -175,5 +175,85 @@ class PostJobsTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(isset($response['response']['order_id']));
         $this->assertTrue(isset($response['response']['credits_used']));
         $this->assertEquals($response['response']['job_count'], 2);
+    }
+
+    /**
+     * using (but not really testing) max_chars param
+     */
+    public function test_job_max_chars()
+    {
+        $job1 = array(
+                'type' => 'text',
+                'slug' => 'Language name',
+                'body_src' => 'Japanese',
+                'lc_src' => 'en',
+                'lc_tgt' => 'ja',
+                'tier' => 'standard',
+                'force' => 1,
+                'max_chars' => 3,
+                );
+
+        $jobs = array('job_01' => $job1);
+
+        // Get an instance of Jobs Client
+        $jobs_client = Gengo_Api::factory('jobs', $this->key, $this->secret);
+
+        // Post the jobs. The second parameter is optional and determines whether or
+        // not the jobs are submitted as a group (default: false).
+        $jobs_client->postJobs($jobs);
+
+        // Display the server response.
+        $body = $jobs_client->getResponseBody();
+        $response = json_decode($body, true);
+        $this->assertEquals($response['opstat'], 'ok');
+        $this->assertTrue(isset($response['response']));
+        $order_id = $response['response']['order_id'];
+
+        return $order_id;
+    }
+
+    public function test_jobs_max_chars()
+    {
+        $job1 = array(
+                'type' => 'text',
+                'slug' => 'Language name',
+                'body_src' => 'Japanese',
+                'lc_src' => 'en',
+                'lc_tgt' => 'ja',
+                'tier' => 'standard',
+                'force' => 1,
+                'max_chars' => 3,
+                );
+
+        $job2 = array(
+            'type' => 'text',
+            'slug' => 'Name of Country',
+            'body_src' => 'Italia',
+            'lc_src' => 'en',
+            'lc_tgt' => 'ja',
+            'tier' => 'standard',
+            'force' => 1,
+            'max_chars' => 4,
+            );
+
+        $jobs = array('job_01' => $job1,
+                      'job_02' => $job2);
+
+        // Get an instance of Jobs Client
+        $jobs_client = Gengo_Api::factory('jobs', $this->key, $this->secret);
+
+        // Post the jobs. The second parameter is optional and determines whether or
+        // not the jobs are submitted as a group (default: false).
+        $jobs_client->postJobs($jobs, TRUE);
+
+        // Display the server response.
+        $body = $jobs_client->getResponseBody();
+
+        $response = json_decode($body, true);
+        $this->assertEquals($response['opstat'], 'ok');
+        $this->assertTrue(isset($response['response']));
+        $order_id = $response['response']['order_id'];
+
+        return $order_id;
     }
 }
