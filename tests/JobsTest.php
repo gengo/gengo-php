@@ -1,6 +1,6 @@
 <?php
 
-require_once '../init.php';
+require_once './init.php';
 
 class PostJobsTest extends PHPUnit_Framework_TestCase
 {
