@@ -298,44 +298,6 @@ class Gengo_Api_Job extends Gengo_Api
     }
 
     /**
-     * translate/job
-     *
-     * Post a new job for translation
-     *
-     * @param array|string a job payload.
-     * @param string $format The response format, xml or json
-     * @param array|string $params (DEPRECATED) Should contain all the
-     * necessary parameters for the request including the api_key and
-     * api_sig
-     */
-    public function postJob($job, $format = null, $params = null)
-    {
-        // XXX: there is no check that $job is a valid payload.
-        if (!is_null($job)) // If $job is not null, I override $params.
-        {
-            // pack the jobs
-            $data = array('job' => $job);
-
-            // create the query
-            $params = array('api_key' => $this->config->get('api_key', null, true), '_method' => 'post',
-                    'ts' => gmdate('U'),
-                    'data' => json_encode($data));
-            // sort and sign
-            ksort($params);
-            $enc_params = json_encode($params);
-            $params['api_sig'] = Gengo_Crypto::sign($enc_params, $this->config->get('private_key', null, true));
-        }
-
-        $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= 'translate/job';
-        if (is_null($format))
-        {
-            $format = $this->config->get('format', null, true);
-        }
-        $this->response = $this->client->post($baseurl, $format, $params);
-    }
-
-    /**
      * translate/job/{id}/comment (POST)
      *
      * Submits a new comment to the job's comment thread.
