@@ -50,12 +50,20 @@ class PostJobsTest extends PHPUnit_Framework_TestCase
     public function test_get_translation_order_jobs($order_id)
     {
         $order_client = Gengo_Api::factory('order', $this->key, $this->secret);
-        sleep(10);
         $order_client->getOrder($order_id);
         $body = $order_client->getResponseBody();
         $response = json_decode($body, true);
         $this->assertEquals($response['opstat'], 'ok');
         $this->assertTrue(isset($response['response']));
+        $jobs_queued = $response['response']['order']['jobs_queued'];
+        $this->assertEquals($response['opstat'], 'ok');
+        $this->assertEquals($jobs_queued, 1);
+        sleep(10);
+
+        $order_client->getOrder($order_id);
+        $body = $order_client->getResponseBody();
+        $response = json_decode($body, true);
+        $this->assertEquals($response['opstat'], 'ok');
         $job_id = $response['response']['order']['jobs_available'][0];
 
         return $job_id;
