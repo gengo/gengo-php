@@ -62,4 +62,21 @@ class Gengo_Api_Account extends Gengo_Api
         $baseurl .= "account/stats";
         $this->response = $this->client->get($baseurl, $format, $params);
     }
+
+    /**
+     * account/preferred_translators (GET)
+     * Retrieves preferred translators as array by langs and tier.
+     *
+     * @param string $format The OPTIONAL response format: xml or json.
+     * @param array|string $params (DEPRECATED) If passed should contain all the
+     * necessary parameters for the request including the api_key and
+     * api_sig
+     */
+    public function getPreferredTranslators($format = null, $params = null)
+    {
+        $this->setParamsNotId($format, $params);
+        $baseurl = $this->config->get('baseurl', null, true);
+        $baseurl .= "account/preferred_translators";
+        $this->response = $this->client->get($baseurl, $format, $params);
+    }
 }
