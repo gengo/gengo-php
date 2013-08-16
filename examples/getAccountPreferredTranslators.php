@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Retrieve account balance in credits.
+ * Retrieve an array of preferred translators by langs and tier
  */
 
 require_once '../init.php';
