@@ -88,54 +88,6 @@ class Gengo_Api_Jobs extends Gengo_Api
     }
 
     /**
-     * translate/jobs/group/{id} (GET)
-     *
-     * Retrieves the group of jobs that were previously submitted
-     * together.
-     *
-     * @param int $id The id of the job group to retrieve
-     * @param string $format The OPTIONAL response format: xml or json (default).
-     * @param array|string $params (DEPRECATED) If passed should contain all the
-     * necessary parameters for the request including the api_key and
-     * api_sig
-     */
-    public function getGroupedJobs($id, $format = null, $params = null)
-    {
-        $this->setParams($id, $format, $params);
-        $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= "translate/jobs/group/{$id}";
-        $this->response = $this->client->get($baseurl, $format, $params);
-    }
-
-    /**
-     * translate/jobs/group/{id}/comment (POST)
-     *
-     * Submits a new comment to the job's comment thread.
-     *
-     * @param int $id The group id
-     * @param string $body The comment's actual contents.
-     * @param string $format The response format, xml or json
-     */
-    public function postGroupComment($group_id, $body, $format = null)
-    {
-        // pack the jobs
-        $data = array('body' => $body);
-
-        // create the query
-        $params = array('api_key' => $this->config->get('api_key', null, true), '_method' => 'post',
-                'ts' => gmdate('U'),
-                'data' => json_encode($data));
-        // sort and sign
-        ksort($params);
-        $enc_params = json_encode($params);
-        $params['api_sig'] = Gengo_Crypto::sign($enc_params, $this->config->get('private_key', null, true));
-
-        $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= "translate/jobs/group/{$group_id}/comment";
-        $this->response = $this->client->post($baseurl, $format, $params);
-    }
-
-    /**
      * translate/jobs/ (PUT)
      *
      * Updates jobs to translate. returns these jobs back to the translators for revisions.
