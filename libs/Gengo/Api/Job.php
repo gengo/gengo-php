@@ -356,3 +356,4 @@ class Gengo_Api_Job extends Gengo_Api
         $baseurl .= "translate/job/{$id}";
         $this->response = $this->client->delete($baseurl, $format, $params);
     }
+}
