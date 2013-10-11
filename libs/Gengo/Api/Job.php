@@ -356,25 +356,4 @@ class Gengo_Api_Job extends Gengo_Api
         $baseurl .= "translate/job/{$id}";
         $this->response = $this->client->delete($baseurl, $format, $params);
     }
-
-    /**
-     * translate/job/{id}/preview (GET)
-     *
-     * Renders a JPEG preview of the translated text
-     * N.B. - if the request is valid, a raw JPEG stream is returned.
-     *
-     * @param int $id The id of the job, if not passed it should be in config
-     * @param string $format The response format, xml or json (in case of error)
-     * @param array|string $params (DEPRECATED) If passed should contain all the
-     * necessary parameters for the request including the api_key and
-     * api_sig
-     */
-    public function previewJob($id, $format = null, $params = null)
-    {
-        $this->setParams($id, $format, $params);
-        $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= "translate/job/{$id}/preview";
-        $this->response = $this->client->get($baseurl, $format, $params);
-    }
 }
-
