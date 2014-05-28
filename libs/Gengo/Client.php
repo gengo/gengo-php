@@ -103,9 +103,17 @@ class Gengo_Client
                     $this->client->setParameterGet($params);
                     break;
                 case 'POST':
+                    if (isset($params['file_path'])) {
+                        $this->client->setFileUpload($params['file_path'], 'file_path');
+                        unset($params['file_path']);
+                    }
                     $this->client->setParameterPost($params);
                     break;
                 case 'PUT':
+                    if (isset($params['file_path'])) {
+                        $this->client->setFileUpload($params['file_path'], 'file_path');
+                        unset($params['file_path']);
+                    }
                     if (is_array($params))
                     {
                         $params = http_build_query($params);

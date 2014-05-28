@@ -58,7 +58,7 @@ class Gengo_Api_Jobs extends Gengo_Api
 
         $format = $this->config->get('format', null, true);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= 'translate/jobs';
+        $baseurl .= 'v2/translate/jobs';
         $this->response = $this->client->post($baseurl, $format, $params);
     }
 
@@ -78,7 +78,7 @@ class Gengo_Api_Jobs extends Gengo_Api
     {
         $this->setParamsNotId($format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= 'translate/jobs';
+        $baseurl .= 'v2/translate/jobs';
         if (!is_null($ids))
         {
             $baseurl .= '/' . implode(',', $ids);
@@ -101,7 +101,7 @@ class Gengo_Api_Jobs extends Gengo_Api
      *  - "body_src", the original body of text to be translated,
      *  - "lc_src", the source language code,
      *  - "lc_tgt", the target language code.
-     *  
+     *
      */
     public function revise($jobs)
     {
@@ -127,10 +127,10 @@ class Gengo_Api_Jobs extends Gengo_Api
         $format = $this->config->get('format', null, true);
         $this->setParamsNotId($format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= "translate/jobs/";
+        $baseurl .= "v2/translate/jobs/";
         $this->response = $this->client->put($baseurl, $format, $params);
     }
-    
+
     /**
      * translate/jobs/ (PUT)
      *
@@ -148,7 +148,7 @@ class Gengo_Api_Jobs extends Gengo_Api
      *  - "body_src", the original body of text to be translated,
      *  - "lc_src", the source language code,
      *  - "lc_tgt", the target language code.
-     *  
+     *
      */
     public function approve($jobs)
     {
@@ -175,7 +175,7 @@ class Gengo_Api_Jobs extends Gengo_Api
         $format = $this->config->get('format', null, true);
         $this->setParamsNotId($format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= "translate/jobs/";
+        $baseurl .= "v2/translate/jobs/";
         $this->response = $this->client->put($baseurl, $format, $params);
     }
 
@@ -198,7 +198,7 @@ class Gengo_Api_Jobs extends Gengo_Api
      *  - "body_src", the original body of text to be translated,
      *  - "lc_src", the source language code,
      *  - "lc_tgt", the target language code.
-     *  
+     *
      */
     public function reject($jobs)
     {
@@ -223,7 +223,7 @@ class Gengo_Api_Jobs extends Gengo_Api
         $format = $this->config->get('format', null, true);
         $this->setParamsNotId($format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= "translate/jobs/";
+        $baseurl .= "v2/translate/jobs/";
         $this->response = $this->client->put($baseurl, $format, $params);
     }
 
@@ -247,7 +247,7 @@ class Gengo_Api_Jobs extends Gengo_Api
         $format = $this->config->get('format', null, true);
         $this->setParamsNotId($format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= "translate/jobs/";
+        $baseurl .= "v2/translate/jobs/";
         $this->response = $this->client->delete($baseurl, $format, $params);
     }
 }

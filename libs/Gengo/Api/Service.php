@@ -43,7 +43,7 @@ class Gengo_Api_Service extends Gengo_Api
     {
         $this->setParamsNotId($format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= "translate/service/languages/";
+        $baseurl .= "v2/translate/service/languages/";
         $this->response = $this->client->get($baseurl, $format, $params);
     }
 
@@ -62,7 +62,7 @@ class Gengo_Api_Service extends Gengo_Api
     {
         $this->setParamsNotId($format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= "translate/service/language_pairs/";
+        $baseurl .= "v2/translate/service/language_pairs/";
         $this->response = $this->client->get($baseurl, $format, $params);
     }
 
@@ -138,7 +138,7 @@ class Gengo_Api_Service extends Gengo_Api
 
         $format = $this->config->get('format', null, true);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= 'translate/service/quote';
+        $baseurl .= 'v2/translate/service/quote';
         if (! empty($filepath))
         {
             foreach ($filepath as $file_key => $fp)
