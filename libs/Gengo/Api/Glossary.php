@@ -29,6 +29,17 @@ class Gengo_Api_Glossary extends Gengo_Api
         parent::__construct($api_key, $private_key);
     }
 
+    private function get_query()
+    {
+        $params = array();
+        $params['ts'] = gmdate('U');
+        $params['api_key'] = $this->config->get('api_key', null, true);
+        $private_key = $this->config->get('private_key', null, true);
+        $params['api_sig'] = Gengo_Crypto::sign($params['ts'], $private_key);
+        $query = http_build_query($params);
+        return $query;
+    }
+
 	public function downloadGlossary($glossary_id)
 	{
         $params = array();
@@ -86,9 +97,9 @@ class Gengo_Api_Glossary extends Gengo_Api
         $private_key = $this->config->get('private_key', null, true);
         ksort($params);
         $query = http_build_query($params);
-        $params['api_sig'] = Gengo_Crypto::sign($query, $private_key);
+        $params['api_sig'] = Gengo_Crypto::sign($params['ts'], $private_key);
 
-        $this->setParamsNotId($format, $params);
+        //$this->setParamsNotId($format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
         $baseurl .= "v2/translate/glossary/{$glossary_id}";
         $this->response = $this->client->get($baseurl, $format, $params);
@@ -103,19 +114,11 @@ class Gengo_Api_Glossary extends Gengo_Api
      */
     public function getGlossaryDetails($glossary_id)
     {
-        $params = array();
-        $params['ts'] = gmdate('U');
-        $params['api_key'] = $this->config->get('api_key', null, true);
-        $private_key = $this->config->get('private_key', null, true);
-        ksort($params);
-        $query = http_build_query($params);
-        $params['api_sig'] = Gengo_Crypto::sign($query, $private_key);
+        $query = $this->get_query();
 
-        $format = NULL;
-        $this->setParamsNotId($format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
         $baseurl .= "glossary/{$glossary_id}";
-        $this->response = $this->client->get($baseurl, $format, $params);
+        $this->response = $this->client->get($baseurl . '?' . $query);
     }
 
     /**
@@ -125,23 +128,17 @@ class Gengo_Api_Glossary extends Gengo_Api
      *
      * @param int $glossary_id The ID of the glossary to return.
      */
-    public function postGlossary($file_path, $file_type = 'text/csv')
+    public function postGlossary($file_path)
     {
-        $params = array();
-        $params['ts'] = gmdate('U');
-        $params['api_key'] = $this->config->get('api_key', null, true);
-        $private_key = $this->config->get('private_key', null, true);
-        ksort($params);
-        $query = http_build_query($params);
-        $params['api_sig'] = Gengo_Crypto::sign($query, $private_key);
-        $params['file_path'] = $file_path;
-        $params['file_type'] = $file_type;
+        $query = $this->get_query();
 
-        $format = NULL;
-        $this->setParamsNotId($format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
         $baseurl .= "glossary";
-        $this->response = $this->client->post($baseurl, $format, $params);
+
+        $post_params = array();
+        $post_params['file_path'] = $file_path;
+
+        $this->response = $this->client->post($baseurl . '?' . $query, NULL, $post_params);
     }
 
     /**
@@ -151,22 +148,17 @@ class Gengo_Api_Glossary extends Gengo_Api
      *
      * @param int $glossary_id The ID of the glossary to return.
      */
-    public function putGlossary($glossary_id, $file_path, $file_type = 'text/csv')
+    public function putGlossary($glossary_id, $file_path)
     {
-        $params = array();
-        $params['ts'] = gmdate('U');
-        $params['api_key'] = $this->config->get('api_key', null, true);
-        $private_key = $this->config->get('private_key', null, true);
-        ksort($params);
-        $query = http_build_query($params);
-        $params['api_sig'] = Gengo_Crypto::sign($query, $private_key);
-        $params['file_path'] = $file_path;
+        $query = $this->get_query();
 
-        $format = NULL;
-        $this->setParamsNotId($format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
         $baseurl .= "glossary/{$glossary_id}";
-        $this->response = $this->client->put($baseurl, $format, $params);
+
+        $put_params = array();
+        $put_params['file_path'] = $file_path;
+
+        $this->response = $this->client->put($baseurl . '?' . $query, NULL, $put_params);
     }
 
     /**
@@ -174,23 +166,15 @@ class Gengo_Api_Glossary extends Gengo_Api
      *
      * Deletes a glossary with the given ID.
      *
-     * @param int $glossary_id The ID of the glossary to return.
+     * @param int $glossary_id The ID of the glossary to delete.
      */
     public function deleteGlossary($glossary_id)
     {
-        $params = array();
-        $params['ts'] = gmdate('U');
-        $params['api_key'] = $this->config->get('api_key', null, true);
-        $private_key = $this->config->get('private_key', null, true);
-        ksort($params);
-        $query = http_build_query($params);
-        $params['api_sig'] = Gengo_Crypto::sign($query, $private_key);
-        $params['file_path'] = $file_path;
+        $query = $this->get_query();
 
-        $format = NULL;
-        $this->setParamsNotId($format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
         $baseurl .= "glossary/{$glossary_id}";
-        $this->response = $this->client->delete($baseurl, $format, $params);
+
+        $this->response = $this->client->delete($baseurl . '?' . $query);
     }
 }
