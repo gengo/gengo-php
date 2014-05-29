@@ -40,8 +40,8 @@ class Gengo_Api_Glossary extends Gengo_Api
         return $query;
     }
 
-	public function downloadGlossary($glossary_id)
-	{
+    public function downloadGlossary($glossary_id)
+    {
         $params = array();
         $params['ts'] = gmdate('U');
         $params['api_key'] = $this->config->get('api_key', null, true);
@@ -54,7 +54,7 @@ class Gengo_Api_Glossary extends Gengo_Api
         $baseurl = $this->config->get('baseurl', null, true);
         $baseurl .= "v2/translate/glossary/download/{$glossary_id}";
         $this->response = $this->client->get($baseurl, $format, $params);
-	}
+    }
 
     /**
      * translate/glossary (GET)
