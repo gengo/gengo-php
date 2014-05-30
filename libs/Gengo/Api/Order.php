@@ -40,7 +40,7 @@ class Gengo_Api_Order extends Gengo_Api
     {
         $this->setParams($id, $format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= "translate/order/{$id}/";
+        $baseurl .= "v2/translate/order/{$id}/";
         $this->response = $this->client->get($baseurl, $format, $params);
     }
 
@@ -60,7 +60,7 @@ class Gengo_Api_Order extends Gengo_Api
     {
         $this->setParams($id, $format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= "translate/order/{$id}";
+        $baseurl .= "v2/translate/order/{$id}";
         $this->response = $this->client->delete($baseurl, $format, $params);
     }
 

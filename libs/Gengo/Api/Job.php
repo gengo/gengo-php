@@ -44,7 +44,7 @@ class Gengo_Api_Job extends Gengo_Api
     {
         $this->setParams($id, $format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= "translate/job/{$id}";
+        $baseurl .= "v2/translate/job/{$id}";
         $this->response = $this->client->get($baseurl, $format, $params);
     }
 
@@ -63,7 +63,7 @@ class Gengo_Api_Job extends Gengo_Api
     {
         $this->setParams($id, $format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= "translate/job/{$id}/comments";
+        $baseurl .= "v2/translate/job/{$id}/comments";
         $this->response = $this->client->get($baseurl, $format, $params);
     }
 
@@ -82,7 +82,7 @@ class Gengo_Api_Job extends Gengo_Api
     {
         $this->setParams($id, $format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= "translate/job/{$id}/feedback";
+        $baseurl .= "v2/translate/job/{$id}/feedback";
         $this->response = $this->client->get($baseurl, $format, $params);
     }
 
@@ -101,7 +101,7 @@ class Gengo_Api_Job extends Gengo_Api
     {
         $this->setParams($id, $format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= "translate/job/{$id}/revisions";
+        $baseurl .= "v2/translate/job/{$id}/revisions";
         $this->response = $this->client->get($baseurl, $format, $params);
     }
 
@@ -125,7 +125,7 @@ class Gengo_Api_Job extends Gengo_Api
             $rev_id = $this->config->get('rev_id', null, true);
         }
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= "translate/job/{$id}/revision/{$rev_id}";
+        $baseurl .= "v2/translate/job/{$id}/revision/{$rev_id}";
         $this->response = $this->client->get($baseurl, $format, $params);
     }
 
@@ -153,7 +153,7 @@ class Gengo_Api_Job extends Gengo_Api
             $enc_params = json_encode($params);
             $params['api_sig'] = Gengo_Crypto::sign($enc_params, $this->config->get('private_key', null, true));
         }
-        else 
+        else
         {
             throw new Gengo_Exception(
                     sprintf('In method %s: "id" and "comment" are required', __METHOD__)
@@ -163,7 +163,7 @@ class Gengo_Api_Job extends Gengo_Api
         $format = $this->config->get('format', null, true);
         $this->setParams($id, $format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= "translate/job/{$id}";
+        $baseurl .= "v2/translate/job/{$id}";
         $this->response = $this->client->put($baseurl, $format, $params);
     }
 
@@ -215,7 +215,7 @@ class Gengo_Api_Job extends Gengo_Api
             $enc_params = json_encode($params);
             $params['api_sig'] = Gengo_Crypto::sign($enc_params, $this->config->get('private_key', null, true));
         }
-        else 
+        else
         {
             throw new Gengo_Exception(
                     sprintf('In method %s: "id" is required.', __METHOD__)
@@ -225,7 +225,7 @@ class Gengo_Api_Job extends Gengo_Api
         $format = $this->config->get('format', null, true);
         $this->setParams($id, $format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= "translate/job/{$id}";
+        $baseurl .= "v2/translate/job/{$id}";
         $this->response = $this->client->put($baseurl, $format, $params);
     }
 
@@ -283,7 +283,7 @@ class Gengo_Api_Job extends Gengo_Api
             $enc_params = json_encode($params);
             $params['api_sig'] = Gengo_Crypto::sign($enc_params, $this->config->get('private_key', null, true));
         }
-        else 
+        else
         {
             throw new Gengo_Exception(
                     sprintf('In method %s: "id" is required and "args" must contain a reason, a comment and a captcha', __METHOD__)
@@ -293,7 +293,7 @@ class Gengo_Api_Job extends Gengo_Api
         $format = $this->config->get('format', null, true);
         $this->setParams($id, $format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= "translate/job/{$id}";
+        $baseurl .= "v2/translate/job/{$id}";
         $this->response = $this->client->put($baseurl, $format, $params);
     }
 
@@ -333,7 +333,7 @@ class Gengo_Api_Job extends Gengo_Api
         }
         $this->setParams($id, $format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= "translate/job/{$id}/comment";
+        $baseurl .= "v2/translate/job/{$id}/comment";
         $this->response = $this->client->post($baseurl, $format, $params);
     }
 
@@ -353,7 +353,7 @@ class Gengo_Api_Job extends Gengo_Api
     {
         $this->setParams($id, $format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= "translate/job/{$id}";
+        $baseurl .= "v2/translate/job/{$id}";
         $this->response = $this->client->delete($baseurl, $format, $params);
     }
 }

@@ -42,7 +42,7 @@ class Gengo_Api_Account extends Gengo_Api
     {
         $this->setParamsNotId($format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= "account/balance";
+        $baseurl .= "v2/account/balance";
         $this->response = $this->client->get($baseurl, $format, $params);
     }
 
@@ -59,7 +59,7 @@ class Gengo_Api_Account extends Gengo_Api
     {
         $this->setParamsNotId($format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= "account/stats";
+        $baseurl .= "v2/account/stats";
         $this->response = $this->client->get($baseurl, $format, $params);
     }
 
@@ -76,7 +76,7 @@ class Gengo_Api_Account extends Gengo_Api
     {
         $this->setParamsNotId($format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= "account/preferred_translators";
+        $baseurl .= "v2/account/preferred_translators";
         $this->response = $this->client->get($baseurl, $format, $params);
     }
 }
