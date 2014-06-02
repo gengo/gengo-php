@@ -41,7 +41,7 @@ class Gengo_Api_Jobs extends Gengo_Api
      * necessary parameters for the request including the api_key and
      * api_sig
      */
-    public function postJobs($jobs, $as_group = 0)
+    public function postJobs($jobs, $as_group = 1)
     {
         $data = array('jobs' => $jobs,
                 'as_group' => ($as_group)? 1 : 0,
