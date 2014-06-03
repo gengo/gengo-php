@@ -1,0 +1,19 @@
+{
+    "name": "gengo/gengo",
+    "type": "library",
+    "description": "Gengo API client library for PHP",
+    "keywords": ["gengo", "translation", "api"],
+    "homepage": "http://github.com/gengo/gengo-php",
+    "license": "BSD",
+    "authors": [
+        {
+            "name": "Gengo",
+            "email": "api@gengo.com",
+            "homepage": "http://gengo.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    }
+}
