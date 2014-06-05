@@ -25,7 +25,7 @@ echo $service->getResponseBody();
  * Typical response:
  *  {
  *      "id": 839,
- *      "link": "https://s3.amazonaws.com/mygengo-v2.1/839-154422-ja_to_en.csv?AWSAccessKeyId=AKIAILLT2N26IBPMPXIQ&Expires=1401956400&Signature=TWh%2FGyBb8c%2Bl1wfkSF8ecfNfTSc%3D",
+ *      "link": "https://s3.amazonaws.com/mygengo-v2.1/839-154422-ja_to_en.csv?AWSAccessKeyId=AKIAILMT2N26IBPMPXIQ&Expires=1401956400&Signature=TWh%2FGyBb8c%2Bl1wfkSF8ecfNfTSc%3D",
  *      "number_of_entries": 7,
  *      "source_language_code": "ja",
  *      "target_language_code": "en-US",

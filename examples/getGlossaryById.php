@@ -38,7 +38,7 @@ echo $service->getResponseBody();
  *          }
  *      ],
  *      "id": 817,
- *      "link": "https://s3.amazonaws.com/mygengo-v2.1/817-154422-1396232814_154422_en_to_ja.csv?AWSAccessKeyId=AKIAILLT2N26IBPMPXIQ&Expires=1401954777&Signature=qQls%2B8fujUrQQ2SmbLdxVxf7Ld8%3D",
+ *      "link": "https://s3.amazonaws.com/mygengo-v2.1/817-154422-1396232814_154422_en_to_ja.csv?AWSAccessKeyId=AKIAILMT2N26IBPMPXIQ&Expires=1401954777&Signature=qQls%2B8fujUrQQ2SmbLdxVxf7Ld8%3D",
  *      "source_language_code": "en",
  *      "target_language_code": "ja",
  *      "title": "1396232814_154422_en_to_ja.csv"
