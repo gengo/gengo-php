@@ -91,15 +91,8 @@ class Gengo_Api_Glossary extends Gengo_Api
      */
     public function getGlossary($glossary_id, $format = null)
     {
-        $params = array();
-        $params['ts'] = gmdate('U');
-        $params['api_key'] = $this->config->get('api_key', null, true);
-        $private_key = $this->config->get('private_key', null, true);
-        ksort($params);
-        $query = http_build_query($params);
-        $params['api_sig'] = Gengo_Crypto::sign($params['ts'], $private_key);
-
-        //$this->setParamsNotId($format, $params);
+        $params = null;
+        $this->setParamsNotId($format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
         $baseurl .= "v2/translate/glossary/{$glossary_id}";
         $this->response = $this->client->get($baseurl, $format, $params);
