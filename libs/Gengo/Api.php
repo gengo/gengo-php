@@ -58,6 +58,15 @@ abstract class Gengo_Api
     }
 
     /**
+     * @param string $private_key Overwrite or set the private_key
+     * @return void
+     */
+    public function setDebugMode($bool)
+    {
+        $this->config->set('debug', $bool);
+    }
+
+    /**
      * @param string $format Overwrite or set the requested response
      * format (xml or json)
      * @return void
