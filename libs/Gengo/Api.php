@@ -58,7 +58,7 @@ abstract class Gengo_Api
     }
 
     /**
-     * @param string $private_key Overwrite or set the private_key
+     * @param bool $bool Set debug mode config to true or false
      * @return void
      */
     public function setDebugMode($bool)
