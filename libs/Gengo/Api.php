@@ -58,6 +58,15 @@ abstract class Gengo_Api
     }
 
     /**
+     * @param bool $bool Set debug mode config to true or false
+     * @return void
+     */
+    public function setDebugMode($bool)
+    {
+        $this->config->set('debug', $bool);
+    }
+
+    /**
      * @param string $format Overwrite or set the requested response
      * format (xml or json)
      * @return void
