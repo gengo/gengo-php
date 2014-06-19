@@ -44,12 +44,7 @@ class Init
 
         // set:
         // - internal character encoding
-        // - timezone
         mb_internal_encoding('UTF-8');
-        if (function_exists('date_default_timezone_set'))
-        {
-            date_default_timezone_set(Gengo_Config::getInstance()->get('timezone', 'Asia/Tokyo'));
-        }
     }
 
     public function error_handler($errno, $errstr, $errfile = '', $errline = -1, $errctx = null)
@@ -66,7 +61,7 @@ class Init
     public static function autoload($classname)
     {
         if (false !== strpos($classname, 'Gengo') ||
-            false !== strpos($classname, 'Zend_')) 
+            false !== strpos($classname, 'Zend_'))
         {
             $classpath = str_replace('_', '/', $classname) . '.php';
             require_once $classpath;
