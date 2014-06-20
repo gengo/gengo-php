@@ -43,9 +43,12 @@ class Gengo_Api_Jobs extends Gengo_Api
      */
     public function postJobs($jobs, $as_group = 0)
     {
-        $data = array('jobs' => $jobs,
-                'as_group' => ($as_group)? 1 : 0,
-                'process' => 1);
+        $data = array('jobs' => $jobs, 'process' => 1);
+
+        if ($as_group === 1)
+        {
+            $data['as_group'] = 1;
+        }
 
         // create the query
         $params = array('api_key' => $this->config->get('api_key', null, true), '_method' => 'post',
