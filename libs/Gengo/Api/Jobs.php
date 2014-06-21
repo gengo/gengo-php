@@ -150,7 +150,7 @@ class Gengo_Api_Jobs extends Gengo_Api
      *  - "lc_tgt", the target language code.
      * @param string $version Version of the API to use. Defaults to 'v2'.
      */
-    public function approve($jobs, $version)
+    public function approve($jobs, $version='v2')
     {
         $data = array('action' => 'approve');
         $first_job = current($jobs);
@@ -200,7 +200,7 @@ class Gengo_Api_Jobs extends Gengo_Api
      *  - "lc_tgt", the target language code.
      * @param string $version Version of the API to use. Defaults to 'v2'.
      */
-    public function reject($jobs, $version)
+    public function reject($jobs, $version='v2')
     {
         $data = array('action' => 'reject');
         $first_job = current($jobs);
