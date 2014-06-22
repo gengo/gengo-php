@@ -36,12 +36,11 @@ class Gengo_Api_Jobs extends Gengo_Api
      *
      * @param array|array|string $jobs An array of payloads (a payload being itself an array of string)
      * of jobs to create.
-     * @param string $format The OPTIONAL response format: xml or json (default).
-     * @param array|string $params (DEPRECATED) If passed should contain all the
-     * necessary parameters for the request including the api_key and
-     * api_sig
+     * @param int $as_group Set to 0 if jobs can be done by individual translators (faster),
+     * or to 1 if all jobs should be done by one translator (slower).
+     * @param string $version Version of the API to use. Defaults to 'v2'.
      */
-    public function postJobs($jobs, $as_group = 0)
+    public function postJobs($jobs, $as_group = 0, $version = 'v2')
     {
         $data = array('jobs' => $jobs, 'process' => 1);
 
@@ -61,7 +60,7 @@ class Gengo_Api_Jobs extends Gengo_Api
 
         $format = $this->config->get('format', null, true);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= 'v2/translate/jobs';
+        $baseurl .= "{$version}/translate/jobs";
         $this->response = $this->client->post($baseurl, $format, $params);
     }
 
@@ -76,12 +75,13 @@ class Gengo_Api_Jobs extends Gengo_Api
      * @param array|string $params (DEPRECATED) If passed should contain all the
      * necessary parameters for the request including the api_key and
      * api_sig
+     * @param string $version Version of the API to use. Defaults to 'v2'.
      */
-    public function getJobs($ids = null, $format = null, $params = null)
+    public function getJobs($ids = null, $format = null, $params = null, $version = 'v2')
     {
         $this->setParamsNotId($format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= 'v2/translate/jobs';
+        $baseurl .= "{$version}/translate/jobs";
         if (!is_null($ids))
         {
             $baseurl .= '/' . implode(',', $ids);
@@ -104,9 +104,9 @@ class Gengo_Api_Jobs extends Gengo_Api
      *  - "body_src", the original body of text to be translated,
      *  - "lc_src", the source language code,
      *  - "lc_tgt", the target language code.
-     *
+     * @param string $version Version of the API to use. Defaults to 'v2'.
      */
-    public function revise($jobs)
+    public function revise($jobs, $version = 'v2')
     {
         // pack the jobs
         $data = array('action' => 'revise');
@@ -130,7 +130,7 @@ class Gengo_Api_Jobs extends Gengo_Api
         $format = $this->config->get('format', null, true);
         $this->setParamsNotId($format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= "v2/translate/jobs/";
+        $baseurl .= "{$version}/translate/jobs/";
         $this->response = $this->client->put($baseurl, $format, $params);
     }
 
@@ -151,9 +151,9 @@ class Gengo_Api_Jobs extends Gengo_Api
      *  - "body_src", the original body of text to be translated,
      *  - "lc_src", the source language code,
      *  - "lc_tgt", the target language code.
-     *
+     * @param string $version Version of the API to use. Defaults to 'v2'.
      */
-    public function approve($jobs)
+    public function approve($jobs, $version='v2')
     {
         $data = array('action' => 'approve');
         $first_job = current($jobs);
@@ -178,7 +178,7 @@ class Gengo_Api_Jobs extends Gengo_Api
         $format = $this->config->get('format', null, true);
         $this->setParamsNotId($format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= "v2/translate/jobs/";
+        $baseurl .= "{$version}/translate/jobs/";
         $this->response = $this->client->put($baseurl, $format, $params);
     }
 
@@ -201,9 +201,9 @@ class Gengo_Api_Jobs extends Gengo_Api
      *  - "body_src", the original body of text to be translated,
      *  - "lc_src", the source language code,
      *  - "lc_tgt", the target language code.
-     *
+     * @param string $version Version of the API to use. Defaults to 'v2'.
      */
-    public function reject($jobs)
+    public function reject($jobs, $version='v2')
     {
         $data = array('action' => 'reject');
         $first_job = current($jobs);
@@ -226,7 +226,7 @@ class Gengo_Api_Jobs extends Gengo_Api
         $format = $this->config->get('format', null, true);
         $this->setParamsNotId($format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= "v2/translate/jobs/";
+        $baseurl .= "{$version}/translate/jobs/";
         $this->response = $this->client->put($baseurl, $format, $params);
     }
 
@@ -237,8 +237,9 @@ class Gengo_Api_Jobs extends Gengo_Api
      * started already by a translator.
      *
      * @param array (required) $ids Array of ids of the jobs to cancel
+     * @param string $version Version of the API to use. Defaults to 'v2'.
      */
-    public function cancel($ids)
+    public function cancel($ids, $version='v2')
     {
         $data = array('job_ids' => $ids);
         $params = array('api_key' => $this->config->get('api_key', null, true), 'ts' => gmdate('U'), 'data'=> json_encode($data));
@@ -250,7 +251,7 @@ class Gengo_Api_Jobs extends Gengo_Api
         $format = $this->config->get('format', null, true);
         $this->setParamsNotId($format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
-        $baseurl .= "v2/translate/jobs/";
+        $baseurl .= "{$version}/translate/jobs/";
         $this->response = $this->client->delete($baseurl, $format, $params);
     }
 }
