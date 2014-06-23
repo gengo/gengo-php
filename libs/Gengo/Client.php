@@ -27,8 +27,16 @@ class Gengo_Client
     protected function __construct()
     {
         $this->config = Gengo_Config::getInstance();
+
+        $useragent = $this->config->get('useragent', FALSE);
+        if (!$useragent)
+        {
+            // set default user agent string
+            $useragent = 'Gengo PHP Library; Version 2.0; http://gengo.com/';
+        }
+
         $config = array('maxredirects' => 1,
-                        'useragent' => 'Gengo PHP Library; Version 2.0; http://gengo.com/',
+                        'useragent' => $useragent,
                         'timeout' => 60,
                         'keepalive' => false);
         $this->client = new Zend_Http_Client(null, $config);
