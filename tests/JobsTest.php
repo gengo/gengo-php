@@ -252,7 +252,7 @@ class PostJobsTest extends PHPUnit_Framework_TestCase
 
         // Post the jobs. The second parameter is optional and determines whether or
         // not the jobs are submitted as a group (default: false).
-        $jobs_client->postJobs($jobs, TRUE);
+        $jobs_client->postJobs($jobs);
 
         // Display the server response.
         $body = $jobs_client->getResponseBody();

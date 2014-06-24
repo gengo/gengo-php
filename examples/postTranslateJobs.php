@@ -38,9 +38,8 @@ $jobs = array($job1, $job2);
 // Get an instance of Jobs Client
 $job_client = Gengo_Api::factory('jobs', $api_key, $private_key);
 
-// Post the jobs. The second parameter is optional and determinates whether or
-// not the jobs are submitted as a group (default: false).
-$job_client->postJobs($jobs, true);
+// Post the jobs.
+$job_client->postJobs($jobs);
 
 // Display the server response.
 echo $job_client->getResponseBody();
