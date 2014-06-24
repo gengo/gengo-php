@@ -13,8 +13,7 @@ $glossary_id = 817;
 
 // Get an instance of an Service Client
 $service = Gengo_Api::factory('glossary', $api_key, $private_key);
-$service->setResponseFormat('xml');
-$service->setBaseUrl('https://api.staging.gengo.com/');
+$service->setBaseUrl('https://api.gengo.com/');
 
 $service->getGlossary($glossary_id);
 
