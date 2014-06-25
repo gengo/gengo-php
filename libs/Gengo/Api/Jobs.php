@@ -36,18 +36,11 @@ class Gengo_Api_Jobs extends Gengo_Api
      *
      * @param array|array|string $jobs An array of payloads (a payload being itself an array of string)
      * of jobs to create.
-     * @param int $as_group Set to 0 if jobs can be done by individual translators (faster),
-     * or to 1 if all jobs should be done by one translator (slower).
      * @param string $version Version of the API to use. Defaults to 'v2'.
      */
-    public function postJobs($jobs, $as_group = 0, $version = 'v2')
+    public function postJobs($jobs, $version = 'v2')
     {
         $data = array('jobs' => $jobs, 'process' => 1);
-
-        if ($as_group === 1)
-        {
-            $data['as_group'] = 1;
-        }
 
         // create the query
         $params = array('api_key' => $this->config->get('api_key', null, true), '_method' => 'post',

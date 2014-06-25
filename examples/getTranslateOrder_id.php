@@ -27,7 +27,6 @@ echo $job_client->getResponseBody();
         "order": {
             "total_credits": "0.20",
             "currency": "USD",
-            "as_group": 1,
             "total_units": "4",
             "jobs_available": [
                 "218344",
