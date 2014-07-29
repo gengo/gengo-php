@@ -100,11 +100,91 @@ abstract class Gengo_Api
     public function getResponseBody($raw = false)
     {
         $this->checkResponse();
-        if ($raw)
-        {
-            return $this->response->getRawBody();
+        $response = $this->response->getBody();
+        if($raw) $response = $this->response->getRawBody();
+
+        $type = explode('/', $this->response->getHeader('Content-type'));
+        $format = $this->config->format;
+
+        if($type[1]!=$format){
+            $response = $this->getResponseConversion($type[1],$format,$response);
         }
-        return $this->response->getBody();
+
+        return $response;
+    }
+
+    /**
+     * @param content type $from, $to json or xml
+     * @return converted value in json or xml format
+     * @obj object to be converted
+     */
+    public function getResponseConversion($from,$to,$obj)
+    {
+        switch ($to) {
+            case 'xml':
+                $to_xml = json_decode($obj,true);
+                $output = $this->setArrayToXml($to_xml);
+                break;
+
+            case 'json':
+                $to_json = simplexml_load_string($obj);
+                $output = json_encode($xml);
+                break;
+        }
+
+        return $output;
+    }
+
+    /**
+     * @param array $array, int $level
+     * @return xml formatted data
+     */
+    public function setArrayToXml($array, $level=1)
+    {
+        $xml = '';
+        if ($level==1) {
+            $xml .= '<?xml version="1.0" encoding="UTF-8"?>';
+        }
+
+        foreach ($array as $key=>$value)
+        {
+            $key = strtolower($key);
+            if (is_array($value))
+            {
+                $multi_tags = false;
+                foreach($value as $key2=>$value2)
+                {
+                    if (is_array($value2))
+                    {
+                        $xml .= "<$key>" . $this->setArrayToXml($value2, $level+1) . "</$key>";
+                        $multi_tags = true;
+
+                    } else {
+
+                        if (trim($value2)!='')
+                        {
+                            $xml .= "<$key>$value2</$key>";
+                        }
+
+                        $multi_tags = true;
+                    }
+                }
+
+                if (!$multi_tags and count($value)>0)
+                {
+                    $xml .= "<$key>" . $this->setArrayToXml($value, $level+1) . "</$key>";
+                }
+
+            } else {
+
+                if (trim($value)!='')
+                {
+                    $xml .= "<$key>$value</$key>";
+                }
+            }
+        }
+
+        return $xml;
     }
 
     /**
