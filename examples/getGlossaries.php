@@ -7,12 +7,13 @@
 require_once '../init.php';
 
 // TODO: this example assumes you set the 2 values below.
-$api_key = 'your-public-api-key';
-$private_key = 'your-private-api-key';
+$api_key = 'foo';
+$private_key = 'bar';
 
 // Get an instance of an Service Client
 $service = Gengo_Api::factory('glossary', $api_key, $private_key);
-$service->setBaseUrl('https://api.gengo.com/');
+$service->setBaseUrl('http://api.gengo.dev:7000/');
+$service->setResponseFormat('xml');
 
 $service->getGlossaries();
 
