@@ -42,7 +42,7 @@ class Gengo_Api_Jobs extends Gengo_Api
     public function postJobs($jobs, $as_group = 1, $version = 'v2')
     {
         $data = array('jobs' => $jobs,
-                      'as_group' => $as_group,
+                      'as_group' => int($as_group),
                       'process' => 1);
 
         // create the query

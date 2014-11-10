@@ -174,7 +174,7 @@ class PostJobsTest extends PHPUnit_Framework_TestCase
 
         $jobs_client = Gengo_Api::factory('jobs', $this->key, $this->secret);
         $jobs = array('filejob_01' => $job1, 'filejob_02' => $job2);
-        $jobs_client->postJobs($jobs);
+        $jobs_client->postJobs($jobs, FALSE);
 
         $body = $jobs_client->getResponseBody();
         $response = json_decode($body, true);
