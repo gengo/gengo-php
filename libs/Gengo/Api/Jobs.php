@@ -227,6 +227,36 @@ class Gengo_Api_Jobs extends Gengo_Api
     }
 
     /**
+     * translate/jobs/ (PUT)
+     *
+     * Archive jobs
+     *
+     * @param array $jobs (required) An array containing the job ids to archive
+     * @param string $version Version of the API to use. Defaults to 'v2'.
+     */
+    public function archive(array $jobs, $version = 'v2')
+    {
+        // pack the jobs
+        $data = array('action' => 'archive');
+        $data['job_ids'] = $jobs;
+
+        // create the query
+        $params = array('api_key' => $this->config->get('api_key', null, true),
+                        'ts'      => gmdate('U'),
+                        'data'    => json_encode($data));
+        // sort and sign
+        ksort($params);
+        $enc_params = json_encode($params);
+        $params['api_sig'] = Gengo_Crypto::sign($enc_params, $this->config->get('private_key', null, true));
+
+        $format = $this->config->get('format', null, true);
+        $this->setParamsNotId($format, $params);
+        $baseurl = $this->config->get('baseurl', null, true);
+        $baseurl .= "{$version}/translate/jobs/";
+        $this->response = $this->client->put($baseurl, $format, $params);
+    }
+
+    /**
      * translate/jobs/ (DELETE)
      *
      * Cancels the jobs. You can only cancel a job if it has not been
