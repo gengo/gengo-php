@@ -176,7 +176,7 @@ class Gengo_Api_Job extends Gengo_Api
      * @param array|string $args contains the parameters for the approval:
      *  rating (optional) - 1 (poor) to 5 (fantastic)
      *  for_translator (optional) - comments for the translator
-     *  for_gengo (optional) - comments for Gengo staff (private)
+     *  for_mygengo (optional) - comments for Gengo staff (private)
      *  public (optional) - 1 (true) / 0 (false, default); whether Gengo can share this feedback publicly
      */
     public function approve($id, $args = array())
@@ -201,9 +201,9 @@ class Gengo_Api_Job extends Gengo_Api
             {
                 $data['for_translator'] = $args['for_translator'];
             }
-            if (isset($args['for_gengo']))
+            if (isset($args['for_mygengo']))
             {
-                $data['for_gengo'] = $args['for_gengo'];
+                $data['for_mygengo'] = $args['for_mygengo'];
             }
 
             // create the query

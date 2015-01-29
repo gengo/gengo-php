@@ -138,7 +138,7 @@ class Gengo_Api_Jobs extends Gengo_Api
      * @param array $jobs (required) the payloads to identify the jobs sent back for approval:
      *  - "rating" (optional) - 1 (poor) to 5 (fantastic)
      *  - "for_translator" (optional) - comments for the translator
-     *  - "for_gengo" (optional) - comments for Gengo staff (private)
+     *  - "for_mygengo" (optional) - comments for Gengo staff (private)
      *  - "public" (optional) - 1 (true) / 0 (false, default); whether Gengo can share this feedback publicly
      *      AND
      *  One of the following format for job identification (note: all jobs must have the same format):
