@@ -39,7 +39,7 @@ switch ($action)
         $approve = array(
                 'rating' => 5,
                 'for_translator' => 'Thanks, nice translation.',
-                'for_gengo' =>'Gengo really gives me great satisfaction!',
+                'for_mygengo' =>'Gengo really gives me great satisfaction!',
                 'public' => 1 // Can Gengo share your feedback publicly (optional, default 0)?
                 );
         $job_client->approve($job_id, $approve);
