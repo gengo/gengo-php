@@ -144,17 +144,15 @@ class Gengo_Api_Job extends Gengo_Api
             // pack the jobs
             $data = array('action' => 'revise', 'comment' => $comment);
 
+            $ts = gmdate('U');
             // create the query
             $params = array('api_key' => $this->config->get('api_key', null, true),
-                    'ts' => gmdate('U'),
-                    'data' => json_encode($data));
-            // sort and sign
-            ksort($params);
-            $enc_params = json_encode($params);
-            $params['api_sig'] = Gengo_Crypto::sign($enc_params, $this->config->get('private_key', null, true));
+                            'ts'      => $ts,
+                            'data'    => json_encode($data),
+                            'api_sig' => Gengo_Crypto::sign($ts, $this->config->get('private_key', null, true)),
+            );
         }
-        else
-        {
+        else {
             throw new Gengo_Exception(
                     sprintf('In method %s: "id" and "comment" are required', __METHOD__)
                     );
@@ -206,14 +204,13 @@ class Gengo_Api_Job extends Gengo_Api
                 $data['for_mygengo'] = $args['for_mygengo'];
             }
 
+            $ts = gmdate('U');
             // create the query
             $params = array('api_key' => $this->config->get('api_key', null, true),
-                    'ts' => gmdate('U'),
-                    'data' => json_encode($data));
-            // sort and sign
-            ksort($params);
-            $enc_params = json_encode($params);
-            $params['api_sig'] = Gengo_Crypto::sign($enc_params, $this->config->get('private_key', null, true));
+                            'ts'      => $ts,
+                            'data'    => json_encode($data),
+                            'api_sig' => Gengo_Crypto::sign($ts, $this->config->get('private_key', null, true)),
+            );
         }
         else
         {
@@ -274,17 +271,15 @@ class Gengo_Api_Job extends Gengo_Api
                 $data['follow_up'] = $args['follow_up'];
             }
 
+            $ts = gmdate('U');
             // create the query
             $params = array('api_key' => $this->config->get('api_key', null, true),
-                    'ts' => gmdate('U'),
-                    'data' => json_encode($data));
-            // sort and sign
-            ksort($params);
-            $enc_params = json_encode($params);
-            $params['api_sig'] = Gengo_Crypto::sign($enc_params, $this->config->get('private_key', null, true));
+                            'ts'      => $ts,
+                            'data'    => json_encode($data),
+                            'api_sig' => Gengo_Crypto::sign($ts, $this->config->get('private_key', null, true)),
+            );
         }
-        else
-        {
+        else {
             throw new Gengo_Exception(
                     sprintf('In method %s: "id" is required and "args" must contain a reason, a comment and a captcha', __METHOD__)
                     );
@@ -316,17 +311,17 @@ class Gengo_Api_Job extends Gengo_Api
             // pack the jobs
             $data = array('body' => $body);
 
+            $ts = gmdate('U');
             // create the query
             $params = array('api_key' => $this->config->get('api_key', null, true), '_method' => 'post',
-                    'ts' => gmdate('U'),
-                    'data' => json_encode($data));
-            // sort and sign
-            ksort($params);
-            $enc_params = json_encode($params);
-            $params['api_sig'] = Gengo_Crypto::sign($enc_params, $this->config->get('private_key', null, true));
+                            'ts'      => $ts,
+                            'data'    => json_encode($data),
+                            'api_sig' => Gengo_Crypto::sign($ts, $this->config->get('private_key', null, true)),
+            );
         }
 
-        if (empty($params)) {
+        if (empty($params))
+        {
             throw new Gengo_Exception(
                 sprintf('In method %s: "params" must contain a valid "body" parameter as the comment', __METHOD__)
                 );

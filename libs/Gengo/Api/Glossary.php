@@ -46,9 +46,7 @@ class Gengo_Api_Glossary extends Gengo_Api
         $params['ts'] = gmdate('U');
         $params['api_key'] = $this->config->get('api_key', null, true);
         $private_key = $this->config->get('private_key', null, true);
-        ksort($params);
-        $query = http_build_query($params);
-        $params['api_sig'] = Gengo_Crypto::sign($query, $private_key);
+        $params['api_sig'] = Gengo_Crypto::sign($params['ts'], $private_key);
 
         $this->setParamsNotId($format, $params);
         $baseurl = $this->config->get('baseurl', null, true);

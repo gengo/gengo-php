@@ -41,18 +41,18 @@ class Gengo_Api_Jobs extends Gengo_Api
      */
     public function postJobs($jobs, $as_group = 1, $version = 'v2')
     {
-        $data = array('jobs' => $jobs,
+        $data = array('jobs'     => $jobs,
                       'as_group' => intval($as_group),
-                      'process' => 1);
+                      'process'  => 1);
 
+        $ts = gmdate('U');
         // create the query
-        $params = array('api_key' => $this->config->get('api_key', null, true), '_method' => 'post',
-                        'ts' => gmdate('U'),
-                        'data' => json_encode($data));
-        // sort and sign
-        ksort($params);
-        $enc_params = json_encode($params);
-        $params['api_sig'] = Gengo_Crypto::sign($enc_params, $this->config->get('private_key', null, true));
+        $params = array('api_key' => $this->config->get('api_key', null, true),
+                        '_method' => 'post',
+                        'ts'      => $ts,
+                        'data'    => json_encode($data),
+                        'api_sig' => Gengo_Crypto::sign($ts, $this->config->get('private_key', null, true)),
+        );
 
         $format = $this->config->get('format', null, true);
         $baseurl = $this->config->get('baseurl', null, true);
@@ -114,14 +114,13 @@ class Gengo_Api_Jobs extends Gengo_Api
         else
             $data['jobs'] = $jobs;
 
+        $ts = gmdate('U');
         // create the query
         $params = array('api_key' => $this->config->get('api_key', null, true),
-                'ts' => gmdate('U'),
-                'data' => json_encode($data));
-        // sort and sign
-        ksort($params);
-        $enc_params = json_encode($params);
-        $params['api_sig'] = Gengo_Crypto::sign($enc_params, $this->config->get('private_key', null, true));
+                        'ts'      => $ts,
+                        'data'    => json_encode($data),
+                        'api_sig' => Gengo_Crypto::sign($ts, $this->config->get('private_key', null, true)),
+        );
 
         $format = $this->config->get('format', null, true);
         $this->setParamsNotId($format, $params);
@@ -157,19 +156,17 @@ class Gengo_Api_Jobs extends Gengo_Api
         {
             $data['job_ids'] = $jobs;
         }
-        else
-        {
+        else {
             $data['jobs'] = $jobs;
         }
 
+        $ts = gmdate('U');
         // create the query
         $params = array('api_key' => $this->config->get('api_key', null, true),
-                'ts' => gmdate('U'),
-                'data' => json_encode($data));
-        // sort and sign
-        ksort($params);
-        $enc_params = json_encode($params);
-        $params['api_sig'] = Gengo_Crypto::sign($enc_params, $this->config->get('private_key', null, true));
+                        'ts'      => $ts,
+                        'data'    => json_encode($data),
+                        'api_sig' => Gengo_Crypto::sign($ts, $this->config->get('private_key', null, true)),
+        );
 
         $format = $this->config->get('format', null, true);
         $this->setParamsNotId($format, $params);
@@ -210,14 +207,13 @@ class Gengo_Api_Jobs extends Gengo_Api
         else
             $data['jobs'] = $jobs;
 
+        $ts = gmdate('U');
         // create the query
         $params = array('api_key' => $this->config->get('api_key', null, true),
-                'ts' => gmdate('U'),
-                'data' => json_encode($data));
-        // sort and sign
-        ksort($params);
-        $enc_params = json_encode($params);
-        $params['api_sig'] = Gengo_Crypto::sign($enc_params, $this->config->get('private_key', null, true));
+                        'ts'      => $ts,
+                        'data'    => json_encode($data),
+                        'api_sig' => Gengo_Crypto::sign($ts, $this->config->get('private_key', null, true))
+        );
 
         $format = $this->config->get('format', null, true);
         $this->setParamsNotId($format, $params);
@@ -240,14 +236,13 @@ class Gengo_Api_Jobs extends Gengo_Api
         $data = array('action' => 'archive');
         $data['job_ids'] = $jobs;
 
+        $ts = gmdate('U');
         // create the query
         $params = array('api_key' => $this->config->get('api_key', null, true),
-                        'ts'      => gmdate('U'),
-                        'data'    => json_encode($data));
-        // sort and sign
-        ksort($params);
-        $enc_params = json_encode($params);
-        $params['api_sig'] = Gengo_Crypto::sign($enc_params, $this->config->get('private_key', null, true));
+                        'ts'      => $ts,
+                        'data'    => json_encode($data),
+                        'api_sig' => Gengo_Crypto::sign($enc_params, $this->config->get('private_key', null, true)),
+        );
 
         $format = $this->config->get('format', null, true);
         $this->setParamsNotId($format, $params);

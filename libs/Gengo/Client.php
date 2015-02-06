@@ -150,7 +150,8 @@ class Gengo_Client
             }
             return $this->client->request($method);
         }
-        catch (Exception $ex) {
+        catch (Exception $ex)
+        {
             throw new Gengo_Exception($ex->getMessage(), $ex->getCode());
         }
     }
