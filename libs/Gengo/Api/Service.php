@@ -76,7 +76,6 @@ class Gengo_Api_Service extends Gengo_Api
      * @param array $jobs An array of payloads (a payload being itself an array of string)
      * of jobs to create.
      * @param array $filepath Either a key/value pair as in file_key => path/to/file or file_key => array('filename' => name, 'data' => data)
-     *
      */
     public function quote(array $jobs, array $filepath = null)
     {
