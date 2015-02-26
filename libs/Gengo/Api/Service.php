@@ -76,7 +76,6 @@ class Gengo_Api_Service extends Gengo_Api
      * @param array $jobs An array of payloads (a payload being itself an array of string)
      * of jobs to create.
      * @param array $filepath Either a key/value pair as in file_key => path/to/file or file_key => array('filename' => name, 'data' => data)
-     *
      */
     public function quote(array $jobs, array $filepath = null)
     {
@@ -131,10 +130,12 @@ class Gengo_Api_Service extends Gengo_Api
 
         // create the query
         $ts = gmdate('U');
-        $params = array('api_key' => $this->config->get('api_key', null, true), '_method' => 'post',
-                        'ts' => $ts,
-                        'data' => json_encode($data));
-        $params['api_sig'] = Gengo_Crypto::sign($ts, $this->config->get('private_key', null, true));
+        $params = array('api_key' => $this->config->get('api_key', null, true),
+                        '_method' => 'post',
+                        'ts'      => $ts,
+                        'data'    => json_encode($data),
+                        'api_sig' => Gengo_Crypto::sign($ts, $this->config->get('private_key', null, true)),
+        );
 
         $format = $this->config->get('format', null, true);
         $baseurl = $this->config->get('baseurl', null, true);
@@ -143,9 +144,9 @@ class Gengo_Api_Service extends Gengo_Api
         {
             foreach ($filepath as $file_key => $fp)
             {
-              if ( is_null( $fp ) )
+                if ( is_null( $fp ) )
                 {
-                  unset( $filepath[ $file_key ] );
+                    unset($filepath[$file_key]);
                 }
             }
             $baseurl .= '/file';

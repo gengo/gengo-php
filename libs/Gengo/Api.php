@@ -203,9 +203,7 @@ abstract class Gengo_Api
             $params = array();
             $params['ts'] = gmdate('U');
             $params['api_key'] = $this->config->get('api_key', null, true);
-            ksort($params);
-            $query = http_build_query($params);
-            $params['api_sig'] = Gengo_Crypto::sign($query, $private_key);
+            $params['api_sig'] = Gengo_Crypto::sign($params['ts'], $private_key);
         }
     }
 

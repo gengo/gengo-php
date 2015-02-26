@@ -142,9 +142,8 @@ class PostJobsTest extends PHPUnit_Framework_TestCase
         $service = Gengo_Api::factory('service', $this->key, $this->secret);
 
         $service->quote($jobs, $files);
-
-        $service->getResponseBody();
         $body = $service->getResponseBody();
+
         $response = json_decode($body, true);
 
         $this->assertEquals($response['opstat'], 'ok');
