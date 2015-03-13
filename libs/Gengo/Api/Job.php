@@ -191,17 +191,12 @@ class Gengo_Api_Job extends Gengo_Api
 
             // pack the jobs
             $data = array('action' => 'approve', 'public' => (isset($args['public']) && !empty($args['public'])) ? 1 : 0);
-            if (isset($args['rating']))
+            foreach(array('rating_time', 'rating_quality', 'rating_response', 'for_translator', 'for_mygengo', ) as $key)
             {
-                $data['rating'] = $args['rating'];
-            }
-            if (isset($args['for_translator']))
-            {
-                $data['for_translator'] = $args['for_translator'];
-            }
-            if (isset($args['for_mygengo']))
-            {
-                $data['for_mygengo'] = $args['for_mygengo'];
+                if (isset($args[$key]))
+                {
+                    $data[$key] = $args[$key];
+                }
             }
 
             $ts = gmdate('U');
