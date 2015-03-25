@@ -35,29 +35,31 @@ $job_client = Gengo_Api::factory('job', $api_key, $private_key);
 // The update call has been divided into 3 meaningful methods, one for each action.
 switch ($action)
 {
-    case 'approve':
-        $approve = array(
-                'rating' => 5,
-                'for_translator' => 'Thanks, nice translation.',
-                'for_mygengo' =>'Gengo really gives me great satisfaction!',
-                'public' => 1 // Can Gengo share your feedback publicly (optional, default 0)?
-                );
-        $job_client->approve($job_id, $approve);
-        break;
+case 'approve':
+    $approve = array(
+        'rating_time' => 5,
+        'rating_quality' => 4,
+        'rating_response' => 3,
+        'for_translator' => 'Thanks, nice translation.',
+        'for_mygengo' =>'Gengo really gives me great satisfaction!',
+        'public' => 1 // Can Gengo share your feedback publicly (optional, default 0)?
+    );
+    $job_client->approve($job_id, $approve);
+    break;
 
-    case 'revise':
-        $comment = 'Nice but not perfect. Could you check the first word?';
-        $job_client->revise($job_id, $comment);
-        break;
+case 'revise':
+    $comment = 'Nice but not perfect. Could you check the first word?';
+    $job_client->revise($job_id, $comment);
+    break;
 
-    case 'reject':
-        $reject = array(
-            'reason' => 'incomplete',
-            'comment' => 'It seems the translator did not finish the job.',
-            'captcha' => $captcha,
-            // 'follow_up' => 'cancel' // optional. Default: 'requeue'
-            );
-        $job_client->reject($job_id, $reject);
+case 'reject':
+    $reject = array(
+        'reason' => 'incomplete',
+        'comment' => 'It seems the translator did not finish the job.',
+        'captcha' => $captcha,
+        // 'follow_up' => 'cancel' // optional. Default: 'requeue'
+    );
+    $job_client->reject($job_id, $reject);
 }
 
 // Display the server response.
