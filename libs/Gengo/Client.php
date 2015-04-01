@@ -32,7 +32,7 @@ class Gengo_Client
         if (!$useragent)
         {
             // set default user agent string
-            $useragent = 'Gengo PHP Library; Version 2.1.1; http://gengo.com/';
+            $useragent = 'Gengo PHP Library; Version 2.1.2; http://gengo.com/';
         }
 
         $config = array('maxredirects' => 1,
@@ -128,6 +128,7 @@ class Gengo_Client
                         }
                         if (count($params) > 0)
                         {
+                            $this->client->setHeaders('Content-Type', 'application/x-www-form-urlencoded');
                             $params = http_build_query($params);
                         }
                         else {
