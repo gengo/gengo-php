@@ -64,7 +64,12 @@ class Init
             false !== strpos($classname, 'Zend_'))
         {
             $classpath = str_replace('_', '/', $classname) . '.php';
-            require_once $classpath;
+
+	        // If the file exists, let's include it
+	        if(file_exists($classpath))
+	        {
+		        require_once $classpath;
+	        }
         }
     }
 
