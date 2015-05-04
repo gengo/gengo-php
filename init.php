@@ -59,9 +59,9 @@ class Init
     /**
      * We use our own autoloader, but restricted to Gengo classes
      */
-    protected static function autoload($classname)
+    protected function autoload($classname)
     {
-        if (false !== strpos($classname, 'Gengo') ||
+        if (false !== strpos($classname, 'Gengo_') ||
             false !== strpos($classname, 'Zend_'))
         {
             $classpath = str_replace('_', '/', $classname) . '.php';
