@@ -241,7 +241,7 @@ class Gengo_Api_Jobs extends Gengo_Api
         $params = array('api_key' => $this->config->get('api_key', null, true),
                         'ts'      => $ts,
                         'data'    => json_encode($data),
-                        'api_sig' => Gengo_Crypto::sign($enc_params, $this->config->get('private_key', null, true)),
+                        'api_sig' => Gengo_Crypto::sign($ts, $this->config->get('private_key', null, true)),
         );
 
         $format = $this->config->get('format', null, true);
