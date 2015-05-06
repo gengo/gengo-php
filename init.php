@@ -36,11 +36,12 @@ class Init
         // set our own class autoloader if one doesn't already exist
         if (false === spl_autoload_functions())
         {
-            if (function_exists('__autoload')) {
+            if (function_exists('__autoload'))
+            {
                 spl_autoload_register('__autoload');
             }
         }
-        spl_autoload_register(array('Init', 'autoload'));
+        spl_autoload_register(array($this, 'autoload'));
 
         // set:
         // - internal character encoding
@@ -57,16 +58,20 @@ class Init
 
     /**
      * We use our own autoloader, but restricted to Gengo classes
-     **/
-    public static function autoload($classname)
+     */
+    protected function autoload($classname)
     {
-        if (false !== strpos($classname, 'Gengo') ||
+        if (false !== strpos($classname, 'Gengo_') ||
             false !== strpos($classname, 'Zend_'))
         {
             $classpath = str_replace('_', '/', $classname) . '.php';
-            require_once $classpath;
+            $filepath = sprintf("%s/libs/%s", GENGO_BASE, $classpath);
+
+            if (file_exists($filepath))
+            {
+                require_once $classpath;
+            }
         }
     }
-
 }
 new Init();

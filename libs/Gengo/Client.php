@@ -32,7 +32,7 @@ class Gengo_Client
         if (!$useragent)
         {
             // set default user agent string
-            $useragent = 'Gengo PHP Library; Version 2.1.2; http://gengo.com/';
+            $useragent = 'Gengo PHP Library; Version 2.1.3; http://gengo.com/';
         }
 
         $config = array('maxredirects' => 1,
