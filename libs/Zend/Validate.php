@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Validate.php 21097 2010-02-19 20:11:34Z thomas $
+ * @version    $Id$
  */
 
 /**
@@ -27,7 +27,7 @@ require_once 'Zend/Validate/Interface.php';
 /**
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate implements Zend_Validate_Interface
@@ -205,6 +205,7 @@ class Zend_Validate implements Zend_Validate_Interface
                     if (Zend_Loader::isReadable($file)) {
                         Zend_Loader::loadClass($class);
                         $className = $class;
+                        break;
                     }
                 }
             }
@@ -263,5 +264,27 @@ class Zend_Validate implements Zend_Validate_Interface
     {
         require_once 'Zend/Validate/Abstract.php';
         Zend_Validate_Abstract::setMessageLength($length);
+    }
+
+    /**
+     * Returns the default translation object
+     *
+     * @return Zend_Translate_Adapter|null
+     */
+    public static function getDefaultTranslator($translator = null)
+    {
+        require_once 'Zend/Validate/Abstract.php';
+        return Zend_Validate_Abstract::getDefaultTranslator();
+    }
+
+    /**
+     * Sets a default translation object for all validation objects
+     *
+     * @param Zend_Translate|Zend_Translate_Adapter|null $translator
+     */
+    public static function setDefaultTranslator($translator = null)
+    {
+        require_once 'Zend/Validate/Abstract.php';
+        Zend_Validate_Abstract::setDefaultTranslator($translator);
     }
 }
