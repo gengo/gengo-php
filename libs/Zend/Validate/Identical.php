@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Identical.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id$
  */
 
 /** @see Zend_Validate_Abstract */
@@ -25,7 +25,7 @@ require_once 'Zend/Validate/Abstract.php';
 /**
  * @category   Zend
  * @package    Zend_Validate
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_Identical extends Zend_Validate_Abstract
@@ -42,7 +42,7 @@ class Zend_Validate_Identical extends Zend_Validate_Abstract
      * @var array
      */
     protected $_messageTemplates = array(
-        self::NOT_SAME      => "The token '%token%' does not match the given token '%value%'",
+        self::NOT_SAME      => "The two given tokens do not match",
         self::MISSING_TOKEN => 'No token was provided to match against',
     );
 
@@ -59,12 +59,12 @@ class Zend_Validate_Identical extends Zend_Validate_Abstract
      */
     protected $_tokenString;
     protected $_token;
+    protected $_strict = true;
 
     /**
      * Sets validator options
      *
-     * @param  mixed $token
-     * @return void
+     * @param mixed $token
      */
     public function __construct($token = null)
     {
@@ -72,26 +72,15 @@ class Zend_Validate_Identical extends Zend_Validate_Abstract
             $token = $token->toArray();
         }
 
-        if (is_array($token) && (count($token) == 1) && array_key_exists('token', $token)) {
-            $token = $token['token'];
-        }
+        if (is_array($token) && array_key_exists('token', $token)) {
+            if (array_key_exists('strict', $token)) {
+                $this->setStrict($token['strict']);
+            }
 
-        if (null !== $token) {
+            $this->setToken($token['token']);
+        } else if (null !== $token) {
             $this->setToken($token);
         }
-    }
-
-    /**
-     * Set token against which to compare
-     *
-     * @param  mixed $token
-     * @return Zend_Validate_Identical
-     */
-    public function setToken($token)
-    {
-        $this->_tokenString = (string) $token;
-        $this->_token       = $token;
-        return $this;
     }
 
     /**
@@ -105,25 +94,67 @@ class Zend_Validate_Identical extends Zend_Validate_Abstract
     }
 
     /**
+     * Set token against which to compare
+     *
+     * @param  mixed $token
+     * @return Zend_Validate_Identical
+     */
+    public function setToken($token)
+    {
+        $this->_tokenString = $token;
+        $this->_token       = $token;
+        return $this;
+    }
+
+    /**
+     * Returns the strict parameter
+     *
+     * @return boolean
+     */
+    public function getStrict()
+    {
+        return $this->_strict;
+    }
+
+    /**
+     * Sets the strict parameter
+     *
+     * @param Zend_Validate_Identical
+     * @return $this
+     */
+    public function setStrict($strict)
+    {
+        $this->_strict = (boolean) $strict;
+        return $this;
+    }
+
+    /**
      * Defined by Zend_Validate_Interface
      *
      * Returns true if and only if a token has been set and the provided value
      * matches that token.
      *
      * @param  mixed $value
+     * @param  array $context
      * @return boolean
      */
-    public function isValid($value)
+    public function isValid($value, $context = null)
     {
-        $this->_setValue((string) $value);
-        $token        = $this->getToken();
+        $this->_setValue($value);
+
+        if (($context !== null) && isset($context) && array_key_exists($this->getToken(), $context)) {
+            $token = $context[$this->getToken()];
+        } else {
+            $token = $this->getToken();
+        }
 
         if ($token === null) {
             $this->_error(self::MISSING_TOKEN);
             return false;
         }
 
-        if ($value !== $token)  {
+        $strict = $this->getStrict();
+        if (($strict && ($value !== $token)) || (!$strict && ($value != $token))) {
             $this->_error(self::NOT_SAME);
             return false;
         }
