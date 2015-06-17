@@ -100,9 +100,10 @@ class Gengo_Api_Jobs extends Gengo_Api
      *  - "body_src", the original body of text to be translated,
      *  - "lc_src", the source language code,
      *  - "lc_tgt", the target language code.
+     * @param string $comment The comment that will be applied to all of the jobs that don't have one
      * @param string $version Version of the API to use. Defaults to 'v2'.
      */
-    public function revise($jobs, $version = 'v2')
+    public function revise($jobs, $comment = NULL, $version = 'v2')
     {
         // pack the jobs
         $data = array('action' => 'revise');
@@ -111,8 +112,15 @@ class Gengo_Api_Jobs extends Gengo_Api
         {
             $data['job_ids'] = $jobs;
         }
-        else
+        else {
             $data['jobs'] = $jobs;
+        }
+
+        // add all jobs level comment if present
+        if (mb_strlen($comment) > 0)
+        {
+            $data['comment'] = $comment;
+        }
 
         $ts = gmdate('U');
         // create the query
@@ -194,9 +202,10 @@ class Gengo_Api_Jobs extends Gengo_Api
      *  - "body_src", the original body of text to be translated,
      *  - "lc_src", the source language code,
      *  - "lc_tgt", the target language code.
+     * @param string $comment The comment that will be applied to all of the jobs that don't have one
      * @param string $version Version of the API to use. Defaults to 'v2'.
      */
-    public function reject($jobs, $version='v2')
+    public function reject($jobs, $comment = NULL, $version='v2')
     {
         $data = array('action' => 'reject');
         $first_job = current($jobs);
@@ -204,8 +213,15 @@ class Gengo_Api_Jobs extends Gengo_Api
         {
             $data['job_ids'] = $jobs;
         }
-        else
+        else {
             $data['jobs'] = $jobs;
+        }
+
+        // add all jobs level comment if present
+        if (mb_strlen($comment) > 0)
+        {
+            $data['comment'] = $comment;
+        }
 
         $ts = gmdate('U');
         // create the query
