@@ -93,10 +93,10 @@ class Gengo_Api_Jobs extends Gengo_Api
      *
      * @param array $jobs (required) An array of arrays i.e. $jobs[] = array('job_id' => 12345, 'comment' => 'A comment here')
      * Note: the comment in the above $jobs array is optional if the $comment parameters is passed to this method
-     * @param string $comment The comment that will be applied to all of the jobs that don't have one
      * @param string $version Version of the API to use. Defaults to 'v2'.
+     * @param string $comment The comment that will be applied to all of the jobs that don't have one
      */
-    public function revise(array $jobs, $comment = NULL, $version = 'v2')
+    public function revise(array $jobs, $version = 'v2', $comment = NULL)
     {
         // pack the jobs
         $data = array('action' => 'revise',
@@ -169,10 +169,10 @@ class Gengo_Api_Jobs extends Gengo_Api
      *  - have a captcha_url value, which is a URL to an image.  This
      *  - captcha value is required only if a job is to be rejected.
      *  - follow_up (optional) - "requeue" (default) or "cancel"
-     * @param string $comment The comment that will be applied to all of the jobs that don't have one
      * @param string $version Version of the API to use. Defaults to 'v2'.
+     * @param string $comment The comment that will be applied to all of the jobs that don't have one
      */
-    public function reject(array $jobs, $comment = NULL, $version='v2')
+    public function reject(array $jobs, $version='v2', $comment = NULL)
     {
         $data = array('action' => 'reject',
                       'job_ids' => $jobs);
