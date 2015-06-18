@@ -4,6 +4,7 @@
 ### Changed
 - enable revise and reject end-points to receive a $comment paramter
 - minor improvements
+
 ## [2.1.3] - 23 May 2015
 ### Changed
 - Upgrade Zend library to version 1.12.13
