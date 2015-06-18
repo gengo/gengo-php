@@ -91,30 +91,16 @@ class Gengo_Api_Jobs extends Gengo_Api
      *
      * Updates jobs to translate. returns these jobs back to the translators for revisions.
      *
-     * @param array $jobs (required) the payloads to identify the jobs sent back for revisions:
-     *  - "comment" (required) the reason to the translator for sending the job back for revisions.
-     *      AND
-     *  One of the following format for job identification (note: all jobs must have the same format):
-     *  - "job_id" the job's id
-            OR
-     *  - "body_src", the original body of text to be translated,
-     *  - "lc_src", the source language code,
-     *  - "lc_tgt", the target language code.
+     * @param array $jobs (required) An array of arrays i.e. $jobs[] = array('job_id' => 12345, 'comment' => 'A comment here')
+     * Note: the comment in the above $jobs array is optional if the $comment parameters is passed to this method
      * @param string $comment The comment that will be applied to all of the jobs that don't have one
      * @param string $version Version of the API to use. Defaults to 'v2'.
      */
-    public function revise($jobs, $comment = NULL, $version = 'v2')
+    public function revise(array $jobs, $comment = NULL, $version = 'v2')
     {
         // pack the jobs
-        $data = array('action' => 'revise');
-        $first_job = current($jobs);
-        if (isset($first_job['job_id']))
-        {
-            $data['job_ids'] = $jobs;
-        }
-        else {
-            $data['jobs'] = $jobs;
-        }
+        $data = array('action' => 'revise',
+                      'job_ids' => $jobs);
 
         // add all jobs level comment if present
         if (mb_strlen($comment) > 0)
@@ -143,30 +129,17 @@ class Gengo_Api_Jobs extends Gengo_Api
      * Updates jobs to translate. Approves jobs.
      *
      * @param array $jobs (required) the payloads to identify the jobs sent back for approval:
+     *  - "job_id" the job's id
      *  - "rating" (optional) - 1 (poor) to 5 (fantastic)
      *  - "for_translator" (optional) - comments for the translator
      *  - "for_mygengo" (optional) - comments for Gengo staff (private)
      *  - "public" (optional) - 1 (true) / 0 (false, default); whether Gengo can share this feedback publicly
-     *      AND
-     *  One of the following format for job identification (note: all jobs must have the same format):
-     *  - "job_id" the job's id
-            OR
-     *  - "body_src", the original body of text to be translated,
-     *  - "lc_src", the source language code,
-     *  - "lc_tgt", the target language code.
      * @param string $version Version of the API to use. Defaults to 'v2'.
      */
-    public function approve($jobs, $version='v2')
+    public function approve(array $jobs, $version='v2')
     {
-        $data = array('action' => 'approve');
-        $first_job = current($jobs);
-        if (isset($first_job['job_id']))
-        {
-            $data['job_ids'] = $jobs;
-        }
-        else {
-            $data['jobs'] = $jobs;
-        }
+        $data = array('action' => 'approve',
+                      'job_ids' => $jobs);
 
         $ts = gmdate('U');
         // create the query
@@ -192,30 +165,17 @@ class Gengo_Api_Jobs extends Gengo_Api
      *  - reason (required) - "quality", "incomplete", "other"
      *  - comment (required)
      *  - captcha (required) - the captcha image text. Each job in a "reviewable" state will
+     *  - job_id (required) - The id of the job to reject
      *  - have a captcha_url value, which is a URL to an image.  This
      *  - captcha value is required only if a job is to be rejected.
      *  - follow_up (optional) - "requeue" (default) or "cancel"
-     *      AND
-     *  One of the following format for job identification (note: all jobs must have the same format):
-     *  - "job_id" the job's id
-            OR
-     *  - "body_src", the original body of text to be translated,
-     *  - "lc_src", the source language code,
-     *  - "lc_tgt", the target language code.
      * @param string $comment The comment that will be applied to all of the jobs that don't have one
      * @param string $version Version of the API to use. Defaults to 'v2'.
      */
-    public function reject($jobs, $comment = NULL, $version='v2')
+    public function reject(array $jobs, $comment = NULL, $version='v2')
     {
-        $data = array('action' => 'reject');
-        $first_job = current($jobs);
-        if (isset($first_job['job_id']))
-        {
-            $data['job_ids'] = $jobs;
-        }
-        else {
-            $data['jobs'] = $jobs;
-        }
+        $data = array('action' => 'reject',
+                      'job_ids' => $jobs);
 
         // add all jobs level comment if present
         if (mb_strlen($comment) > 0)
@@ -249,8 +209,8 @@ class Gengo_Api_Jobs extends Gengo_Api
     public function archive(array $jobs, $version = 'v2')
     {
         // pack the jobs
-        $data = array('action' => 'archive');
-        $data['job_ids'] = $jobs;
+        $data = array('action' => 'archive',
+                      'job_ids' => $jobs);
 
         $ts = gmdate('U');
         // create the query
