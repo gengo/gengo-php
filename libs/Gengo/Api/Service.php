@@ -53,16 +53,22 @@ class Gengo_Api_Service extends Gengo_Api
      * Returns supported translation language pairs, tiers, and credit
      * prices.
      *
+     * @param string $lc_src (OPTIONAL) Submitting this will filter the response
+     * to only relevant language pairs.
      * @param string $format The OPTIONAL response format: xml or json (default).
      * @param array|string $params (DEPRECATED) If passed should contain all the
      * necessary parameters for the request including the api_key and
      * api_sig
      */
-    public function getLanguagePairs($format = null, $params = null)
+    public function getLanguagePairs($lc_src = null, $format = null, $params = null)
     {
         $this->setParamsNotId($format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
         $baseurl .= "v2/translate/service/language_pairs/";
+        if (!is_null($lc_src))
+        {
+            $params['lc_src'] = $lc_src;
+        }
         $this->response = $this->client->get($baseurl, $format, $params);
     }
 
