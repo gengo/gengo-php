@@ -155,7 +155,6 @@ class Gengo_Api_Service extends Gengo_Api
                     unset($filepath[$file_key]);
                 }
             }
-            $baseurl .= '/file';
             $this->response = $this->client->upload($baseurl, $filepath, $format, $params);
         }
         else {
