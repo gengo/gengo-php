@@ -60,15 +60,11 @@ class Gengo_Api_Service extends Gengo_Api
      * necessary parameters for the request including the api_key and
      * api_sig
      */
-    public function getLanguagePairs($lc_src = null, $format = null, $params = null)
+    public function getLanguagePairs($format = null, $params = null)
     {
         $this->setParamsNotId($format, $params);
         $baseurl = $this->config->get('baseurl', null, true);
         $baseurl .= "v2/translate/service/language_pairs/";
-        if (!is_null($lc_src))
-        {
-            $params['lc_src'] = $lc_src;
-        }
         $this->response = $this->client->get($baseurl, $format, $params);
     }
 

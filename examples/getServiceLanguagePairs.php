@@ -10,15 +10,20 @@ require_once '../init.php';
 $api_key = 'your-public-api-key';
 $private_key = 'your private-api-key';
 
-// This is an option. If you don't want to filter the response,
-// You can set null or you can remove $lc_src.
-$lc_src = 'ko';
-
 // Get an instance of an Service Client
 $service = Gengo_Api::factory('service', $api_key, $private_key);
 
+// Prepare $params
+$ts = gmdate('U');
+$params = array('api_key' => $api_key,
+                'ts'      => $ts,
+                'api_sig' => Gengo_Crypto::sign($ts, $private_key));
+
+// [OPTIONAL] Filter with source language.
+$params['lc_src'] = 'ko';
+
 // Request the language pairs.
-$service->getLanguagePairs($lc_src);
+$service->getLanguagePairs(null, $params);
 
 // Display server response.
 echo $service->getResponseBody();
