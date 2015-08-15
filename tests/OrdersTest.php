@@ -55,6 +55,7 @@ class OrderCommentTest extends PHPUnit_Framework_TestCase
         $order_client->postComment($test_bag['order_id'], $test_bag['comment_text']);
         $body = $order_client->getResponseBody();
         $response = json_decode($body, true);
+        sleep(10);
         $this->assertEquals($response['opstat'], 'ok');
         $this->assertTrue(isset($response['response']));
 
@@ -70,6 +71,7 @@ class OrderCommentTest extends PHPUnit_Framework_TestCase
         $order_client->getComment($test_bag['order_id']);
         $body = $order_client->getResponseBody();
         $response = json_decode($body, true);
+        sleep(10);
         $this->assertEquals($response['opstat'], 'ok');
         $this->assertTrue(isset($response['response']));
         $this->assertEquals($response['response']['thread'][0]['body'], $test_bag['comment_text']);
