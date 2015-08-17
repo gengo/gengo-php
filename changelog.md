@@ -1,5 +1,10 @@
 # Change Log
 
+## [2.1.5] - 17 August 2015
+### Changed
+- Added new functions(GET, POST) to add comment on order.
+- wrote some example files for user.
+
 ## [2.1.4] - 18 June 2015
 ### Changed
 - enable revise and reject end-points to receive a $comment paramter
