@@ -13,8 +13,17 @@ $private_key = 'your private-api-key';
 // Get an instance of an Service Client
 $service = Gengo_Api::factory('service', $api_key, $private_key);
 
+// Prepare $params
+$ts = gmdate('U');
+$params = array('api_key' => $api_key,
+                'ts'      => $ts,
+                'api_sig' => Gengo_Crypto::sign($ts, $private_key));
+
+// [OPTIONAL] Filter with source language.
+$params['lc_src'] = 'ko';
+
 // Request the language pairs.
-$service->getLanguagePairs();
+$service->getLanguagePairs(null, $params);
 
 // Display server response.
 echo $service->getResponseBody();

@@ -8,13 +8,23 @@ require_once '../init.php';
 // TODO: this example assumes you replaced the 3 values below.
 $api_key = 'your-public-api-key';
 $private_key = 'your private-api-key';
-$jobs = array(1, 2); // an array of job ids.
 
 // Get an instance of Job Client
 $job_client = Gengo_Api::factory('jobs', $api_key, $private_key);
 
+// Prepare $params
+$ts = gmdate('U');
+$params = array('api_key' => $api_key,
+                'ts'      => $ts,
+                'api_sig' => Gengo_Crypto::sign($ts, $private_key));
+
+// [OPTIONAL] Defaults to 10 (maximum 200)
+$params['count'] = 5;
+// [OPTIONAL] “available”, “pending”, “reviewable”, “approved”, “rejected”, or “canceled”
+$params['status'] = 'available';
+
 // Get the jobs.
-$job_client->getJobs($jobs);
+$job_client->getJobs(null, null, $params);
 
 // Show the server response in depth if you need it.
 echo $job_client->getResponseBody();

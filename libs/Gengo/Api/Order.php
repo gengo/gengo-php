@@ -64,5 +64,62 @@ class Gengo_Api_Order extends Gengo_Api
         $this->response = $this->client->delete($baseurl, $format, $params);
     }
 
+    /**
+     * translate/order/{id}/comments (GET)
+     *
+     * Retrieves the comment thread for a order
+     *
+     * @param int $id The id of the order to retrieve
+     * @param string $format The OPTIONAL response format: xml or json (default).
+     * @param array|string $params (DEPRECATED) If passed should contain all the
+     * necessary parameters for the request including the api_key and
+     * api_sig
+     */
+    public function getComments($id, $format = null, $params = null)
+    {
+        $this->setParams($id, $format, $params);
+        $baseurl = $this->config->get('baseurl', null, true);
+        $baseurl .= "v2/translate/order/{$id}/comments";
+        $this->response = $this->client->get($baseurl, $format, $params);
+    }
+
+    /**
+     * translate/order/{id}/comment (POST)
+     *
+     * Submits a new comment to the order's comment thread.
+     *
+     * @param int $id The id of the order to comment on
+     * @param string $body The comment's actual contents.
+     * @param string $format The OPTIONAL response format: xml or json (default).
+     * @param array|string $params (DEPRECATED) If passed should contain all the
+     * necessary parameters for the request including the api_key and
+     * api_sig
+     */
+    public function postComment($id, $body, $format = null, $params = null)
+    {
+        if (!(is_null($id) || is_null($body))) // If nor the id or the body are null, we override params.
+        {
+            $data = array('body' => $body);
+
+            $ts = gmdate('U');
+            // create the query
+            $params = array('api_key' => $this->config->get('api_key', null, true), '_method' => 'post',
+                            'ts'      => $ts,
+                            'data'    => json_encode($data),
+                            'api_sig' => Gengo_Crypto::sign($ts, $this->config->get('private_key', null, true)),
+            );
+        }
+
+        if (empty($params))
+        {
+            throw new Gengo_Exception(
+                sprintf('In method %s: "params" must contain a valid "body" parameter as the comment', __METHOD__)
+                );
+        }
+        $this->setParams($id, $format, $params);
+        $baseurl = $this->config->get('baseurl', null, true);
+        $baseurl .= "v2/translate/order/{$id}/comment";
+        $this->response = $this->client->post($baseurl, $format, $params);
+    }
 }
 

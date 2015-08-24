@@ -53,6 +53,8 @@ class Gengo_Api_Service extends Gengo_Api
      * Returns supported translation language pairs, tiers, and credit
      * prices.
      *
+     * @param string $lc_src (OPTIONAL) Submitting this will filter the response
+     * to only relevant language pairs.
      * @param string $format The OPTIONAL response format: xml or json (default).
      * @param array|string $params (DEPRECATED) If passed should contain all the
      * necessary parameters for the request including the api_key and
@@ -149,7 +151,6 @@ class Gengo_Api_Service extends Gengo_Api
                     unset($filepath[$file_key]);
                 }
             }
-            $baseurl .= '/file';
             $this->response = $this->client->upload($baseurl, $filepath, $format, $params);
         }
         else {
