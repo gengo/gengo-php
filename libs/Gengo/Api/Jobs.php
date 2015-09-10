@@ -34,13 +34,40 @@ class Gengo_Api_Jobs extends Gengo_Api
      *
      * Submits a job or group of jobs to translate.
      *
-     * @param array|array|string $jobs An array of payloads (a payload being itself an array of string)
-     * of jobs to create.
+     * @param array $jobs An array of jobs
      * @param int $as_group Use 1 (the default) to have submitted jobs translated but 1 translator only
      * @param string $version Version of the API to use. Defaults to 'v2'.
      */
-    public function postJobs($jobs, $as_group = 1, $version = 'v2')
+    public function postJobs(array $jobs, $as_group = 1, $version = 'v2')
     {
+        $attachments = array();
+        foreach ($jobs as $job)
+        {
+            if (isset($job['comment']) && is_array($job['comment']))
+            {
+                // comment attachments validation
+                if (! isset($job['comment']['attachments']) || !is_array($job['comment']['attachments']))
+                {
+                    throw new Gengo_Exception(sprintf('Job comment missing attachments key: %s', print_r($job['comment'], true)));
+                }
+                // validate each attachment
+                foreach ($job['comment']['attachments'] as $attachment)
+                {
+                    // file_key: is equivalent to the "name" attribute of an html input tag
+                    // filepath: is an absolute path to a file
+                    if (! isset($attachment['file_key']) && !isset($attachment['filepath']))
+                    {
+                        throw new Gengo_Exception(sprintf('Comment attachment missing file_key or filepath: %s', print_r($attachment, true)));
+                    }
+                    if (! is_file($attachment['filepath']))
+                    {
+                        throw new Gengo_Exception(sprintf('Comment attachment filepath could not be found: %s', print_r($attachment['filepath'], true)));
+                    }
+                }
+            }
+        }
+
+
         $data = array('jobs'     => $jobs,
                       'as_group' => intval($as_group),
                       'process'  => 1);
