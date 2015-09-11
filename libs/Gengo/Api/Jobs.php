@@ -41,32 +41,19 @@ class Gengo_Api_Jobs extends Gengo_Api
     public function postJobs(array $jobs, $as_group = 1, $version = 'v2')
     {
         $attachments = array();
-        foreach ($jobs as $job)
+        foreach ($jobs as $key => $job)
         {
-            if (isset($job['comment']) && is_array($job['comment']))
+            if (isset($job['attachment']))
             {
-                // comment attachments validation
-                if (! isset($job['comment']['attachments']) || !is_array($job['comment']['attachments']))
+                // must be a valid filepath
+                if (! is_file($job['attachment']))
                 {
-                    throw new Gengo_Exception(sprintf('Job comment missing attachments key: %s', print_r($job['comment'], true)));
+                    throw new Gengo_Exception(sprintf('Job comment attachment filepath could not be found: %s', $job['attachment']));
                 }
-                // validate each attachment
-                foreach ($job['comment']['attachments'] as $attachment)
-                {
-                    // file_key: is equivalent to the "name" attribute of an html input tag
-                    // filepath: is an absolute path to a file
-                    if (! isset($attachment['file_key']) && !isset($attachment['filepath']))
-                    {
-                        throw new Gengo_Exception(sprintf('Comment attachment missing file_key or filepath: %s', print_r($attachment, true)));
-                    }
-                    if (! is_file($attachment['filepath']))
-                    {
-                        throw new Gengo_Exception(sprintf('Comment attachment filepath could not be found: %s', print_r($attachment['filepath'], true)));
-                    }
-                }
+                $attachments[$key] = $job['attachment'];
+                unset($jobs[$key]['attachment']);
             }
         }
-
 
         $data = array('jobs'     => $jobs,
                       'as_group' => intval($as_group),
@@ -84,7 +71,14 @@ class Gengo_Api_Jobs extends Gengo_Api
         $format = $this->config->get('format', null, true);
         $baseurl = $this->config->get('baseurl', null, true);
         $baseurl .= "{$version}/translate/jobs";
-        $this->response = $this->client->post($baseurl, $format, $params);
+
+        if (! empty($attachments))
+        {
+            $this->response = $this->client->upload($baseurl, $attachments, $format, $params);
+        }
+        else {
+            $this->response = $this->client->post($baseurl, $format, $params);
+        }
     }
 
     /**
