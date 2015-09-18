@@ -19,11 +19,6 @@ $job1 = array(
                 'url' => 'https://gengo.github.io/style-guide/assets/images/logos/gengo_logo_circle_512.png',
                 'filename' => 'gengo_logo_circle_512.png',
                 'mime_type' => 'image/png'
-            ),
-            array(
-                'url' => 'http://gengo.com/wp-content/themes/gengo/images/backgrounds/bg_developers_high.jpg',
-                'filename' => 'bg_developers_high.jpg',
-                'mime_type' => 'image/jpg'
             )
         ),
         'lc_src' => 'en',
