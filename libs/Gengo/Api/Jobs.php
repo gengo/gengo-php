@@ -34,13 +34,80 @@ class Gengo_Api_Jobs extends Gengo_Api
      *
      * Submits a job or group of jobs to translate.
      *
-     * @param array|array|string $jobs An array of payloads (a payload being itself an array of string)
-     * of jobs to create.
+     * @param array $jobs An array of jobs
      * @param int $as_group Use 1 (the default) to have submitted jobs translated but 1 translator only
      * @param string $version Version of the API to use. Defaults to 'v2'.
      */
-    public function postJobs($jobs, $as_group = 1, $version = 'v2')
+    public function postJobs(array $jobs, $as_group = 1, $version = 'v2')
     {
+        $attachments = array();
+        // handle order level file attachments
+        if (isset($jobs['file_attachments']))
+        {
+            $i = 1;
+            foreach ($jobs['file_attachments'] as $attachment)
+            {
+                if (! is_file($attachment))
+                {
+                    throw new Gengo_Exception(sprintf('Order comment attachment filepath could not be found: %s', $attachment));
+                }
+                $attachments["order_attachment_{$i}"] = $attachment;
+                $i++;
+            }
+            unset($jobs['file_attachments']);
+        }
+
+        // handle order level url attachments
+        if (isset($jobs['url_attachments']))
+        {
+            $jobs['attachments'] = array();
+            foreach ($jobs['url_attachments'] as $attachment)
+            {
+                if (! is_array($attachment))
+                {
+                    throw new Gengo_Exception(sprintf('Order url attachment MUST be an array'));
+                }
+                $jobs['attachments'][] = $attachment;
+            }
+            unset($jobs['url_attachments']);
+        }
+
+        // handle attachments
+        foreach ($jobs as $key => $job)
+        {
+            // handle file attachments
+            if (isset($job['file_attachments']))
+            {
+                $i = 1;
+                foreach ($job['file_attachments'] as $attachment)
+                {
+                    // must be a valid filepath
+                    if (! is_file($attachment))
+                    {
+                        throw new Gengo_Exception(sprintf('Job comment attachment filepath could not be found: %s', $attachment));
+                    }
+                    $attachments["{$key}_{$i}"] = $attachment;
+                    $i++;
+                }
+                unset($jobs[$key]['file_attachments']);
+            }
+
+            // handle url attachments
+            if (isset($job['url_attachments']))
+            {
+                $jobs[$key]['attachments'] = array();
+                foreach ($job['url_attachments'] as $attachment)
+                {
+                    if (! is_array($attachment))
+                    {
+                        throw new Gengo_Exception(sprintf('Job url attachment MUST be an array'));
+                    }
+                    $jobs[$key]['attachments'][] = $attachment;
+                }
+                unset($jobs[$key]['url_attachments']);
+            }
+        }
+
         $data = array('jobs'     => $jobs,
                       'as_group' => intval($as_group),
                       'process'  => 1);
@@ -57,7 +124,14 @@ class Gengo_Api_Jobs extends Gengo_Api
         $format = $this->config->get('format', null, true);
         $baseurl = $this->config->get('baseurl', null, true);
         $baseurl .= "{$version}/translate/jobs";
-        $this->response = $this->client->post($baseurl, $format, $params);
+
+        if (! empty($attachments))
+        {
+            $this->response = $this->client->upload($baseurl, $attachments, $format, $params);
+        }
+        else {
+            $this->response = $this->client->post($baseurl, $format, $params);
+        }
     }
 
     /**
