@@ -39,7 +39,7 @@ $jobs = array($job1, $job2);
 $job_client = Gengo_Api::factory('jobs', $api_key, $private_key);
 
 // Post the jobs.
-$job_client->postJobs($jobs);
+$job_client->postJobs($jobs, FALSE);
 
 // Display the server response.
 echo $job_client->getResponseBody();
