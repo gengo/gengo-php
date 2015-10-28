@@ -3,7 +3,7 @@
 ## [2.1.6] - 28 October 2015
 ### Changed
 - Added support for tone and purpose at the order level
-- Wrote example file
+- Updated "postTranslateJobs.php" example file
 
 ## [2.1.5] - 17 August 2015
 ### Changed
