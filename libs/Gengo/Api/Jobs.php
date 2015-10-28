@@ -108,9 +108,23 @@ class Gengo_Api_Jobs extends Gengo_Api
             }
         }
 
-        $data = array('jobs'     => $jobs,
-                      'as_group' => intval($as_group),
+        // prepare data payload
+        $data = array('as_group' => intval($as_group),
                       'process'  => 1);
+
+        // handle tone and purpose at the order level
+        if (isset($jobs['tone']))
+        {
+            $data['tone'] = $jobs['tone'];
+            unset($jobs['tone']);
+        }
+        if (isset($jobs['purpose']))
+        {
+            $data['purpose'] = $jobs['purpose'];
+            unset($jobs['purpose']);
+        }
+        // add jobs to payload
+        $data['jobs'] = $jobs;
 
         $ts = gmdate('U');
         // create the query
