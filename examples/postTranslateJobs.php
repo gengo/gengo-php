@@ -18,6 +18,8 @@ $job1 = array(
         'tier' => 'standard',
         // 'force' => 1, // optional. Default to 0.
         // 'auto_approve' => 1, // optional. Default to 0.
+        // 'tone' => 'friendly',
+        // 'purpose' => 'Blog Post',
         'custom_data' => '1234567日本語'
         );
 
@@ -30,10 +32,16 @@ $job2 = array(
         'tier' => 'standard',
         // 'force' => 1, // optional. Default to 0.
         // 'auto_approve' => 1, // optional. Default to 0.
+        // 'tone' => 'friendly',
+        // 'purpose' => 'Blog Post',
         'custom_data' => '1234567日本語'
         );
 
 $jobs = array($job1, $job2);
+
+// add tone and purpose at the order level
+$jobs['tone'] = 'friendly';
+$jobs['purpose'] = 'Blog Post';
 
 // Get an instance of Jobs Client
 $job_client = Gengo_Api::factory('jobs', $api_key, $private_key);

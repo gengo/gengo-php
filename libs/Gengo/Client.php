@@ -29,7 +29,7 @@ class Gengo_Client
         $this->config = Gengo_Config::getInstance();
 
         // default user agent string
-        $user_agent = 'Gengo PHP Library; Version 2.1.5; http://gengo.com/';
+        $user_agent = 'Gengo PHP Library; Version 2.1.6; http://gengo.com/';
         $user_agent = $this->config->get('useragent', $user_agent);
 
         $config = array('maxredirects' => 1,
