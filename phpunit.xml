@@ -1,5 +1,22 @@
-<testsuites>
-  <testsuite name="Gengo Test Suite">
-    <directory>./tests/</directory>
-  </testsuite>
-</testsuites>
+<?xml version="1.0" encoding="utf-8"?>
+<phpunit>
+  <testsuites>
+    <testsuite name="Gengo Test Suite">
+      <directory>./tests/</directory>
+    </testsuite>
+  </testsuites>
+  <php>
+    <const name="GENGO_PUBKEY" value="pubkeyfortests"/>
+    <const name="GENGO_PRIVKEY" value="privatekeyfortestuserthatcontainsonlyletters"/>
+    <const name="LOGGER_DISABLE" value="true"/>
+  </php>
+  <filter>
+    <whitelist processUncoveredFilesFromWhitelist="true">
+      <directory suffix=".php">.</directory>
+      <exclude>
+        <directory suffix=".php">examples</directory>
+        <directory suffix=".php">vendor</directory>
+      </exclude>
+    </whitelist>
+  </filter>
+</phpunit>
