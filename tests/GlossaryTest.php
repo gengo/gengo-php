@@ -8,12 +8,12 @@
 
 namespace Gengo\Tests;
 
-use \Gengo\Account;
 use \Gengo\Config;
+use \Gengo\Glossary;
 use \PHPUnit_Framework_TestCase;
 
 /**
- * Accounts class tests
+ * Glossary class tests
  *
  * LICENSE
  *
@@ -34,7 +34,7 @@ use \PHPUnit_Framework_TestCase;
  * @donottranslate
  */
 
-class AccountTest extends PHPUnit_Framework_TestCase
+class GlossaryTest extends PHPUnit_Framework_TestCase
     {
 
 	/**
@@ -54,55 +54,40 @@ class AccountTest extends PHPUnit_Framework_TestCase
 
 
 	/**
-	 * Test retrieveal of account stats
+	 * Test retrieveal of glossaries
 	 *
 	 * @return void
 	 */
 
-	public function testRetrievesAccountStatsSuchAsOrdersMade()
+	public function testRetrievesAListOfGlossariesThatBelongsToTheAuthenticatedUser()
 	    {
-		$accountAPI = new Account();
+		$glossaryAPI = new Glossary();
 
-		$response = json_decode($accountAPI->getStats(), true);
-		$this->assertEquals("ok", $response["opstat"]);
-		$this->assertTrue(isset($response["response"]));
-		$this->assertTrue(isset($response["response"]["credits_spent"]));
-		$this->assertTrue(isset($response["response"]["user_since"]));
-	    } //end testRetrievesAccountStatsSuchAsOrdersMade()
-
-
-	/**
-	 * Test retrieveal of account balance
-	 *
-	 * @return void
-	 */
-
-	public function testRetrievesAccountBalanceInCredits()
-	    {
-		$accountAPI = new Account();
-
-		$response = json_decode($accountAPI->getBalance(), true);
-		$this->assertEquals("ok", $response["opstat"]);
-		$this->assertTrue(isset($response["response"]));
-		$this->assertTrue(isset($response["response"]["credits"]));
-	    } //end testRetrievesAccountBalanceInCredits()
-
-
-	/**
-	 * Test retrieveal of preferred translators set by user
-	 *
-	 * @return void
-	 */
-
-	public function testRetrievesPreferredTranslatorsSetByUser()
-	    {
-		$accountAPI = new Account();
-
-		$response = json_decode($accountAPI->getPreferredTranslators(), true);
+		$response = json_decode($glossaryAPI->getGlossaries(), true);
 		$this->assertEquals("ok", $response["opstat"]);
 		$this->assertTrue(isset($response["response"]));
 		$this->assertTrue(empty($response["response"]));
-	    } //end testRetrievesPreferredTranslatorsSetByUser()
+	    } //end testRetrievesAListOfGlossariesThatBelongsToTheAuthenticatedUser()
+
+
+	/**
+	 * Test retrieveal of glossary by ID
+	 *
+	 * @return void
+	 */
+
+	public function testRetrievesAGlossaryById()
+	    {
+		$glossaryAPI = new Glossary();
+
+		$response = json_decode($glossaryAPI->getGlossary(123), true);
+		$this->assertEquals("error", $response["opstat"]);
+		$this->assertTrue(isset($response["err"]));
+		$this->assertTrue(isset($response["err"]["code"]));
+		$this->assertTrue(isset($response["err"]["msg"]));
+		$this->assertEquals("404", $response["err"]["code"]);
+		$this->assertEquals("Requested Resource Not Found", $response["err"]["msg"]);
+	    } //end testRetrievesAGlossaryById()
 
 
     } //end class

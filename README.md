@@ -11,16 +11,34 @@ This package contains both a client library for accessing the Gengo Translate AP
 
 Installation & Requirements
 ------------------------------------------------------------------------------------------------------------------------------------------------------
-Installing the library is simple.
+Installing the library is simple. Just add it to "require" of your composer.json
 
-* Get the repo:
+Then inside of your code you can call:
 
-```sh
-$ git clone git://github.com/gengo/gengo-php.git
-```
+\Gengo\Config::setAPIkey("your_api_key");
+\Gengo\Config::setPrivateKey("your_private_key");
 
-* Edit the `config.ini` file and set the baseurl to the environment you're sending translations to so that your API keys authenticate correctly.
+$job1 = array(
+ "type"     => "text",
+ "slug"     => "API Liverpool 1",
+ "body_src" => "Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside.",
+ "lc_src"   => "en",
+ "lc_tgt"   => "ja",
+ "tier"     => "standard",
+ "force"    => 1,
+);
 
+$jobs = array("job_01" => $job1);
+
+$api = new \Gengo\Jobs();
+$api->postJobs($jobs);
+$response = json_decode($api->getResponseBody(), true);
+
+When you are ready to go live insert the following before calls to Gengo:
+
+\Gengo\Config::useProduction();
+
+You can read through files in tests folder for more usage examples.
 
 Question, Comments, Complaints, Praise?
 ------------------------------------------------------------------------------------------------------------------------------------------------------
