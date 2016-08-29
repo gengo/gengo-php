@@ -1,4 +1,4 @@
 language: php
-install: composer install
+install: composer install --no-dev
 php:
   - 5.6
