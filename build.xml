@@ -1,0 +1,158 @@
+<project name="Gengo/Gengo" default="build" basedir=".">
+
+ <property environment="env"/>
+ <property name="copyright" value="2013-2016 Vladimir Bashkirtsev"/>
+ <property name="license" value="https://opensource.org/licenses/MIT MIT License"/>
+
+ <!-- Clean up -->
+ <target name="clean">
+  <delete dir="build"/>
+  <delete dir="templates_c"/>
+  <delete dir="tests/templates_c"/>
+  <antcall target="decompose"/>
+ </target>
+
+ <!-- Remove composer files -->
+ <target name="decompose">
+  <delete dir="vendor"/>
+  <delete file="composer.lock"/>
+ </target>
+
+ <!-- Download dependencies -->
+ <target name="dependencies">
+  <exec executable="composer" failonerror="true">
+   <arg line="update" />
+  </exec>
+ </target>
+
+ <!-- Configure the project -->
+ <target name="configure">
+  <sequential>
+   <antcall target="exceptions"/>
+  </sequential>
+ </target>
+
+ <!-- Generate exceptions.php files -->
+ <target name="exceptions">
+  <exec executable="vendor/bin/configgenerator">
+   <arg line="${basedir} '${copyright}' '${license}' ${basedir}/src/exceptions.php" />
+  </exec>
+ </target>
+
+ <!-- Run code analysis -->
+ <target name="codeanalysis">
+  <sequential>
+   <antcall target="pdepend"/>
+   <antcall target="phpmd"/>
+   <antcall target="phploc"/>
+   <antcall target="phpcpd"/>
+   <antcall target="phpcs"/>
+   <antcall target="phpdoc"/>
+   <antcall target="phpda"/>
+  </sequential>
+ </target>
+
+ <!-- Generate jdepend.xml and software metrics charts -->
+ <target name="pdepend">
+  <mkdir dir="${basedir}/build/logs"/>
+  <mkdir dir="${basedir}/build/pdepend"/>
+  <exec executable="vendor/bin/pdepend">
+   <arg line="--jdepend-xml=${basedir}/build/logs/jdepend.xml --overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg --jdepend-chart=${basedir}/build/pdepend/dependencies.svg ${basedir}/src" />
+  </exec>
+ </target>
+
+ <!-- Generate pmd.xml -->
+ <target name="phpmd">
+  <mkdir dir="${basedir}/build/logs"/>
+  <exec executable="vendor/bin/phpmd">
+   <arg line="${basedir} xml codesize,unusedcode --exclude vendor --reportfile ${basedir}/build/logs/pmd.xml" />
+  </exec>
+ </target>
+
+ <!-- Generate phploc.csv -->
+ <target name="phploc">
+  <mkdir dir="${basedir}/build/logs"/>
+  <exec executable="vendor/bin/phploc">
+   <arg line="--log-csv ${basedir}/build/logs/phploc.csv ${basedir}/src" />
+  </exec>
+ </target>
+
+ <!-- Generate pmd-cpd.xml -->
+ <target name="phpcpd">
+  <mkdir dir="${basedir}/build/logs"/>
+  <exec executable="vendor/bin/phpcpd">
+   <arg line="--log-pmd ${basedir}/build/logs/pmd-cpd.xml --exclude vendor ${basedir}" />
+  </exec>
+ </target>
+
+ <!-- Generate checkstyle.xml -->
+ <target name="phpcs">
+  <mkdir dir="${basedir}/build/logs"/>
+  <exec executable="vendor/bin/phpcs" output="/dev/null">
+   <arg line="--report=checkstyle --report-file=${basedir}/build/logs/checkstyle.xml --ignore=vendor ${basedir}" />
+  </exec>
+ </target>
+
+ <!-- Generate API documentation -->
+ <target name="phpdoc">
+  <mkdir dir="${basedir}/build/api"/>
+  <exec executable="vendor/bin/phpdoc">
+   <arg line="-d ${basedir} -t build/api --title='${ant.project.name}' --defaultpackagename=Gengo --ignore-tags=untranslatable,donottranslate,requiredconst,optionalconst,internalconst,codeCoverageIgnore,dataProvider,depends,expectedException,expectedExceptionMessage,expectedExceptionMessageRegExp,requires,runTestsInSeparateProcesses,runInSeparateProcess,soap,soap-header-input,soap-header-output,soap-wsdl,soap-indicator --template='responsive-twig' --ignore=vendor/" />
+  </exec>
+ </target>
+
+ <!-- Generate dependency graph -->
+ <target name="phpda">
+  <mkdir dir="${basedir}/build/phpda"/>
+  <exec executable="vendor/bin/phpda">
+   <arg line="analyze ${basedir}/phpda.yml" />
+  </exec>
+ </target>
+
+ <!-- Run tests -->
+ <target name="tests">
+  <sequential>
+   <antcall target="phpunit"/>
+   <antcall target="checkcoveragexistence"/>
+  </sequential>
+ </target>
+
+ <!-- Run unit tests -->
+ <target name="phpunit">
+  <mkdir dir="${basedir}/build/coverage"/>
+  <mkdir dir="${basedir}/build/logs"/>
+  <mkdir dir="${basedir}/build/testdox"/>
+  <exec executable="vendor/bin/phpunit" failonerror="true">
+   <arg line="--debug --testdox-html ${basedir}/build/testdox/index.html --log-junit ${basedir}/build/logs/junit.xml --coverage-clover ${basedir}/build/logs/clover.xml --coverage-html ${basedir}/build/coverage"/>
+  </exec>
+ </target>
+
+ <!-- Ensuring that coverage was actually built -->
+ <target name="checkcoveragexistence">
+  <fail message="Coverage was not fully built">
+   <condition>
+    <or>
+     <not>
+      <available file="${basedir}/build/logs/clover.xml"/>
+     </not>
+     <not>
+      <available file="${basedir}/build/coverage/index.html"/>
+     </not>
+    </or>
+   </condition>
+  </fail>
+ </target>
+
+ <!-- Full build -->
+ <target name="build">
+  <sequential>
+   <antcall target="clean"/>
+   <antcall target="dependencies"/>
+   <antcall target="configure"/>
+   <antcall target="codeanalysis"/>
+   <antcall target="tests"/>
+   <antcall target="decompose"/>
+  </sequential>
+ </target>
+
+</project>
