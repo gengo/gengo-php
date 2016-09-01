@@ -26,8 +26,11 @@
     },
     "require": {
         "php": ">=5.3.0",
+        "ext-date": "*",
         "ext-gettext": "*",
+        "ext-hash": "*",
         "ext-json": "*",
+        "ext-pcre": "*",
         "logics/http": "0.1"
     },
     "require-dev": {
