@@ -42,6 +42,7 @@
  <!-- Run code analysis -->
  <target name="codeanalysis">
   <sequential>
+   <antcall target="extcheck"/>
    <antcall target="pdepend"/>
    <antcall target="phpmd"/>
    <antcall target="phploc"/>
@@ -50,6 +51,11 @@
    <antcall target="phpdoc"/>
    <antcall target="phpda"/>
   </sequential>
+ </target>
+
+ <!-- Check extensions in composer.json -->
+ <target name="extcheck">
+  <exec executable="vendor/bin/extcheck" failonerror="true"/>
  </target>
 
  <!-- Generate jdepend.xml and software metrics charts -->
