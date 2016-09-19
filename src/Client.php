@@ -36,7 +36,7 @@ class Client
 	/**
 	 * HTTP client
 	 *
-	 * @var \Logics\Foundation\Web\HTTPclient
+	 * @var \Logics\Foundation\HTTP\HTTPclient
 	 */
 	protected static $http = null;
 
