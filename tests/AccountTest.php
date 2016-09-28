@@ -49,7 +49,7 @@ class AccountTest extends PHPUnit_Framework_TestCase
     } //end setUp()
 
     /**
-     * Test retrieveal of account stats.
+     * Test retrieval of account stats.
      */
     public function testRetrievesAccountStatsSuchAsOrdersMade()
     {
@@ -63,7 +63,7 @@ class AccountTest extends PHPUnit_Framework_TestCase
     } //end testRetrievesAccountStatsSuchAsOrdersMade()
 
     /**
-     * Test retrieveal of account balance.
+     * Test retrieval of account balance.
      */
     public function testRetrievesAccountBalanceInCredits()
     {
@@ -76,7 +76,7 @@ class AccountTest extends PHPUnit_Framework_TestCase
     } //end testRetrievesAccountBalanceInCredits()
 
     /**
-     * Test retrieveal of preferred translators set by user.
+     * Test retrieval of preferred translators set by user.
      */
     public function testRetrievesPreferredTranslatorsSetByUser()
     {
@@ -87,5 +87,18 @@ class AccountTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(isset($response['response']));
         $this->assertTrue(empty($response['response']));
     } //end testRetrievesPreferredTranslatorsSetByUser()
+
+    /**
+     * Test retrieval of authenticated user details
+     */
+    public function testRetrievesAuthenticateUserDetails()
+    {
+        $accountAPI = new Account();
+
+        $response = json_decode($accountAPI->getMe(), true);
+        $this->assertEquals('ok', $response['opstat']);
+        $this->assertTrue(isset($response['response']));
+        $this->assertTrue(empty($response['response']));
+    } //end testRetrievesAuthenticateUserDetails()
 } //end class
 ;

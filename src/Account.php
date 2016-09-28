@@ -76,5 +76,21 @@ class Account extends API
     {
         return $this->storeResponse(Client::get('v2/account/preferred_translators'));
     } //end getPreferredTranslators()
+
+    /**
+     * Retrieves the details of the authenticated user.
+     *
+     * Calls account/me (GET)
+     *
+     * @return string Gengo response
+     *
+     * @untranslatable v2/account/me
+     *
+     * @api
+     */
+    public function getMe()
+    {
+        return $this->storeResponse(Client::get('v2/account/me'));
+    } //end getMe()
 } //end class
 ;
