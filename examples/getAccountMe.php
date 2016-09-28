@@ -13,7 +13,7 @@ $private_key = 'your private-api-key';
 // Get an instance of an Account Client
 $account = Gengo_Api::factory('account', $api_key, $private_key);
 
-// Request the balance.
+// Request authenticated user details.
 $account->getMe();
 
 // Show the server response in depth if you need it.
