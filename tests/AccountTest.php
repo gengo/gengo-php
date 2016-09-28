@@ -1,19 +1,17 @@
 <?php
 
 /**
- * PHP version 5.6
- *
- * @package Gengo\Tests
+ * PHP version 5.6.
  */
 
 namespace Gengo\Tests;
 
-use \Gengo\Account;
-use \Gengo\Config;
-use \PHPUnit_Framework_TestCase;
+use Gengo\Account;
+use Gengo\Config;
+use PHPUnit_Framework_TestCase;
 
 /**
- * Accounts class tests
+ * Accounts class tests.
  *
  * LICENSE
  *
@@ -28,83 +26,66 @@ use \PHPUnit_Framework_TestCase;
  * @author    Vladimir Bashkirtsev <vladimir@bashkirtsev.com>
  * @copyright 2009-2016 Gengo, Inc. (http://gengo.com)
  * @license   http://gengo.com/services/api/dev-docs/gengo-code-license New BSD License
+ *
  * @version   GIT: $Id:$
+ *
  * @link      https://github.com/gengo/gengo-php
  *
  * @donottranslate
  */
-
 class AccountTest extends PHPUnit_Framework_TestCase
+{
+    /**
+     * Set up tests.
+     *
+     *
+     * @requiredconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
+     * @requiredconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
+     */
+    public function setUp()
     {
+        Config::setAPIkey(GENGO_PUBKEY);
+        Config::setPrivateKey(GENGO_PRIVKEY);
+    } //end setUp()
 
-	/**
-	 * Set up tests
-	 *
-	 * @return void
-	 *
-	 * @requiredconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
-	 * @requiredconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
-	 */
+    /**
+     * Test retrieveal of account stats.
+     */
+    public function testRetrievesAccountStatsSuchAsOrdersMade()
+    {
+        $accountAPI = new Account();
 
-	public function setUp()
-	    {
-		Config::setAPIkey(GENGO_PUBKEY);
-		Config::setPrivateKey(GENGO_PRIVKEY);
-	    } //end setUp()
+        $response = json_decode($accountAPI->getStats(), true);
+        $this->assertEquals('ok', $response['opstat']);
+        $this->assertTrue(isset($response['response']));
+        $this->assertTrue(isset($response['response']['credits_spent']));
+        $this->assertTrue(isset($response['response']['user_since']));
+    } //end testRetrievesAccountStatsSuchAsOrdersMade()
 
+    /**
+     * Test retrieveal of account balance.
+     */
+    public function testRetrievesAccountBalanceInCredits()
+    {
+        $accountAPI = new Account();
 
-	/**
-	 * Test retrieveal of account stats
-	 *
-	 * @return void
-	 */
+        $response = json_decode($accountAPI->getBalance(), true);
+        $this->assertEquals('ok', $response['opstat']);
+        $this->assertTrue(isset($response['response']));
+        $this->assertTrue(isset($response['response']['credits']));
+    } //end testRetrievesAccountBalanceInCredits()
 
-	public function testRetrievesAccountStatsSuchAsOrdersMade()
-	    {
-		$accountAPI = new Account();
+    /**
+     * Test retrieveal of preferred translators set by user.
+     */
+    public function testRetrievesPreferredTranslatorsSetByUser()
+    {
+        $accountAPI = new Account();
 
-		$response = json_decode($accountAPI->getStats(), true);
-		$this->assertEquals("ok", $response["opstat"]);
-		$this->assertTrue(isset($response["response"]));
-		$this->assertTrue(isset($response["response"]["credits_spent"]));
-		$this->assertTrue(isset($response["response"]["user_since"]));
-	    } //end testRetrievesAccountStatsSuchAsOrdersMade()
-
-
-	/**
-	 * Test retrieveal of account balance
-	 *
-	 * @return void
-	 */
-
-	public function testRetrievesAccountBalanceInCredits()
-	    {
-		$accountAPI = new Account();
-
-		$response = json_decode($accountAPI->getBalance(), true);
-		$this->assertEquals("ok", $response["opstat"]);
-		$this->assertTrue(isset($response["response"]));
-		$this->assertTrue(isset($response["response"]["credits"]));
-	    } //end testRetrievesAccountBalanceInCredits()
-
-
-	/**
-	 * Test retrieveal of preferred translators set by user
-	 *
-	 * @return void
-	 */
-
-	public function testRetrievesPreferredTranslatorsSetByUser()
-	    {
-		$accountAPI = new Account();
-
-		$response = json_decode($accountAPI->getPreferredTranslators(), true);
-		$this->assertEquals("ok", $response["opstat"]);
-		$this->assertTrue(isset($response["response"]));
-		$this->assertTrue(empty($response["response"]));
-	    } //end testRetrievesPreferredTranslatorsSetByUser()
-
-
-    } //end class
-
-?>
+        $response = json_decode($accountAPI->getPreferredTranslators(), true);
+        $this->assertEquals('ok', $response['opstat']);
+        $this->assertTrue(isset($response['response']));
+        $this->assertTrue(empty($response['response']));
+    } //end testRetrievesPreferredTranslatorsSetByUser()
+} //end class
+;

@@ -1,19 +1,17 @@
 <?php
 
 /**
- * PHP version 5.6
- *
- * @package Gengo\Tests
+ * PHP version 5.6.
  */
 
 namespace Gengo\Tests;
 
-use \Gengo\Config;
-use \Gengo\Glossary;
-use \PHPUnit_Framework_TestCase;
+use Gengo\Config;
+use Gengo\Glossary;
+use PHPUnit_Framework_TestCase;
 
 /**
- * Glossary class tests
+ * Glossary class tests.
  *
  * LICENSE
  *
@@ -28,68 +26,55 @@ use \PHPUnit_Framework_TestCase;
  * @author    Vladimir Bashkirtsev <vladimir@bashkirtsev.com>
  * @copyright 2009-2016 Gengo, Inc. (http://gengo.com)
  * @license   http://gengo.com/services/api/dev-docs/gengo-code-license New BSD License
+ *
  * @version   GIT: $Id:$
+ *
  * @link      https://github.com/gengo/gengo-php
  *
  * @donottranslate
  */
-
 class GlossaryTest extends PHPUnit_Framework_TestCase
+{
+    /**
+     * Set up tests.
+     *
+     *
+     * @requiredconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
+     * @requiredconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
+     */
+    public function setUp()
     {
+        Config::setAPIkey(GENGO_PUBKEY);
+        Config::setPrivateKey(GENGO_PRIVKEY);
+    } //end setUp()
 
-	/**
-	 * Set up tests
-	 *
-	 * @return void
-	 *
-	 * @requiredconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
-	 * @requiredconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
-	 */
+    /**
+     * Test retrieveal of glossaries.
+     */
+    public function testRetrievesAListOfGlossariesThatBelongsToTheAuthenticatedUser()
+    {
+        $glossaryAPI = new Glossary();
 
-	public function setUp()
-	    {
-		Config::setAPIkey(GENGO_PUBKEY);
-		Config::setPrivateKey(GENGO_PRIVKEY);
-	    } //end setUp()
+        $response = json_decode($glossaryAPI->getGlossaries(), true);
+        $this->assertEquals('ok', $response['opstat']);
+        $this->assertTrue(isset($response['response']));
+        $this->assertTrue(empty($response['response']));
+    } //end testRetrievesAListOfGlossariesThatBelongsToTheAuthenticatedUser()
 
+    /**
+     * Test retrieveal of glossary by ID.
+     */
+    public function testRetrievesAGlossaryById()
+    {
+        $glossaryAPI = new Glossary();
 
-	/**
-	 * Test retrieveal of glossaries
-	 *
-	 * @return void
-	 */
-
-	public function testRetrievesAListOfGlossariesThatBelongsToTheAuthenticatedUser()
-	    {
-		$glossaryAPI = new Glossary();
-
-		$response = json_decode($glossaryAPI->getGlossaries(), true);
-		$this->assertEquals("ok", $response["opstat"]);
-		$this->assertTrue(isset($response["response"]));
-		$this->assertTrue(empty($response["response"]));
-	    } //end testRetrievesAListOfGlossariesThatBelongsToTheAuthenticatedUser()
-
-
-	/**
-	 * Test retrieveal of glossary by ID
-	 *
-	 * @return void
-	 */
-
-	public function testRetrievesAGlossaryById()
-	    {
-		$glossaryAPI = new Glossary();
-
-		$response = json_decode($glossaryAPI->getGlossary(123), true);
-		$this->assertEquals("error", $response["opstat"]);
-		$this->assertTrue(isset($response["err"]));
-		$this->assertTrue(isset($response["err"]["code"]));
-		$this->assertTrue(isset($response["err"]["msg"]));
-		$this->assertEquals("404", $response["err"]["code"]);
-		$this->assertEquals("Requested Resource Not Found", $response["err"]["msg"]);
-	    } //end testRetrievesAGlossaryById()
-
-
-    } //end class
-
-?>
+        $response = json_decode($glossaryAPI->getGlossary(123), true);
+        $this->assertEquals('error', $response['opstat']);
+        $this->assertTrue(isset($response['err']));
+        $this->assertTrue(isset($response['err']['code']));
+        $this->assertTrue(isset($response['err']['msg']));
+        $this->assertEquals('404', $response['err']['code']);
+        $this->assertEquals('Requested Resource Not Found', $response['err']['msg']);
+    } //end testRetrievesAGlossaryById()
+} //end class
+;
