@@ -1,5 +1,9 @@
 # Change Log
 
+## [2.1.7] - 29 September 2016
+### Changed
+- Added suport for account/me endpoint
+
 ## [2.1.6] - 28 October 2015
 ### Changed
 - Added support for tone and purpose at the order level
