@@ -34,6 +34,10 @@
 - Switched on HTTP keep-alive: we should keep HTTP connection alive to speed up communication with Gengo server
 - 100% test coverage
 
+## [2.1.7] - 29 September 2016
+### Changed
+- Added suport for account/me endpoint
+
 ## [2.1.6] - 28 October 2015
 ### Changed
 
