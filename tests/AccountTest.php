@@ -98,7 +98,10 @@ class AccountTest extends PHPUnit_Framework_TestCase
         $response = json_decode($accountAPI->getMe(), true);
         $this->assertEquals('ok', $response['opstat']);
         $this->assertTrue(isset($response['response']));
-        $this->assertTrue(empty($response['response']));
+        $this->assertTrue(isset($response['response']['email']));
+        $this->assertTrue(array_key_exists('full_name', $response['response']));
+        $this->assertTrue(array_key_exists('display_name', $response['response']));
+        $this->assertTrue(array_key_exists('language_code', $response['response']));
     } //end testRetrievesAuthenticateUserDetails()
 } //end class
 ;
