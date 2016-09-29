@@ -32,7 +32,6 @@
         "ext-json": "*",
         "ext-pcre": "*",
         "logics/http": "^0.1",
-        "friendsofphp/php-cs-fixer": "^1.12.1"
     },
     "require-dev": {
         "pdepend/pdepend": "^2.2",
@@ -44,6 +43,7 @@
         "phpunit/phpunit": "^4.8",
         "logics/codesniffer": "^0.1",
         "logics/configgenerator": "^0.1",
-        "logics/extcheck": "^0.1"
+        "logics/extcheck": "^0.1",
+        "friendsofphp/php-cs-fixer": "^1.12.1"
     }
 }
