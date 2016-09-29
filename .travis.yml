@@ -1,6 +1,5 @@
 language: php
 install:
-  - sudo apt-get install subversion
   - composer install --no-dev
 php:
   - 5.6
