@@ -63,7 +63,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
     } //end testReturnsSupportedTranslationLanguagePairsTiersAndCreditPrices()
 
     /**
-     * Test retrieveal of a list of supported languages and their language codes.
+     * Test retrieval of a list of supported languages and their language codes.
      */
     public function testReturnsAListOfSupportedLanguagesAndTheirLanguageCodes()
     {
@@ -244,4 +244,3 @@ class ServiceTest extends PHPUnit_Framework_TestCase
         $serviceAPI->quote($jobs, $files);
     } //end testRefusesToProvideQuotationIfFileSpecifiedInFileArrayDoesNotExist()
 } //end class
-;

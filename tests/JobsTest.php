@@ -255,7 +255,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
     } //end testRequiresUrlAttachmentsToHaveMimeType()
 
     /**
-     * Test retrieveal of a list of resources for the most recent jobs filtered by given parameters.
+     * Test retrieval of a list of resources for the most recent jobs filtered by given parameters.
      *
      * @return array Job IDs
      */
@@ -403,7 +403,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
     } //end testSubmitsAJobOrGroupOfJobsToTranslate()
 
     /**
-     * Test retrieveal of a list of jobs by a list of job IDs.
+     * Test retrieval of a list of jobs by a list of job IDs.
      *
      * @param array $jobs Job identifiers
      *
@@ -641,4 +641,3 @@ class JobsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('unauthorized job access', $response['err']['msg']);
     } //end testArchiveApprovedJob()
 } //end class
-;

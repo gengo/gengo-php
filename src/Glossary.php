@@ -63,4 +63,3 @@ class Glossary extends API
         return $this->storeResponse(Client::get('v2/translate/glossary/'.$glossaryid));
     } //end getGlossary()
 } //end class
-;

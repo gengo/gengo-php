@@ -96,7 +96,7 @@ class JobTest extends PHPUnit_Framework_TestCase
     } //end testAllowsToPostNewOrderWithNewJobs()
 
     /**
-     * Test retrieveal of specific translation job.
+     * Test retrieval of specific translation job.
      *
      * @param int $jobid Job ID
      *
@@ -381,7 +381,7 @@ class JobTest extends PHPUnit_Framework_TestCase
     } //end testRefusesToPostEmptyCommentToJobCommentThread()
 
     /**
-     * Test retrieveal of comment thread for a job.
+     * Test retrieval of comment thread for a job.
      *
      * @param int $jobid Job ID
      *
@@ -414,4 +414,3 @@ class JobTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('ok', $response['opstat']);
     } //end testCancelsTheJob()
 } //end class
-;

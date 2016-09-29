@@ -222,4 +222,3 @@ class Client
         return hash_hmac('sha1', $data, $privatekey);
     } //end sign()
 } //end class
-;

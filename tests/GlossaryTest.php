@@ -49,7 +49,7 @@ class GlossaryTest extends PHPUnit_Framework_TestCase
     } //end setUp()
 
     /**
-     * Test retrieveal of glossaries.
+     * Test retrieval of glossaries.
      */
     public function testRetrievesAListOfGlossariesThatBelongsToTheAuthenticatedUser()
     {
@@ -62,7 +62,7 @@ class GlossaryTest extends PHPUnit_Framework_TestCase
     } //end testRetrievesAListOfGlossariesThatBelongsToTheAuthenticatedUser()
 
     /**
-     * Test retrieveal of glossary by ID.
+     * Test retrieval of glossary by ID.
      */
     public function testRetrievesAGlossaryById()
     {
@@ -77,4 +77,3 @@ class GlossaryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Requested Resource Not Found', $response['err']['msg']);
     } //end testRetrievesAGlossaryById()
 } //end class
-;

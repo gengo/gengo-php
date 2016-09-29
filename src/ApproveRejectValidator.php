@@ -6,8 +6,6 @@
 
 namespace Gengo;
 
-use Exception;
-
 /**
  * Approve/reject validator class.
  *
@@ -56,7 +54,7 @@ class ApproveRejectValidator extends API
     {
         if (isset($job['rating']) === true &&
             (is_numeric($job['rating']) === true && $job['rating'] >= 1 && $job['rating'] <= 5) === false) {
-            throw new Exception(
+            throw new \Exception(
                 _('In method').' '.__METHOD__.': '._('job should contain a valid rating'),
                 GENGO_EXCEPTION_JOB_SHOULD_CONTAIN_VALID_RATING
             );
@@ -113,7 +111,7 @@ class ApproveRejectValidator extends API
                      'other',
                     );
             if (in_array($reason, $validreasons) === false) {
-                throw new Exception(
+                throw new \Exception(
                     _('In method').' '.__METHOD__.': '._('job must contain a valid reason'),
                     GENGO_EXCEPTION_JOB_MUST_CONTAIN_VALID_REASON
                 );
@@ -131,7 +129,7 @@ class ApproveRejectValidator extends API
                            'cancel',
                           );
                 if (in_array($job['follow_up'], $validfollowups) === false) {
-                    throw new Exception(
+                    throw new \Exception(
                         _('In method').' '.__METHOD__.': '._('if set, job should contain a valid follow up'),
                         GENGO_EXCEPTION_JOB_SHOULD_CONTAIN_VALID_FOLLOWUP
                     );
@@ -140,7 +138,7 @@ class ApproveRejectValidator extends API
                 $data['follow_up'] = $job['follow_up'];
             }
         } else {
-            throw new Exception(
+            throw new \Exception(
                 _('In method').' '.__METHOD__.': '._('job must contain a reason, a comment and a captcha'),
                 GENGO_EXCEPTION_REASON_REQUIRED
             );
@@ -149,4 +147,3 @@ class ApproveRejectValidator extends API
         return $data;
     } //end validateReject()
 } //end class
-;

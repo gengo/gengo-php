@@ -80,7 +80,7 @@ class OrderTest extends PHPUnit_Framework_TestCase
     } //end testAllowsToPostNewJobs()
 
     /**
-     * Test retrieveal of a group of jobs that were previously submitted together by their order ID.
+     * Test retrieval of a group of jobs that were previously submitted together by their order ID.
      *
      * @param int $orderid Order ID
      *
@@ -141,7 +141,7 @@ class OrderTest extends PHPUnit_Framework_TestCase
     } //end testRefusesToPostEmptyCommentToOrderCommentThread()
 
     /**
-     * Test retrieveal of the comment thread for an order.
+     * Test retrieval of the comment thread for an order.
      *
      * @param int $orderid Order ID
      *
@@ -185,4 +185,3 @@ class OrderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0, $response['response']['order']['total_jobs']);
     } //end testCancelsAllJobsInAnOrder()
 } //end class
-;

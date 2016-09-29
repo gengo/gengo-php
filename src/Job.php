@@ -6,8 +6,6 @@
 
 namespace Gengo;
 
-use Exception;
-
 /**
  * Job API client class.
  *
@@ -83,7 +81,7 @@ class Job extends ApproveRejectValidator
 
             $params = array('data' => json_encode($data));
         } else {
-            throw new Exception(
+            throw new \Exception(
                 _('In method').' '.__METHOD__.': "comment" '._('is required'),
                 GENGO_EXCEPTION_COMMENT_REQUIRED
             );
@@ -330,7 +328,7 @@ class Job extends ApproveRejectValidator
                    'data' => json_encode($data),
                   );
         } else {
-            throw new Exception(
+            throw new \Exception(
                 _('In method').' '.__METHOD__.': '._('must contain a valid').' "body" '._('parameter as the comment'),
                 GENGO_EXCEPTION_VALID_PARAMETER_IS_REQUIRED
             );
@@ -341,4 +339,3 @@ class Job extends ApproveRejectValidator
         return $this->storeResponse(Client::post('v2/translate/job/'.$id.'/comment', $params));
     } //end postComment()
 } //end class
-;

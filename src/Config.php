@@ -6,8 +6,6 @@
 
 namespace Gengo;
 
-use Exception;
-
 /**
  * Gengo configuration class.
  *
@@ -95,7 +93,7 @@ class Config
                'json',
               );
         if (in_array($format, $valid) === false) {
-            throw new Exception(
+            throw new \Exception(
                 _('Invalid response format').' '.$format.', '._('accepted formats are: xml or json'),
                 GENGO_EXCEPTION_INVALID_RESPONSE_FORMAT
             );
@@ -118,7 +116,7 @@ class Config
     public static function setAPIkey($apikey)
     {
         if (is_string($apikey) === false) {
-            throw new Exception(_('Invalid API key'), GENGO_EXCEPTION_INVALID_API_KEY);
+            throw new \Exception(_('Invalid API key'), GENGO_EXCEPTION_INVALID_API_KEY);
         }
 
         self::$_settings['api_key'] = $apikey;
@@ -138,7 +136,7 @@ class Config
     public static function setPrivateKey($privatekey)
     {
         if (is_string($privatekey) === false) {
-            throw new Exception(_('Invalid private key'), GENGO_EXCEPTION_INVALID_PRIVATE_KEY);
+            throw new \Exception(_('Invalid private key'), GENGO_EXCEPTION_INVALID_PRIVATE_KEY);
         }
 
         self::$_settings['private_key'] = $privatekey;
@@ -158,7 +156,7 @@ class Config
     public static function setJobID($id)
     {
         if (is_int($id) === false) {
-            throw new Exception(_('Invalid job ID'), GENGO_EXCEPTION_INVALID_JOB_ID);
+            throw new \Exception(_('Invalid job ID'), GENGO_EXCEPTION_INVALID_JOB_ID);
         }
 
         self::$_settings['job_id'] = $id;
@@ -178,10 +176,9 @@ class Config
     public static function setRevisionID($id)
     {
         if (is_int($id) === false) {
-            throw new Exception(_('Invalid revision ID'), GENGO_EXCEPTION_INVALID_REVISION_ID);
+            throw new \Exception(_('Invalid revision ID'), GENGO_EXCEPTION_INVALID_REVISION_ID);
         }
 
         self::$_settings['revision_id'] = $id;
     } //end setRevisionID()
 } //end class
-;

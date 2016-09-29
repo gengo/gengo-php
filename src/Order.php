@@ -6,8 +6,6 @@
 
 namespace Gengo;
 
-use Exception;
-
 /**
  * Order API client class.
  *
@@ -129,7 +127,7 @@ class Order extends API
                    'data' => json_encode($data),
                   );
         } else {
-            throw new Exception(
+            throw new \Exception(
                 _('In method').' '.__METHOD__.': '._('must contain a valid').' "body" '._('parameter as the comment'),
                 GENGO_EXCEPTION_MUST_CONTAIN_VALID_BODY
             );
@@ -140,4 +138,3 @@ class Order extends API
         return $this->storeResponse(Client::post('v2/translate/order/'.$id.'/comment', $params));
     } //end postComment()
 } //end class
-;

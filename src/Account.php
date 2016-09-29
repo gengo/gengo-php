@@ -93,4 +93,3 @@ class Account extends API
         return $this->storeResponse(Client::get('v2/account/me'));
     } //end getMe()
 } //end class
-;

@@ -6,8 +6,6 @@
 
 namespace Gengo;
 
-use Exception;
-
 /**
  * Jobs API client class.
  *
@@ -103,22 +101,22 @@ class Jobs extends ApproveRejectValidator
 
             foreach ($job['url_attachments'] as $attachment) {
                 if (is_array($attachment) === false) {
-                    throw new Exception(_('URL attachment must be an array'), GENGO_EXCEPTION_URL_ATTACHMENTS_NOT_ARRAY);
+                    throw new \Exception(_('URL attachment must be an array'), GENGO_EXCEPTION_URL_ATTACHMENTS_NOT_ARRAY);
                 }
 
                 if (isset($attachment['url']) === false || preg_match("/^https?:\/\/.*/", $attachment['url']) === 0) {
-                    throw new Exception(
+                    throw new \Exception(
                         _('URL attachment must point to public URL with http(s) scheme'),
                         GENGO_EXCEPTION_URL_ATTACHMENT_IS_NOT_HTTP_URL
                     );
                 }
 
                 if (isset($attachment['filename']) === false || strlen($attachment['filename']) === 0) {
-                    throw new Exception(_('URL attachment filename must be specified'), GENGO_EXCEPTION_URL_ATTACHMENT_NEEDS_FILENAME);
+                    throw new \Exception(_('URL attachment filename must be specified'), GENGO_EXCEPTION_URL_ATTACHMENT_NEEDS_FILENAME);
                 }
 
                 if (isset($attachment['mime_type']) === false || strlen($attachment['mime_type']) === 0) {
-                    throw new Exception(_('URL attachment MIME type must be specified'), GENGO_EXCEPTION_URL_ATTACHMENT_NEEDS_MIMETYPE);
+                    throw new \Exception(_('URL attachment MIME type must be specified'), GENGO_EXCEPTION_URL_ATTACHMENT_NEEDS_MIMETYPE);
                 }
 
                 $job['attachments'][] = $attachment;
@@ -172,7 +170,7 @@ class Jobs extends ApproveRejectValidator
                     'canceled',
                        );
             if (in_array($status, $validstatus) === false) {
-                throw new Exception(
+                throw new \Exception(
                     _('In method').' '.__METHOD__.': "status" '._('must contain a valid status'),
                     GENGO_EXCEPTION_MUST_CONTAIN_VALID_STATUS
                 );
@@ -183,7 +181,7 @@ class Jobs extends ApproveRejectValidator
 
         if ($timestampafter !== null) {
             if (is_int($timestampafter) === false || $timestampafter < 0) {
-                throw new Exception(
+                throw new \Exception(
                     _('In method').' '.__METHOD__.': "timestampafter" '._('must be non-negative integer'),
                     GENGO_EXCEPTION_TIMESTAMP_MUST_BE_VALID
                 );
@@ -194,7 +192,7 @@ class Jobs extends ApproveRejectValidator
 
         if ($count !== null) {
             if (is_int($count) === false || $count < 1 || $count > 200) {
-                throw new Exception(
+                throw new \Exception(
                     _('In method').' '.__METHOD__.': "count" '._('must be integer in range between 1 and 200'),
                     GENGO_EXCEPTION_COUNT_MUST_MUST_BE_VALID
                 );
@@ -265,7 +263,7 @@ class Jobs extends ApproveRejectValidator
 
             $params = array('data' => json_encode($data));
         } else {
-            throw new Exception(
+            throw new \Exception(
                 _('In method').' '.__METHOD__.': "comment" '._('is required'),
                 GENGO_EXCEPTION_COMMENT_REQUIRED
             );
@@ -402,13 +400,12 @@ class Jobs extends ApproveRejectValidator
     {
         foreach ($jobs as $job) {
             if (isset($job['job_id']) === false) {
-                throw new Exception(_('All jobs require job_id field'), GENGO_EXCEPTION_JOB_ID_REQUIRED);
+                throw new \Exception(_('All jobs require job_id field'), GENGO_EXCEPTION_JOB_ID_REQUIRED);
             }
 
             if (is_numeric($job['job_id']) === false) {
-                throw new Exception(_('Invalid job_id supplied'), GENGO_EXCEPTION_INVALID_JOB_ID_SUPPLIED);
+                throw new \Exception(_('Invalid job_id supplied'), GENGO_EXCEPTION_INVALID_JOB_ID_SUPPLIED);
             }
         }
     } //end _validateJobIDs()
 } //end class
-;

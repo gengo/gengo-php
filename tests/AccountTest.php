@@ -89,7 +89,7 @@ class AccountTest extends PHPUnit_Framework_TestCase
     } //end testRetrievesPreferredTranslatorsSetByUser()
 
     /**
-     * Test retrieval of authenticated user details
+     * Test retrieval of authenticated user details.
      */
     public function testRetrievesAuthenticateUserDetails()
     {
@@ -104,4 +104,3 @@ class AccountTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(array_key_exists('language_code', $response['response']));
     } //end testRetrievesAuthenticateUserDetails()
 } //end class
-;

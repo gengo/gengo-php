@@ -6,8 +6,6 @@
 
 namespace Gengo;
 
-use Exception;
-
 /**
  * Service API client class.
  *
@@ -99,28 +97,28 @@ class Service extends API
         foreach ($jobs as $job) {
             if ($job['type'] === 'file') {
                 if (isset($job['file_key']) === false) {
-                    throw new Exception(
+                    throw new \Exception(
                         _('Job').' '.var_export($job, true).' '._('is missing file_key parameter'),
                         GENGO_EXCEPTION_JOB_MISSING_FILE_KEY
                     );
                 }
 
                 if (preg_match('/^[a-z0-9_-]+$/i', $job['file_key']) === 0) {
-                    throw new Exception(
+                    throw new \Exception(
                         '"'.$job['file_key'].'" '._('is not a valid file_key parameter'),
                         GENGO_EXCEPTION_IS_NOT_VALID_FILE_KEY
                     );
                 }
 
                 if (array_key_exists($job['file_key'], $filepath) === false) {
-                    throw new Exception(
+                    throw new \Exception(
                         'file_key: "'.$job['file_key'].'" '._('is missing in filepath array'),
                         GENGO_EXCEPTION_FILE_KEY_MISSING
                     );
                 }
 
                 if (is_file($filepath[$job['file_key']]) === false) {
-                    throw new Exception(
+                    throw new \Exception(
                         _('Could not find file: '.$filepath[$job['file_key']]),
                         GENGO_EXCEPTION_COULD_NOT_FIND_FILE
                     );
@@ -138,4 +136,3 @@ class Service extends API
         return $this->storeResponse(Client::post('v2/translate/service/quote', $params, $filepath));
     } //end quote()
 } //end class
-;

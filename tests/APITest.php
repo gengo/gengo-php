@@ -115,4 +115,3 @@ class APITest extends PHPUnit_Framework_TestCase
         unset($body);
     } //end testThrowsExceptionOnAttemptToRetrieveAResponseBeforeMakingARequest()
 } //end class
-;

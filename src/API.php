@@ -6,8 +6,6 @@
 
 namespace Gengo;
 
-use Exception;
-
 /**
  * Abstract API class.
  *
@@ -69,11 +67,11 @@ abstract class API
     public function __construct()
     {
         if (Config::get('api_key') === false) {
-            throw new Exception(_('No API key is set'), GENGO_EXCEPTION_NO_API_KEY);
+            throw new \Exception(_('No API key is set'), GENGO_EXCEPTION_NO_API_KEY);
         }
 
         if (Config::get('private_key') === false) {
-            throw new Exception(_('No private key is set'), GENGO_EXCEPTION_NO_PRIVATE_KEY);
+            throw new \Exception(_('No private key is set'), GENGO_EXCEPTION_NO_PRIVATE_KEY);
         }
 
         $this->response = null;
@@ -150,7 +148,7 @@ abstract class API
     private function _checkResponse()
     {
         if ($this->response === null) {
-            throw new Exception(
+            throw new \Exception(
                 _('A valid response is not yet available, please make a request first'),
                 GENGO_EXCEPTION_NO_RESPONSE_AVAILABLE_YET
             );
@@ -178,11 +176,10 @@ abstract class API
         if (is_numeric($id) === false) {
             $id = Config::get($name);
             if (is_numeric($id) === false) {
-                throw new Exception('ID '.$name.' '._('is not set'), GENGO_EXCEPTION_ID_IS_NOT_SET);
+                throw new \Exception('ID '.$name.' '._('is not set'), GENGO_EXCEPTION_ID_IS_NOT_SET);
             }
         }
 
         return (int) $id;
     } //end getID()
 } //end class
-;

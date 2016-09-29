@@ -184,4 +184,3 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         Config::setRevisionID('wrong_id');
     } //end testRefusesToAcceptInvalidPreconfiguredRevisionId()
 } //end class
-;
