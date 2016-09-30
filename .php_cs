@@ -6,6 +6,6 @@ $finder = Symfony\CS\Finder\DefaultFinder::create()
 ;
 
 return Symfony\CS\Config\Config::create()
-    ->fixers(array('-psr0'))
+    ->fixers(array('-psr0', '-phpdoc_no_package'))
     ->finder($finder)
 ;

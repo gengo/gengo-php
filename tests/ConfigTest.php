@@ -2,6 +2,8 @@
 
 /**
  * PHP version 5.6.
+ *
+ * @package Gengo\Tests
  */
 
 namespace Gengo\Tests;
