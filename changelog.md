@@ -1,11 +1,46 @@
 # Change Log
 
+## [3.0.0] - 29 September 2016
+### Changed
+- Added support for account/me endpoint
+- No longer using Zend library, new Zend Framework is quite heavy. Using logics/http package as lightweight alternative
+- Removed redundant class Gengo_Exception
+- Added docblocks for PHPDocumentor automatic documentation
+- Strict compliance to Beauty coding standard
+- Dropped useless constructors
+- getGlossaries() did not use $page_size , removed
+- No more debug option: inline debugging is bad for performance - use PHPUnit and phpdbg instead
+- Removed API::factory() method
+- Removed Gengo_Crypto class, moved to API class
+- There no reason to have configurable useragent string: only webserver concerned is gengo.com and it is better for it to know actual API client name
+- Dropped support for config.ini file: default config values can be hardcoded, rest should be applied at runtime through \Gengo\Config class
+- \Gengo\Config is a static class, solely responsible for settings sanity checks
+- api_key and private_key should be set through Config::set() prior API calls, passing them to each API client on each invocation is no longer needed
+- Removed setBaseUrl() as there only two endpoints for gengo.com , added \Gengo\Config::useProduction() method which must be called prior to all calls to live API
+- In PHPUnit's assertEquals() expected value comes first
+- Response format is controlled solely through \Gengo\Config::setResponseFormat() method
+- Fixed broken Gengo_Jobs->cancel() - digital signature was incorrectly computed
+- Added missing Job->archive() method
+- Removed Jobs->cancel() as this method is not listed in Gengo API
+- Jobs->getJobs() was not really doing what it was ought to do and was mixed with Jobs by ID. Now accepts parameters for filtering.
+- Added Jobs->getJobsByID() method as per Gengo API
+- Method Service->getLanguagePairs() now supports optional filterin as per Gengo API
+- Dropped support for non-"v2" API in Jobs API
+- Removed Glossary methods which are not listed in official Gengo API
+- Fixed the issue #37: aproval 'rating' should follow official Gengo API
+- Removed support for file_attachments in Jobs->postJobs() as it does not exist in official Gengo API
+- All examples now are actual tests
+- All Gengo API calls now return responses on API function call
+- Switched on HTTP keep-alive: we should keep HTTP connection alive to speed up communication with Gengo server
+- 100% test coverage
+
 ## [2.1.7] - 29 September 2016
 ### Changed
 - Added suport for account/me endpoint
 
 ## [2.1.6] - 28 October 2015
 ### Changed
+
 - Added support for tone and purpose at the order level
 - Updated "postTranslateJobs.php" example file
 
