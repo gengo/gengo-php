@@ -29,9 +29,7 @@
         "ext-gettext": "*",
         "ext-hash": "*",
         "ext-json": "*",
-        "ext-pcre": "*",
-        "logics/http": "^0.1",
-        "friendsofphp/php-cs-fixer": "^1.12.1"
+        "logics/http": "^0.1||dev-trunk"
     },
     "require-dev": {
         "pdepend/pdepend": "^2.2",
@@ -41,6 +39,7 @@
         "phpdocumentor/phpdocumentor": "^2.9",
         "mamuz/php-dependency-analysis": "^0.6",
         "phpunit/phpunit": "^4.8",
+        "friendsofphp/php-cs-fixer": "^1.0",
         "logics/codesniffer": "^0.1",
         "logics/configgenerator": "^0.1",
         "logics/extcheck": "^0.1"

@@ -1,6 +1,6 @@
 language: php
 install:
-  - composer install --no-dev
+  - composer install
 php:
   - 5.6
 script:
