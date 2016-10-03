@@ -15,6 +15,7 @@ Installing the library is simple. Just add it to "require" of your composer.json
 
 Then inside of your code you can call:
 
+```php
 \Gengo\Config::setAPIkey("your_api_key");
 \Gengo\Config::setPrivateKey("your_private_key");
 
@@ -33,10 +34,13 @@ $jobs = array("job_01" => $job1);
 $api = new \Gengo\Jobs();
 $api->postJobs($jobs);
 $response = json_decode($api->getResponseBody(), true);
+```
 
 When you are ready to go live insert the following before calls to Gengo:
 
+```php
 \Gengo\Config::useProduction();
+```
 
 You can read through files in tests folder for more usage examples.
 

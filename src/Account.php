@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PHP version 5.6
+ * PHP version 5.6.
  *
  * @package Gengo
  */
@@ -9,7 +9,7 @@
 namespace Gengo;
 
 /**
- * Account API client class
+ * Account API client class.
  *
  * LICENSE
  *
@@ -24,67 +24,74 @@ namespace Gengo;
  * @author    Vladimir Bashkirtsev <vladimir@bashkirtsev.com>
  * @copyright 2009-2016 Gengo, Inc. (http://gengo.com)
  * @license   http://gengo.com/services/api/dev-docs/gengo-code-license New BSD License
+ *
  * @version   GIT: $Id:$
+ *
  * @link      https://github.com/gengo/gengo-php
  */
-
 class Account extends API
+{
+    /**
+     * Retrieves account stats, such as orders made.
+     *
+     * Calls account/stats (GET)
+     *
+     * @return string Gengo response
+     *
+     * @untranslatable v2/account/stats
+     *
+     * @api
+     */
+    public function getStats()
     {
+        return $this->storeResponse(Client::get('v2/account/stats'));
+    } //end getStats()
 
-	/**
-	 * Retrieves account stats, such as orders made.
-	 *
-	 * Calls account/stats (GET)
-	 *
-	 * @return string Gengo response
-	 *
-	 * @untranslatable v2/account/stats
-	 *
-	 * @api
-	 */
+    /**
+     * Retrieves account balance in credits.
+     *
+     * Calls account/balance (GET)
+     *
+     * @return string Gengo response
+     *
+     * @untranslatable v2/account/balance
+     *
+     * @api
+     */
+    public function getBalance()
+    {
+        return $this->storeResponse(Client::get('v2/account/balance'));
+    } //end getBalance()
 
-	public function getStats()
-	    {
-		return $this->storeResponse(Client::get("v2/account/stats"));
-	    } //end getStats()
+    /**
+     * Retrieves preferred translators as array by langs and tier.
+     *
+     * Calls account/preferred_translators (GET)
+     *
+     * @return string Gengo response
+     *
+     * @untranslatable v2/account/preferred_translators
+     *
+     * @api
+     */
+    public function getPreferredTranslators()
+    {
+        return $this->storeResponse(Client::get('v2/account/preferred_translators'));
+    } //end getPreferredTranslators()
 
-
-	/**
-	 * Retrieves account balance in credits
-	 *
-	 * Calls account/balance (GET)
-	 *
-	 * @return string Gengo response
-	 *
-	 * @untranslatable v2/account/balance
-	 *
-	 * @api
-	 */
-
-	public function getBalance()
-	    {
-		return $this->storeResponse(Client::get("v2/account/balance"));
-	    } //end getBalance()
-
-
-	/**
-	 * Retrieves preferred translators as array by langs and tier.
-	 *
-	 * Calls account/preferred_translators (GET)
-	 *
-	 * @return string Gengo response
-	 *
-	 * @untranslatable v2/account/preferred_translators
-	 *
-	 * @api
-	 */
-
-	public function getPreferredTranslators()
-	    {
-		return $this->storeResponse(Client::get("v2/account/preferred_translators"));
-	    } //end getPreferredTranslators()
-
-
-    } //end class
-
-?>
+    /**
+     * Retrieves the details of the authenticated user.
+     *
+     * Calls account/me (GET)
+     *
+     * @return string Gengo response
+     *
+     * @untranslatable v2/account/me
+     *
+     * @api
+     */
+    public function getMe()
+    {
+        return $this->storeResponse(Client::get('v2/account/me'));
+    } //end getMe()
+} //end class
