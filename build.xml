@@ -15,11 +15,16 @@
  <!-- Remove composer files -->
  <target name="decompose">
   <delete dir="vendor"/>
+  <delete dir="vendor_production"/>
   <delete file="composer.lock"/>
  </target>
 
  <!-- Download dependencies -->
  <target name="dependencies">
+  <exec executable="composer" failonerror="true">
+   <env key="COMPOSER_VENDOR_DIR" value="vendor_production"/>
+   <arg line="update --no-dev" />
+  </exec>
   <exec executable="composer" failonerror="true">
    <arg line="update" />
   </exec>
@@ -34,8 +39,8 @@
 
  <!-- Generate exceptions.php files -->
  <target name="exceptions">
-  <exec executable="vendor/bin/configgenerator">
-   <arg line="${basedir} '${copyright}' '${license}' ${basedir}/src/exceptions.php" />
+  <exec executable="vendor/bin/configgenerator" failonerror="true">
+   <arg line="${basedir} '${copyright}' '${license}' ${basedir}/src/exceptions.php --exclude vendor" />
   </exec>
  </target>
 
@@ -63,7 +68,7 @@
   <mkdir dir="${basedir}/build/logs"/>
   <mkdir dir="${basedir}/build/pdepend"/>
   <exec executable="vendor/bin/pdepend">
-   <arg line="--jdepend-xml=${basedir}/build/logs/jdepend.xml --overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg --jdepend-chart=${basedir}/build/pdepend/dependencies.svg ${basedir}/src" />
+   <arg line="--jdepend-xml=${basedir}/build/logs/jdepend.xml --overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg --jdepend-chart=${basedir}/build/pdepend/dependencies.svg --ignore=vendor,vendor_production,tests ${basedir}" />
   </exec>
  </target>
 
@@ -71,7 +76,7 @@
  <target name="phpmd">
   <mkdir dir="${basedir}/build/logs"/>
   <exec executable="vendor/bin/phpmd">
-   <arg line="${basedir} xml codesize,unusedcode --exclude vendor --reportfile ${basedir}/build/logs/pmd.xml" />
+   <arg line="${basedir} xml codesize,unusedcode --exclude vendor,vendor_production --reportfile ${basedir}/build/logs/pmd.xml" />
   </exec>
  </target>
 
@@ -79,7 +84,7 @@
  <target name="phploc">
   <mkdir dir="${basedir}/build/logs"/>
   <exec executable="vendor/bin/phploc">
-   <arg line="--log-csv ${basedir}/build/logs/phploc.csv ${basedir}/src" />
+   <arg line="--log-csv ${basedir}/build/logs/phploc.csv --exclude=vendor --exclude=vendor_production --exclude=tests ${basedir}" />
   </exec>
  </target>
 
@@ -87,7 +92,7 @@
  <target name="phpcpd">
   <mkdir dir="${basedir}/build/logs"/>
   <exec executable="vendor/bin/phpcpd">
-   <arg line="--log-pmd ${basedir}/build/logs/pmd-cpd.xml --exclude vendor ${basedir}" />
+   <arg line="--log-pmd ${basedir}/build/logs/pmd-cpd.xml --exclude vendor --exclude vendor_production ${basedir}" />
   </exec>
  </target>
 
@@ -95,7 +100,7 @@
  <target name="phpcs">
   <mkdir dir="${basedir}/build/logs"/>
   <exec executable="vendor/bin/phpcs" output="/dev/null">
-   <arg line="--report=checkstyle --report-file=${basedir}/build/logs/checkstyle.xml --ignore=vendor ${basedir}" />
+   <arg line="--report=checkstyle --report-file=${basedir}/build/logs/checkstyle.xml --ignore=vendor --ignore=vendor_production ${basedir}" />
   </exec>
  </target>
 
@@ -103,7 +108,7 @@
  <target name="phpdoc">
   <mkdir dir="${basedir}/build/api"/>
   <exec executable="vendor/bin/phpdoc">
-   <arg line="-d ${basedir} -t build/api --title='${ant.project.name}' --defaultpackagename=Gengo --ignore-tags=untranslatable,donottranslate,requiredconst,optionalconst,internalconst,codeCoverageIgnore,dataProvider,depends,expectedException,expectedExceptionMessage,expectedExceptionMessageRegExp,requires,runTestsInSeparateProcesses,runInSeparateProcess,soap,soap-header-input,soap-header-output,soap-wsdl,soap-indicator --template='responsive-twig' --ignore=vendor/" />
+   <arg line="-d ${basedir} -t build/api --title='${ant.project.name} documentation' --defaultpackagename=Logics --ignore-tags=untranslatable,donottranslate,requiredconst,optionalconst,internalconst,codeCoverageIgnore,dataProvider,depends,expectedException,expectedExceptionMessage,expectedExceptionMessageRegExp,requires,runTestsInSeparateProcesses,runInSeparateProcess,soap,soap-header-input,soap-header-output,soap-wsdl,soap-indicator --template='responsive-twig' --ignore=vendor/ --ignore=vendor_production/" />
   </exec>
  </target>
 
