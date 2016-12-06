@@ -71,7 +71,7 @@ class APITest extends PHPUnit_Framework_TestCase
      * Test exception if no API key is set.
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage No API key is set
      */
     public function testThrowsExceptionIfNoApiKeyIsSet()
@@ -84,7 +84,7 @@ class APITest extends PHPUnit_Framework_TestCase
      * Test exception if no private key is set.
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage No private key is set
      *
      * @requiredconst GENGO_PUBKEY "pubkeyfortests" Gengo test public key
@@ -100,7 +100,7 @@ class APITest extends PHPUnit_Framework_TestCase
      * Test exception on attempt to retrieve a response before making a request.
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage A valid response is not yet available, please make a request first
      *
      * @requiredconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
