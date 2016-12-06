@@ -70,6 +70,11 @@ class Jobs extends ApproveRejectValidator
             unset($jobs['purpose']);
         }
 
+        if (isset($jobs['reference_id']) === true) {
+            $data['reference_id'] = $jobs['reference_id'];
+            unset($jobs['reference_id']);
+        }
+
         $data['jobs'] = $jobs;
 
         $params = array(
