@@ -183,7 +183,7 @@ class Job extends ApproveRejectValidator
 
         $id = $this->getID($id, 'job_id');
 
-        return $this->storeResponse(Client::put('v2/translate/jobs/'.$id, $params));
+        return $this->storeResponse(Client::put('v2/translate/job/'.$id, $params));
     } //end archive()
 
     /**
