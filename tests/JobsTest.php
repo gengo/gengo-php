@@ -71,6 +71,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
         $jobs = array('job_01' => $job1);
         $jobs['tone'] = 'friendly';
         $jobs['purpose'] = 'Blog Post';
+        $jobs['reference_id'] = 2016;
 
         $response = json_decode($jobsAPI->postJobs($jobs), true);
         $this->assertEquals('ok', $response['opstat']);
