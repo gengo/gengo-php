@@ -142,7 +142,7 @@ class JobTest extends PHPUnit_Framework_TestCase
      * @param int $jobid Job ID
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage "comment" is required
      *
      * @depends testAllowsToPostNewOrderWithNewJobs
@@ -237,7 +237,7 @@ class JobTest extends PHPUnit_Framework_TestCase
      * @param int $jobid Job ID
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage job should contain a valid rating
      *
      * @depends testAllowsToPostNewOrderWithNewJobs
@@ -273,7 +273,7 @@ class JobTest extends PHPUnit_Framework_TestCase
      * @param int $jobid Job ID
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage job must contain a valid reason
      *
      * @depends testAllowsToPostNewOrderWithNewJobs
@@ -291,7 +291,7 @@ class JobTest extends PHPUnit_Framework_TestCase
      * @param int $jobid Job ID
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage if set, job should contain a valid follow up
      *
      * @depends testAllowsToPostNewOrderWithNewJobs
@@ -309,7 +309,7 @@ class JobTest extends PHPUnit_Framework_TestCase
      * @param int $jobid Job ID
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage job must contain a reason, a comment and a captcha
      *
      * @depends testAllowsToPostNewOrderWithNewJobs
@@ -370,7 +370,7 @@ class JobTest extends PHPUnit_Framework_TestCase
      * @param int $jobid Job ID
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage must contain a valid "body" parameter as the comment
      *
      * @depends testAllowsToPostNewOrderWithNewJobs

@@ -122,7 +122,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
      * Test validation of url_attachments.
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage URL attachment must be an array
      */
     public function testChecksVaildityOfUrlAttachments()
@@ -152,7 +152,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
      * Test that url_attachments must point to proper http(s) resource.
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage URL attachment must point to public URL with http(s) scheme
      */
     public function testRequiresUrlAttachmentsToPointToHttpResource()
@@ -188,7 +188,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
      * Test that url_attachments must have filename.
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage URL attachment filename must be specified
      */
     public function testRequiresUrlAttachmentsToHaveFileName()
@@ -224,7 +224,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
      * Test that url_attachments must have MIME type.
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage URL attachment MIME type must be specified
      */
     public function testRequiresUrlAttachmentsToHaveMimeType()
@@ -282,7 +282,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
      * Test refusal to retrieve a list of resources for the most recent job if wrong status is provided.
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage "status" must contain a valid status
      */
     public function testRefusesToRetrieveAListOfResourcesForTheMostRecentJobsIfWrongStatusIsProvided()
@@ -296,7 +296,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
      * Test refusal to retrieve a list of resources for the most recent job if wrong time stamp is provided.
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage "timestampafter" must be non-negative integer
      */
     public function testRefusesToRetrieveAListOfResourcesForTheMostRecentJobsIfWrongTimeStampIsProvided()
@@ -310,7 +310,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
      * Test refusal to retrieve a list of resources for the most recent job if wrong count requested.
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage "count" must be integer in range between 1 and 200
      */
     public function testRefusesToRetrieveAListOfResourcesForTheMostRecentJobsIfWrongCountRequested()
@@ -472,7 +472,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
      * @param array $jobids Job identifiers
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage "comment" is required
      *
      * @depends testRetrievesAListOfJobsByAListOfJobIds
@@ -495,7 +495,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
      * @param array $jobids Job identifiers
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage All jobs require job_id field
      *
      * @depends testRetrievesAListOfJobsByAListOfJobIds
@@ -518,7 +518,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
      * @param array $jobids Job identifiers
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage Invalid job_id supplied
      *
      * @depends testRetrievesAListOfJobsByAListOfJobIds

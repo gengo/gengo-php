@@ -66,7 +66,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
      * Test different response formats.
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage Invalid response format wrong_format, accepted formats are: xml or json
      *
      * @requiredconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
@@ -95,7 +95,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
      * Test exception on attempt to set wrong API key.
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage Invalid API key
      */
     public function testRefusesToAcceptWrongApiKey()
@@ -107,7 +107,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
      * Test exception on attempt to set wrong private key.
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage Invalid private key
      */
     public function testRefusesToAcceptWrongPrivateKey()
@@ -146,7 +146,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
      * Test that exception is thrown if no job and revision IDs are preconfigured and job API call is made without job/revision ID.
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage ID job_id is not set
      *
      * @requiredconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
@@ -166,7 +166,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
      * Test refusal to accept wrong job ID.
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage Invalid job ID
      */
     public function testRefusesToAcceptInvalidPreconfiguredJobId()
@@ -178,7 +178,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
      * Test refusal to accept wrong revision ID.
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage Invalid revision ID
      */
     public function testRefusesToAcceptInvalidPreconfiguredRevisionId()
