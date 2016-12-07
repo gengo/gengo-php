@@ -130,7 +130,7 @@ class OrderTest extends PHPUnit_Framework_TestCase
      * @param int $orderid Order ID
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage must contain a valid "body" parameter as the comment
      *
      * @depends testAllowsToPostNewJobs

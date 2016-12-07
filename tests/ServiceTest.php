@@ -147,7 +147,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
      * Test refuses to provide quotation if file_key parameter is missing.
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage is missing file_key parameter
      */
     public function testRefusesToProvideQuotationIfFileKeyParameterIsMissing()
@@ -172,7 +172,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
      * Test refuses to provide quotation if file_key parameter is invalid.
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage is not a valid file_key parameter
      */
     public function testRefusesToProvideQuotationIfFileKeyParameterIsInvalid()
@@ -198,7 +198,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
      * Test refuses to provide quotation if file_key parameter does not have corresponding record in files array.
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage is missing in filepath array
      */
     public function testRefusesToProvideQuotationIfFileKeyParameterDoesNotHaveCorrespondingRecordInFilesArray()
@@ -224,7 +224,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
      * Test refuses to provide quotation if file specified in file array does not exist.
      *
      *
-     * @expectedException        Exception
+     * @expectedException        \Exception
      * @expectedExceptionMessage Could not find file
      */
     public function testRefusesToProvideQuotationIfFileSpecifiedInFileArrayDoesNotExist()
