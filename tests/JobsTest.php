@@ -686,7 +686,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
                             'tier' => 'standard',
                             'force' => 1,
                         ),
-                    )
+                    ),
                     'tone' => 'friendly',
                     'purpose' => 'Blog Post',
                     'reference_id' => 'gengo'
@@ -706,7 +706,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
                             'tier' => 'standard',
                             'force' => 1,
                         ),
-                    )
+                    ),
                     'tone' => 'friendly',
                     'purpose' => 'Blog Post',
                     'reference_id' => '1234'
