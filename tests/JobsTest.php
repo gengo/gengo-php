@@ -644,11 +644,10 @@ class JobsTest extends PHPUnit_Framework_TestCase
     } //end testArchiveApprovedJob()
 
     /**
-     * Test jobs with reference_id
+     * Test jobs with reference_id.
      *
      * @param  array
-     * @param  boolean
-     * 
+     * @param  bool
      * @dataProvider jobWithReferenceProvider
      */
     public function testJobWithReferenceId($data, $valid)
@@ -666,8 +665,8 @@ class JobsTest extends PHPUnit_Framework_TestCase
     } //end testJobWithReferenceId()
 
     /**
-     * Data provider for testJobWithReferenceId
-     * 
+     * Data provider for testJobWithReferenceId.
+     *
      * @return array
      */
     public function jobWithReferenceProvider()
@@ -687,29 +686,28 @@ class JobsTest extends PHPUnit_Framework_TestCase
                     ),
                     'tone' => 'friendly',
                     'purpose' => 'Blog Post',
-                    'reference_id' => 'gengo'
+                    'reference_id' => 'gengo',
                 ),
-                false
+                false,
             ),
             // valid reference_id
-            // array(
-            //     array(
-            //         'job_01' => array(
-            //             'type' => 'text',
-            //             'slug' => 'API Liverpool 1',
-            //             'body_src' => 'Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside.',
-            //             'lc_src' => 'en',
-            //             'lc_tgt' => 'ja',
-            //             'tier' => 'standard',
-            //             'force' => 1,
-            //         ),
-            //         'tone' => 'friendly',
-            //         'purpose' => 'Blog Post',
-            //         'reference_id' => '1234'
-            //     ),
-            //     true
-            // ),
+            array(
+                array(
+                    'job_01' => array(
+                        'type' => 'text',
+                        'slug' => 'API Liverpool 1',
+                        'body_src' => 'Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside.',
+                        'lc_src' => 'en',
+                        'lc_tgt' => 'ja',
+                        'tier' => 'standard',
+                        'force' => 1,
+                    ),
+                    'tone' => 'friendly',
+                    'purpose' => 'Blog Post',
+                    'reference_id' => '1234',
+                ),
+                true,
+            ),
         );
     } //end jobWithReferenceProvider()
-
 } //end class
