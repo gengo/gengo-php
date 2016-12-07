@@ -676,15 +676,17 @@ class JobsTest extends PHPUnit_Framework_TestCase
             // invalid reference_id
             array(
                 array(
-                    'job_01' => array(
-                        'type' => 'text',
-                        'slug' => 'API Liverpool 1',
-                        'body_src' => 'Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside.',
-                        'lc_src' => 'en',
-                        'lc_tgt' => 'ja',
-                        'tier' => 'standard',
-                        'force' => 1,
-                    ),
+                    'jobs' => array(
+                        'job_01' => array(
+                            'type' => 'text',
+                            'slug' => 'API Liverpool 1',
+                            'body_src' => 'Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside.',
+                            'lc_src' => 'en',
+                            'lc_tgt' => 'ja',
+                            'tier' => 'standard',
+                            'force' => 1,
+                        ),
+                    )
                     'tone' => 'friendly',
                     'purpose' => 'Blog Post',
                     'reference_id' => 'gengo'
@@ -694,15 +696,17 @@ class JobsTest extends PHPUnit_Framework_TestCase
             // valid reference_id
             array(
                 array(
-                    'job_01' => array(
-                        'type' => 'text',
-                        'slug' => 'API Liverpool 1',
-                        'body_src' => 'Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside.',
-                        'lc_src' => 'en',
-                        'lc_tgt' => 'ja',
-                        'tier' => 'standard',
-                        'force' => 1,
-                    ),
+                    'jobs' => array(
+                        'job_01' => array(
+                            'type' => 'text',
+                            'slug' => 'API Liverpool 1',
+                            'body_src' => 'Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside.',
+                            'lc_src' => 'en',
+                            'lc_tgt' => 'ja',
+                            'tier' => 'standard',
+                            'force' => 1,
+                        ),
+                    )
                     'tone' => 'friendly',
                     'purpose' => 'Blog Post',
                     'reference_id' => '1234'
