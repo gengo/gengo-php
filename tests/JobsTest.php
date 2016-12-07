@@ -71,7 +71,6 @@ class JobsTest extends PHPUnit_Framework_TestCase
         $jobs = array('job_01' => $job1);
         $jobs['tone'] = 'friendly';
         $jobs['purpose'] = 'Blog Post';
-        $jobs['reference_id'] = 2016;
 
         $response = json_decode($jobsAPI->postJobs($jobs), true);
         $this->assertEquals('ok', $response['opstat']);
@@ -643,4 +642,74 @@ class JobsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('error', $response['opstat']);
         $this->assertEquals('unauthorized job access', $response['err']['msg']);
     } //end testArchiveApprovedJob()
+
+    /**
+     * Test jobs with reference_id
+     *
+     * @param  array
+     * @param  boolean
+     * 
+     * @dataProvider jobWithReferenceProvider
+     */
+    public function testJobWithReferenceId($jobs, $valid)
+    {
+        $jobsAPI = new Jobs();
+        $response = json_decode($jobsAPI->postJobs($jobs), true);
+
+        if (true === $valid) {
+            $this->assertEquals('ok', $response['opstat']);
+            $this->assertTrue(isset($response['response']['order_id']));
+        } else {
+            $this->assertEquals('error', $response['opstat']);
+            $this->assertEquals($response['err']['msg'], '"reference_id" must be an integer greater or equal 0');
+        }
+    } //end testJobWithReferenceId()
+
+    /**
+     * Data provider for testJobWithReferenceId
+     * 
+     * @return array
+     */
+    public function jobWithReferenceProvider()
+    {
+        return array(
+            // invalid reference_id
+            array(
+                array(
+                    'job_01' => array(
+                        'type' => 'text',
+                        'slug' => 'API Liverpool 1',
+                        'body_src' => 'Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside.',
+                        'lc_src' => 'en',
+                        'lc_tgt' => 'ja',
+                        'tier' => 'standard',
+                        'force' => 1,
+                    ),
+                    'tone' => 'friendly',
+                    'purpose' => 'Blog Post',
+                    'reference_id' => 'gengo'
+                ),
+                false
+            ),
+            // valid reference_id
+            array(
+                array(
+                    'job_01' => array(
+                        'type' => 'text',
+                        'slug' => 'API Liverpool 1',
+                        'body_src' => 'Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside.',
+                        'lc_src' => 'en',
+                        'lc_tgt' => 'ja',
+                        'tier' => 'standard',
+                        'force' => 1,
+                    ),
+                    'tone' => 'friendly',
+                    'purpose' => 'Blog Post',
+                    'reference_id' => '1234'
+                ),
+                true
+            ),
+        );
+    } //end jobWithReferenceProvider()
+
 } //end class
