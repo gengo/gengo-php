@@ -651,10 +651,10 @@ class JobsTest extends PHPUnit_Framework_TestCase
      * 
      * @dataProvider jobWithReferenceProvider
      */
-    public function testJobWithReferenceId($jobs, $valid)
+    public function testJobWithReferenceId($data, $valid)
     {
         $jobsAPI = new Jobs();
-        $response = json_decode($jobsAPI->postJobs($jobs), true);
+        $response = json_decode($jobsAPI->postJobs($data), true);
 
         if (true === $valid) {
             $this->assertEquals('ok', $response['opstat']);
@@ -676,16 +676,14 @@ class JobsTest extends PHPUnit_Framework_TestCase
             // invalid reference_id
             array(
                 array(
-                    'jobs' => array(
-                        'job_01' => array(
-                            'type' => 'text',
-                            'slug' => 'API Liverpool 1',
-                            'body_src' => 'Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside.',
-                            'lc_src' => 'en',
-                            'lc_tgt' => 'ja',
-                            'tier' => 'standard',
-                            'force' => 1,
-                        ),
+                    'job_01' => array(
+                        'type' => 'text',
+                        'slug' => 'API Liverpool 1',
+                        'body_src' => 'Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside.',
+                        'lc_src' => 'en',
+                        'lc_tgt' => 'ja',
+                        'tier' => 'standard',
+                        'force' => 1,
                     ),
                     'tone' => 'friendly',
                     'purpose' => 'Blog Post',
@@ -694,25 +692,23 @@ class JobsTest extends PHPUnit_Framework_TestCase
                 false
             ),
             // valid reference_id
-            array(
-                array(
-                    'jobs' => array(
-                        'job_01' => array(
-                            'type' => 'text',
-                            'slug' => 'API Liverpool 1',
-                            'body_src' => 'Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside.',
-                            'lc_src' => 'en',
-                            'lc_tgt' => 'ja',
-                            'tier' => 'standard',
-                            'force' => 1,
-                        ),
-                    ),
-                    'tone' => 'friendly',
-                    'purpose' => 'Blog Post',
-                    'reference_id' => '1234'
-                ),
-                true
-            ),
+            // array(
+            //     array(
+            //         'job_01' => array(
+            //             'type' => 'text',
+            //             'slug' => 'API Liverpool 1',
+            //             'body_src' => 'Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside.',
+            //             'lc_src' => 'en',
+            //             'lc_tgt' => 'ja',
+            //             'tier' => 'standard',
+            //             'force' => 1,
+            //         ),
+            //         'tone' => 'friendly',
+            //         'purpose' => 'Blog Post',
+            //         'reference_id' => '1234'
+            //     ),
+            //     true
+            // ),
         );
     } //end jobWithReferenceProvider()
 
