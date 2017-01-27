@@ -41,8 +41,8 @@ class AccountTest extends PHPUnit_Framework_TestCase
      * Set up tests.
      *
      *
-     * @requiredconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
-     * @requiredconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
+     * @internalconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
+     * @internalconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
      */
     public function setUp()
     {

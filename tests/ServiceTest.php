@@ -8,6 +8,7 @@
 
 namespace Gengo\Tests;
 
+use Exception;
 use Gengo\Config;
 use Gengo\Service;
 use PHPUnit_Framework_TestCase;
@@ -43,8 +44,8 @@ class ServiceTest extends PHPUnit_Framework_TestCase
      * Set up tests.
      *
      *
-     * @requiredconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
-     * @requiredconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
+     * @internalconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
+     * @internalconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
      */
     public function setUp()
     {
@@ -145,10 +146,6 @@ class ServiceTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test refuses to provide quotation if file_key parameter is missing.
-     *
-     *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage is missing file_key parameter
      */
     public function testRefusesToProvideQuotationIfFileKeyParameterIsMissing()
     {
@@ -165,15 +162,13 @@ class ServiceTest extends PHPUnit_Framework_TestCase
 
         $serviceAPI = new Service();
 
+        $this->expectException(Exception::CLASS);
+        $this->expectExceptionMessage('is missing file_key parameter');
         $serviceAPI->quote($jobs, $files);
     } //end testRefusesToProvideQuotationIfFileKeyParameterIsMissing()
 
     /**
      * Test refuses to provide quotation if file_key parameter is invalid.
-     *
-     *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage is not a valid file_key parameter
      */
     public function testRefusesToProvideQuotationIfFileKeyParameterIsInvalid()
     {
@@ -191,15 +186,13 @@ class ServiceTest extends PHPUnit_Framework_TestCase
 
         $serviceAPI = new Service();
 
+        $this->expectException(Exception::CLASS);
+        $this->expectExceptionMessage('is not a valid file_key parameter');
         $serviceAPI->quote($jobs, $files);
     } //end testRefusesToProvideQuotationIfFileKeyParameterIsInvalid()
 
     /**
      * Test refuses to provide quotation if file_key parameter does not have corresponding record in files array.
-     *
-     *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage is missing in filepath array
      */
     public function testRefusesToProvideQuotationIfFileKeyParameterDoesNotHaveCorrespondingRecordInFilesArray()
     {
@@ -217,15 +210,13 @@ class ServiceTest extends PHPUnit_Framework_TestCase
 
         $serviceAPI = new Service();
 
+        $this->expectException(Exception::CLASS);
+        $this->expectExceptionMessage('is missing in filepath array');
         $serviceAPI->quote($jobs, $files);
     } //end testRefusesToProvideQuotationIfFileKeyParameterDoesNotHaveCorrespondingRecordInFilesArray()
 
     /**
      * Test refuses to provide quotation if file specified in file array does not exist.
-     *
-     *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage Could not find file
      */
     public function testRefusesToProvideQuotationIfFileSpecifiedInFileArrayDoesNotExist()
     {
@@ -243,6 +234,8 @@ class ServiceTest extends PHPUnit_Framework_TestCase
 
         $serviceAPI = new Service();
 
+        $this->expectException(Exception::CLASS);
+        $this->expectExceptionMessage('Could not find file');
         $serviceAPI->quote($jobs, $files);
     } //end testRefusesToProvideQuotationIfFileSpecifiedInFileArrayDoesNotExist()
 } //end class

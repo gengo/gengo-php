@@ -8,6 +8,7 @@
 
 namespace Gengo\Tests;
 
+use Exception;
 use Gengo\Config;
 use Gengo\Job;
 use PHPUnit_Framework_TestCase;
@@ -45,8 +46,8 @@ class ConfigTest extends PHPUnit_Framework_TestCase
      * Error is expected as we do not have production keys
      *
      *
-     * @requiredconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
-     * @requiredconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
+     * @internalconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
+     * @internalconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
      */
     public function testProvidesEasyWayToSwitchToGengoProductionServer()
     {
@@ -66,11 +67,8 @@ class ConfigTest extends PHPUnit_Framework_TestCase
      * Test different response formats.
      *
      *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage Invalid response format wrong_format, accepted formats are: xml or json
-     *
-     * @requiredconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
-     * @requiredconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
+     * @internalconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
+     * @internalconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
      */
     public function testAllowsSelectionOfResponseFormatAsJsonOrXml()
     {
@@ -88,30 +86,28 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(simplexml_load_string($jobAPI->getJob(1)) !== false);
         libxml_use_internal_errors(false);
 
+        $this->expectException(Exception::CLASS);
+        $this->expectExceptionMessage('Invalid response format wrong_format, accepted formats are: xml or json');
         Config::setResponseFormat('wrong_format');
     } //end testAllowsSelectionOfResponseFormatAsJsonOrXml()
 
     /**
      * Test exception on attempt to set wrong API key.
-     *
-     *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage Invalid API key
      */
     public function testRefusesToAcceptWrongApiKey()
     {
+        $this->expectException(Exception::CLASS);
+        $this->expectExceptionMessage('Invalid API key');
         Config::setAPIkey(123);
     } //end testRefusesToAcceptWrongApiKey()
 
     /**
      * Test exception on attempt to set wrong private key.
-     *
-     *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage Invalid private key
      */
     public function testRefusesToAcceptWrongPrivateKey()
     {
+        $this->expectException(Exception::CLASS);
+        $this->expectExceptionMessage('Invalid private key');
         Config::setPrivateKey(123);
     } //end testRefusesToAcceptWrongPrivateKey()
 
@@ -127,8 +123,8 @@ class ConfigTest extends PHPUnit_Framework_TestCase
      * Clearly it is broken JSON and therefore we will assert against string only.
      *
      *
-     * @requiredconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
-     * @requiredconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
+     * @internalconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
+     * @internalconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
      */
     public function testAllowsToPreconfigureJobAndRevisionIdsForUseWithSubsequentJobApiCalls()
     {
@@ -146,11 +142,8 @@ class ConfigTest extends PHPUnit_Framework_TestCase
      * Test that exception is thrown if no job and revision IDs are preconfigured and job API call is made without job/revision ID.
      *
      *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage ID job_id is not set
-     *
-     * @requiredconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
-     * @requiredconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
+     * @internalconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
+     * @internalconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
      */
     public function testExceptionIsThrownIfJobOrRevisionIdsAreNotPreconfiguredAndJobApiCallIsMadeWithoutThem()
     {
@@ -159,30 +152,28 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
         $jobAPI = new Job();
 
+        $this->expectException(Exception::CLASS);
+        $this->expectExceptionMessage('ID job_id is not set');
         $jobAPI->getRevision();
     } //end testExceptionIsThrownIfJobOrRevisionIdsAreNotPreconfiguredAndJobApiCallIsMadeWithoutThem()
 
     /**
      * Test refusal to accept wrong job ID.
-     *
-     *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage Invalid job ID
      */
     public function testRefusesToAcceptInvalidPreconfiguredJobId()
     {
+        $this->expectException(Exception::CLASS);
+        $this->expectExceptionMessage('Invalid job ID');
         Config::setJobID('wrong_id');
     } //end testRefusesToAcceptInvalidPreconfiguredJobId()
 
     /**
      * Test refusal to accept wrong revision ID.
-     *
-     *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage Invalid revision ID
      */
     public function testRefusesToAcceptInvalidPreconfiguredRevisionId()
     {
+        $this->expectException(Exception::CLASS);
+        $this->expectExceptionMessage('Invalid revision ID');
         Config::setRevisionID('wrong_id');
     } //end testRefusesToAcceptInvalidPreconfiguredRevisionId()
 } //end class
