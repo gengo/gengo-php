@@ -1,5 +1,11 @@
 # Change Log
 
+## [3.0.1] - 04 October 2016
+### Changed
+- cleaned up composer.json
+- moved php-cs-fixer to require-dev, make it run on travis-ci
+- regenerated exceptions.php so it only includes exception codes used by Gengo API package
+
 ## [3.0.0] - 29 September 2016
 ### Changed
 - Added support for account/me endpoint
