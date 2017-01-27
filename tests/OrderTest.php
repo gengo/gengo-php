@@ -137,7 +137,7 @@ class OrderTest extends PHPUnit_Framework_TestCase
     {
         $orderAPI = new Order();
 
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('must contain a valid "body" parameter as the comment');
         $orderAPI->postComment($orderid, '');
     } //end testRefusesToPostEmptyCommentToOrderCommentThread()

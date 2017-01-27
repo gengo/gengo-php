@@ -86,7 +86,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(simplexml_load_string($jobAPI->getJob(1)) !== false);
         libxml_use_internal_errors(false);
 
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('Invalid response format wrong_format, accepted formats are: xml or json');
         Config::setResponseFormat('wrong_format');
     } //end testAllowsSelectionOfResponseFormatAsJsonOrXml()
@@ -96,7 +96,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
      */
     public function testRefusesToAcceptWrongApiKey()
     {
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('Invalid API key');
         Config::setAPIkey(123);
     } //end testRefusesToAcceptWrongApiKey()
@@ -106,7 +106,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
      */
     public function testRefusesToAcceptWrongPrivateKey()
     {
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('Invalid private key');
         Config::setPrivateKey(123);
     } //end testRefusesToAcceptWrongPrivateKey()
@@ -152,7 +152,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
         $jobAPI = new Job();
 
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('ID job_id is not set');
         $jobAPI->getRevision();
     } //end testExceptionIsThrownIfJobOrRevisionIdsAreNotPreconfiguredAndJobApiCallIsMadeWithoutThem()
@@ -162,7 +162,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
      */
     public function testRefusesToAcceptInvalidPreconfiguredJobId()
     {
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('Invalid job ID');
         Config::setJobID('wrong_id');
     } //end testRefusesToAcceptInvalidPreconfiguredJobId()
@@ -172,7 +172,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
      */
     public function testRefusesToAcceptInvalidPreconfiguredRevisionId()
     {
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('Invalid revision ID');
         Config::setRevisionID('wrong_id');
     } //end testRefusesToAcceptInvalidPreconfiguredRevisionId()

@@ -162,7 +162,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
 
         $serviceAPI = new Service();
 
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('is missing file_key parameter');
         $serviceAPI->quote($jobs, $files);
     } //end testRefusesToProvideQuotationIfFileKeyParameterIsMissing()
@@ -186,7 +186,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
 
         $serviceAPI = new Service();
 
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('is not a valid file_key parameter');
         $serviceAPI->quote($jobs, $files);
     } //end testRefusesToProvideQuotationIfFileKeyParameterIsInvalid()
@@ -210,7 +210,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
 
         $serviceAPI = new Service();
 
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('is missing in filepath array');
         $serviceAPI->quote($jobs, $files);
     } //end testRefusesToProvideQuotationIfFileKeyParameterDoesNotHaveCorrespondingRecordInFilesArray()
@@ -234,7 +234,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
 
         $serviceAPI = new Service();
 
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('Could not find file');
         $serviceAPI->quote($jobs, $files);
     } //end testRefusesToProvideQuotationIfFileSpecifiedInFileArrayDoesNotExist()

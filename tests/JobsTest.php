@@ -142,7 +142,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
 
         $jobs = array($job1);
 
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('URL attachment must be an array');
         $jobsAPI->postJobs($jobs);
     } //end testChecksVaildityOfUrlAttachments()
@@ -176,7 +176,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
 
         $jobs = array($job1);
 
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('URL attachment must point to public URL with http(s) scheme');
         $jobsAPI->postJobs($jobs);
     } //end testRequiresUrlAttachmentsToPointToHttpResource()
@@ -210,7 +210,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
 
         $jobs = array($job1);
 
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('URL attachment filename must be specified');
         $jobsAPI->postJobs($jobs);
     } //end testRequiresUrlAttachmentsToHaveFileName()
@@ -244,7 +244,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
 
         $jobs = array($job1);
 
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('URL attachment MIME type must be specified');
         $jobsAPI->postJobs($jobs);
     } //end testRequiresUrlAttachmentsToHaveMimeType()
@@ -278,7 +278,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
     {
         $jobsAPI = new Jobs();
 
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('"status" must contain a valid status');
         $jobsAPI->getJobs('wrong_status', 0, 10);
     } //end testRefusesToRetrieveAListOfResourcesForTheMostRecentJobsIfWrongStatusIsProvided()
@@ -290,7 +290,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
     {
         $jobsAPI = new Jobs();
 
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('"timestampafter" must be non-negative integer');
         $jobsAPI->getJobs('available', -100, 10);
     } //end testRefusesToRetrieveAListOfResourcesForTheMostRecentJobsIfWrongTimeStampIsProvided()
@@ -302,7 +302,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
     {
         $jobsAPI = new Jobs();
 
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('"count" must be integer in range between 1 and 200');
         $jobsAPI->getJobs('available', 0, 0);
     } //end testRefusesToRetrieveAListOfResourcesForTheMostRecentJobsIfWrongCountRequested()
@@ -470,7 +470,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
              array('job_id' => array_shift($jobids)),
             );
 
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('"comment" is required');
         $jobsAPI->revise($jobs, '');
     } //end testRefusesToReturnAJobToTheTranslatorWithoutAComment()
@@ -492,7 +492,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
              array('job_id' => array_shift($jobids)),
             );
 
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('All jobs require job_id field');
         $jobsAPI->revise($jobs, 'test comment');
     } //end testRefusesToReturnAJobToTheTranslatorIfNoJobIdsAreSpecified()
@@ -514,7 +514,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
              array('job_id' => array_shift($jobids)),
             );
 
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('Invalid job_id supplied');
         $jobsAPI->revise($jobs, 'test comment');
     } //end testRefusesToReturnAJobToTheTranslatorIfJobIdsAreInvalid()

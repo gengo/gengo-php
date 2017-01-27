@@ -73,7 +73,7 @@ class APITest extends PHPUnit_Framework_TestCase
      */
     public function testThrowsExceptionIfNoApiKeyIsSet()
     {
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('No API key is set');
         $accountAPI = new Account();
         unset($accountAPI);
@@ -88,7 +88,7 @@ class APITest extends PHPUnit_Framework_TestCase
     public function testThrowsExceptionIfNoPrivateKeyIsSet()
     {
         Config::setAPIkey(GENGO_PUBKEY);
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('No private key is set');
         $accountAPI = new Account();
         unset($accountAPI);
@@ -108,7 +108,7 @@ class APITest extends PHPUnit_Framework_TestCase
 
         $accountAPI = new Account();
 
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('A valid response is not yet available, please make a request first');
         $body = $accountAPI->getResponseBody();
         unset($body);

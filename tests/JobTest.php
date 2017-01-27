@@ -149,7 +149,7 @@ class JobTest extends PHPUnit_Framework_TestCase
     {
         $jobAPI = new Job();
 
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('"comment" is required');
         $jobAPI->revise($jobid, '');
     } //end testRefusesToReturnAJobToTheTranslatorWithoutAComment()
@@ -243,7 +243,7 @@ class JobTest extends PHPUnit_Framework_TestCase
     {
         $jobAPI = new Job();
 
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('job should contain a valid rating');
         $jobAPI->approve($jobid, array('rating' => 0));
     } //end testRefusesToApproveAJobWithInvalidRating()
@@ -278,7 +278,7 @@ class JobTest extends PHPUnit_Framework_TestCase
     {
         $jobAPI = new Job();
 
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('job must contain a valid reason');
         $jobAPI->reject($jobid, array('reason' => 'wrong_reason', 'comment' => 'comment', 'captcha' => 'captcha'));
     } //end testRefusesToRejectTheTranslationWithWrongReason()
@@ -295,7 +295,7 @@ class JobTest extends PHPUnit_Framework_TestCase
     {
         $jobAPI = new Job();
 
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('if set, job should contain a valid follow up');
         $jobAPI->reject($jobid, array('reason' => 'other', 'comment' => 'comment', 'captcha' => 'captcha', 'follow_up' => 'wrong_followup'));
     } //end testRefusesToRejectTheTranslationWithWrongFollowUp()
@@ -312,7 +312,7 @@ class JobTest extends PHPUnit_Framework_TestCase
     {
         $jobAPI = new Job();
 
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('job must contain a reason, a comment and a captcha');
         $jobAPI->reject($jobid, array());
     } //end testRefusesToRejectTheTranslationWithWrongArguments()
@@ -372,7 +372,7 @@ class JobTest extends PHPUnit_Framework_TestCase
     {
         $jobAPI = new Job();
 
-        $this->expectException(Exception::CLASS);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('must contain a valid "body" parameter as the comment');
         $jobAPI->postComment($jobid, '');
     } //end testRefusesToPostEmptyCommentToJobCommentThread()
