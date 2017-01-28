@@ -8,6 +8,7 @@
 
 namespace Gengo\Tests;
 
+use Exception;
 use Gengo\Config;
 use Gengo\Jobs;
 use Gengo\Order;
@@ -44,8 +45,8 @@ class OrderTest extends PHPUnit_Framework_TestCase
      * Set up tests.
      *
      *
-     * @requiredconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
-     * @requiredconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
+     * @internalconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
+     * @internalconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
      */
     public function setUp()
     {
@@ -130,15 +131,14 @@ class OrderTest extends PHPUnit_Framework_TestCase
      * @param int $orderid Order ID
      *
      *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage must contain a valid "body" parameter as the comment
-     *
      * @depends testAllowsToPostNewJobs
      */
     public function testRefusesToPostEmptyCommentToOrderCommentThread($orderid)
     {
         $orderAPI = new Order();
 
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('must contain a valid "body" parameter as the comment');
         $orderAPI->postComment($orderid, '');
     } //end testRefusesToPostEmptyCommentToOrderCommentThread()
 

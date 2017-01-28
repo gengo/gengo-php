@@ -38,7 +38,7 @@
         "sebastian/phpcpd": "^2.0",
         "phpdocumentor/phpdocumentor": "^2.9",
         "mamuz/php-dependency-analysis": "^0.6",
-        "phpunit/phpunit": "^4.8",
+        "phpunit/phpunit": "^5.7",
         "friendsofphp/php-cs-fixer": "^1.0",
         "logics/codesniffer": "^0.1",
         "logics/configgenerator": "^0.1",

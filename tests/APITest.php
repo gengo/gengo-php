@@ -8,6 +8,7 @@
 
 namespace Gengo\Tests;
 
+use Exception;
 use Gengo\Account;
 use Gengo\Config;
 use PHPUnit_Framework_TestCase;
@@ -45,8 +46,8 @@ class APITest extends PHPUnit_Framework_TestCase
      * Test ability to retrieve response body, response code and response headers.
      *
      *
-     * @requiredconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
-     * @requiredconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
+     * @internalconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
+     * @internalconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
      */
     public function testProvidesResponseBodyAlongWithResponseCodeAndResponseHeaders()
     {
@@ -69,13 +70,11 @@ class APITest extends PHPUnit_Framework_TestCase
 
     /**
      * Test exception if no API key is set.
-     *
-     *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage No API key is set
      */
     public function testThrowsExceptionIfNoApiKeyIsSet()
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('No API key is set');
         $accountAPI = new Account();
         unset($accountAPI);
     } //end testThrowsExceptionIfNoApiKeyIsSet()
@@ -84,14 +83,13 @@ class APITest extends PHPUnit_Framework_TestCase
      * Test exception if no private key is set.
      *
      *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage No private key is set
-     *
-     * @requiredconst GENGO_PUBKEY "pubkeyfortests" Gengo test public key
+     * @internalconst GENGO_PUBKEY "pubkeyfortests" Gengo test public key
      */
     public function testThrowsExceptionIfNoPrivateKeyIsSet()
     {
         Config::setAPIkey(GENGO_PUBKEY);
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('No private key is set');
         $accountAPI = new Account();
         unset($accountAPI);
     } //end testThrowsExceptionIfNoPrivateKeyIsSet()
@@ -100,11 +98,8 @@ class APITest extends PHPUnit_Framework_TestCase
      * Test exception on attempt to retrieve a response before making a request.
      *
      *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage A valid response is not yet available, please make a request first
-     *
-     * @requiredconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
-     * @requiredconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
+     * @internalconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
+     * @internalconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
      */
     public function testThrowsExceptionOnAttemptToRetrieveAResponseBeforeMakingARequest()
     {
@@ -113,6 +108,8 @@ class APITest extends PHPUnit_Framework_TestCase
 
         $accountAPI = new Account();
 
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('A valid response is not yet available, please make a request first');
         $body = $accountAPI->getResponseBody();
         unset($body);
     } //end testThrowsExceptionOnAttemptToRetrieveAResponseBeforeMakingARequest()

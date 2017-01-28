@@ -8,6 +8,7 @@
 
 namespace Gengo\Tests;
 
+use Exception;
 use Gengo\Config;
 use Gengo\Job;
 use Gengo\Jobs;
@@ -43,8 +44,8 @@ class JobTest extends PHPUnit_Framework_TestCase
      * Set up tests.
      *
      *
-     * @requiredconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
-     * @requiredconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
+     * @internalconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
+     * @internalconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
      */
     public function setUp()
     {
@@ -142,15 +143,14 @@ class JobTest extends PHPUnit_Framework_TestCase
      * @param int $jobid Job ID
      *
      *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage "comment" is required
-     *
      * @depends testAllowsToPostNewOrderWithNewJobs
      */
     public function testRefusesToReturnAJobToTheTranslatorWithoutAComment($jobid)
     {
         $jobAPI = new Job();
 
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('"comment" is required');
         $jobAPI->revise($jobid, '');
     } //end testRefusesToReturnAJobToTheTranslatorWithoutAComment()
 
@@ -237,15 +237,14 @@ class JobTest extends PHPUnit_Framework_TestCase
      * @param int $jobid Job ID
      *
      *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage job should contain a valid rating
-     *
      * @depends testAllowsToPostNewOrderWithNewJobs
      */
     public function testRefusesToApproveAJobWithInvalidRating($jobid)
     {
         $jobAPI = new Job();
 
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('job should contain a valid rating');
         $jobAPI->approve($jobid, array('rating' => 0));
     } //end testRefusesToApproveAJobWithInvalidRating()
 
@@ -273,15 +272,14 @@ class JobTest extends PHPUnit_Framework_TestCase
      * @param int $jobid Job ID
      *
      *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage job must contain a valid reason
-     *
      * @depends testAllowsToPostNewOrderWithNewJobs
      */
     public function testRefusesToRejectTheTranslationWithWrongReason($jobid)
     {
         $jobAPI = new Job();
 
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('job must contain a valid reason');
         $jobAPI->reject($jobid, array('reason' => 'wrong_reason', 'comment' => 'comment', 'captcha' => 'captcha'));
     } //end testRefusesToRejectTheTranslationWithWrongReason()
 
@@ -291,15 +289,14 @@ class JobTest extends PHPUnit_Framework_TestCase
      * @param int $jobid Job ID
      *
      *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage if set, job should contain a valid follow up
-     *
      * @depends testAllowsToPostNewOrderWithNewJobs
      */
     public function testRefusesToRejectTheTranslationWithWrongFollowUp($jobid)
     {
         $jobAPI = new Job();
 
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('if set, job should contain a valid follow up');
         $jobAPI->reject($jobid, array('reason' => 'other', 'comment' => 'comment', 'captcha' => 'captcha', 'follow_up' => 'wrong_followup'));
     } //end testRefusesToRejectTheTranslationWithWrongFollowUp()
 
@@ -309,15 +306,14 @@ class JobTest extends PHPUnit_Framework_TestCase
      * @param int $jobid Job ID
      *
      *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage job must contain a reason, a comment and a captcha
-     *
      * @depends testAllowsToPostNewOrderWithNewJobs
      */
     public function testRefusesToRejectTheTranslationWithWrongArguments($jobid)
     {
         $jobAPI = new Job();
 
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('job must contain a reason, a comment and a captcha');
         $jobAPI->reject($jobid, array());
     } //end testRefusesToRejectTheTranslationWithWrongArguments()
 
@@ -370,15 +366,14 @@ class JobTest extends PHPUnit_Framework_TestCase
      * @param int $jobid Job ID
      *
      *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage must contain a valid "body" parameter as the comment
-     *
      * @depends testAllowsToPostNewOrderWithNewJobs
      */
     public function testRefusesToPostEmptyCommentToJobCommentThread($jobid)
     {
         $jobAPI = new Job();
 
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('must contain a valid "body" parameter as the comment');
         $jobAPI->postComment($jobid, '');
     } //end testRefusesToPostEmptyCommentToJobCommentThread()
 

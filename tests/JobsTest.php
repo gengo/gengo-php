@@ -8,6 +8,7 @@
 
 namespace Gengo\Tests;
 
+use Exception;
 use Gengo\Config;
 use Gengo\Jobs;
 use Gengo\Service;
@@ -42,8 +43,8 @@ class JobsTest extends PHPUnit_Framework_TestCase
      * Set up tests.
      *
      *
-     * @requiredconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
-     * @requiredconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
+     * @internalconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
+     * @internalconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
      */
     public function setUp()
     {
@@ -120,10 +121,6 @@ class JobsTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test validation of url_attachments.
-     *
-     *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage URL attachment must be an array
      */
     public function testChecksVaildityOfUrlAttachments()
     {
@@ -145,15 +142,13 @@ class JobsTest extends PHPUnit_Framework_TestCase
 
         $jobs = array($job1);
 
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('URL attachment must be an array');
         $jobsAPI->postJobs($jobs);
     } //end testChecksVaildityOfUrlAttachments()
 
     /**
      * Test that url_attachments must point to proper http(s) resource.
-     *
-     *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage URL attachment must point to public URL with http(s) scheme
      */
     public function testRequiresUrlAttachmentsToPointToHttpResource()
     {
@@ -181,15 +176,13 @@ class JobsTest extends PHPUnit_Framework_TestCase
 
         $jobs = array($job1);
 
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('URL attachment must point to public URL with http(s) scheme');
         $jobsAPI->postJobs($jobs);
     } //end testRequiresUrlAttachmentsToPointToHttpResource()
 
     /**
      * Test that url_attachments must have filename.
-     *
-     *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage URL attachment filename must be specified
      */
     public function testRequiresUrlAttachmentsToHaveFileName()
     {
@@ -217,15 +210,13 @@ class JobsTest extends PHPUnit_Framework_TestCase
 
         $jobs = array($job1);
 
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('URL attachment filename must be specified');
         $jobsAPI->postJobs($jobs);
     } //end testRequiresUrlAttachmentsToHaveFileName()
 
     /**
      * Test that url_attachments must have MIME type.
-     *
-     *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage URL attachment MIME type must be specified
      */
     public function testRequiresUrlAttachmentsToHaveMimeType()
     {
@@ -253,6 +244,8 @@ class JobsTest extends PHPUnit_Framework_TestCase
 
         $jobs = array($job1);
 
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('URL attachment MIME type must be specified');
         $jobsAPI->postJobs($jobs);
     } //end testRequiresUrlAttachmentsToHaveMimeType()
 
@@ -280,43 +273,37 @@ class JobsTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test refusal to retrieve a list of resources for the most recent job if wrong status is provided.
-     *
-     *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage "status" must contain a valid status
      */
     public function testRefusesToRetrieveAListOfResourcesForTheMostRecentJobsIfWrongStatusIsProvided()
     {
         $jobsAPI = new Jobs();
 
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('"status" must contain a valid status');
         $jobsAPI->getJobs('wrong_status', 0, 10);
     } //end testRefusesToRetrieveAListOfResourcesForTheMostRecentJobsIfWrongStatusIsProvided()
 
     /**
      * Test refusal to retrieve a list of resources for the most recent job if wrong time stamp is provided.
-     *
-     *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage "timestampafter" must be non-negative integer
      */
     public function testRefusesToRetrieveAListOfResourcesForTheMostRecentJobsIfWrongTimeStampIsProvided()
     {
         $jobsAPI = new Jobs();
 
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('"timestampafter" must be non-negative integer');
         $jobsAPI->getJobs('available', -100, 10);
     } //end testRefusesToRetrieveAListOfResourcesForTheMostRecentJobsIfWrongTimeStampIsProvided()
 
     /**
      * Test refusal to retrieve a list of resources for the most recent job if wrong count requested.
-     *
-     *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage "count" must be integer in range between 1 and 200
      */
     public function testRefusesToRetrieveAListOfResourcesForTheMostRecentJobsIfWrongCountRequested()
     {
         $jobsAPI = new Jobs();
 
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('"count" must be integer in range between 1 and 200');
         $jobsAPI->getJobs('available', 0, 0);
     } //end testRefusesToRetrieveAListOfResourcesForTheMostRecentJobsIfWrongCountRequested()
 
@@ -472,9 +459,6 @@ class JobsTest extends PHPUnit_Framework_TestCase
      * @param array $jobids Job identifiers
      *
      *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage "comment" is required
-     *
      * @depends testRetrievesAListOfJobsByAListOfJobIds
      */
     public function testRefusesToReturnAJobToTheTranslatorWithoutAComment(array $jobids)
@@ -486,6 +470,8 @@ class JobsTest extends PHPUnit_Framework_TestCase
              array('job_id' => array_shift($jobids)),
             );
 
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('"comment" is required');
         $jobsAPI->revise($jobs, '');
     } //end testRefusesToReturnAJobToTheTranslatorWithoutAComment()
 
@@ -494,9 +480,6 @@ class JobsTest extends PHPUnit_Framework_TestCase
      *
      * @param array $jobids Job identifiers
      *
-     *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage All jobs require job_id field
      *
      * @depends testRetrievesAListOfJobsByAListOfJobIds
      */
@@ -509,6 +492,8 @@ class JobsTest extends PHPUnit_Framework_TestCase
              array('job_id' => array_shift($jobids)),
             );
 
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('All jobs require job_id field');
         $jobsAPI->revise($jobs, 'test comment');
     } //end testRefusesToReturnAJobToTheTranslatorIfNoJobIdsAreSpecified()
 
@@ -517,9 +502,6 @@ class JobsTest extends PHPUnit_Framework_TestCase
      *
      * @param array $jobids Job identifiers
      *
-     *
-     * @expectedException        \Exception
-     * @expectedExceptionMessage Invalid job_id supplied
      *
      * @depends testRetrievesAListOfJobsByAListOfJobIds
      */
@@ -532,6 +514,8 @@ class JobsTest extends PHPUnit_Framework_TestCase
              array('job_id' => array_shift($jobids)),
             );
 
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Invalid job_id supplied');
         $jobsAPI->revise($jobs, 'test comment');
     } //end testRefusesToReturnAJobToTheTranslatorIfJobIdsAreInvalid()
 

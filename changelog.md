@@ -1,5 +1,13 @@
 # Change Log
 
+## [3.0.2] - 28 January 2017
+### Changed
+- upgraded tests to PHPUnit 5.7
+- PHPUnit now has new best practice for exception testing: instead of @expectedException annotation in docblock 
+  use of $this->expectException() and relevant methods is preferred
+- replaced @requiredconst annotation with @internalconst annotation: not applicable in tests
+- updated version number in useragent string
+
 ## [3.0.1] - 04 October 2016
 ### Changed
 - cleaned up composer.json
