@@ -1,5 +1,10 @@
 # Change Log
 
+## [3.0.3] - 1 February 2017
+### Changed
+- test that ampersand in text strings (for comments and jobs) does not cause any issues. Thanks to Nick Ustinov.
+- updated version number in useragent string
+
 ## [3.0.2] - 28 January 2017
 ### Changed
 - upgraded tests to PHPUnit 5.7
