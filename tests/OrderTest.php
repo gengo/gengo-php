@@ -64,7 +64,7 @@ class OrderTest extends PHPUnit_Framework_TestCase
         $job1 = array(
              'type' => 'text',
              'slug' => 'API Liverpool 1',
-             'body_src' => 'Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside.',
+             'body_src' => 'Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside. Johnson & Johnson',
              'lc_src' => 'en',
              'lc_tgt' => 'ja',
              'tier' => 'standard',
