@@ -63,7 +63,7 @@ class JobTest extends PHPUnit_Framework_TestCase
         $job1 = array(
              'type' => 'text',
              'slug' => 'API Liverpool 1',
-             'body_src' => 'Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside.',
+             'body_src' => 'Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside. Johnson & Johnson',
              'lc_src' => 'en',
              'lc_tgt' => 'ja',
              'tier' => 'standard',
@@ -114,7 +114,7 @@ class JobTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('ok', $response['opstat']);
         $this->assertTrue(isset($response['response']));
         $this->assertEquals(
-            'Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside.',
+            'Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside. Johnson & Johnson',
             $response['response']['job']['body_src']
         );
     } //end testRetrievesASpecificJob()
@@ -355,7 +355,7 @@ class JobTest extends PHPUnit_Framework_TestCase
     {
         $jobAPI = new Job();
 
-        $response = json_decode($jobAPI->postComment($jobid, 'Test comment'), true);
+        $response = json_decode($jobAPI->postComment($jobid, 'Test comment. Johnson & Johnson'), true);
         $this->assertEquals('ok', $response['opstat']);
         $this->assertTrue(isset($response['response']));
     } //end testSubmitsANewCommentToTheJobCommentThread()
@@ -392,7 +392,7 @@ class JobTest extends PHPUnit_Framework_TestCase
         $response = json_decode($jobAPI->getComments($jobid), true);
         $this->assertEquals('ok', $response['opstat']);
         $this->assertTrue(isset($response['response']));
-        $this->assertEquals('Test comment', $response['response']['thread'][0]['body']);
+        $this->assertEquals('Test comment. Johnson & Johnson', $response['response']['thread'][0]['body']);
     } //end testRetrievesTheCommentThreadForAJob()
 
     /**

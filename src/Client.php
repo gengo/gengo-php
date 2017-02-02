@@ -153,7 +153,7 @@ class Client
      * @untranslatable api_key
      * @untranslatable private_key
      * @untranslatable Content-Type
-     * @untranslatable Gengo PHP Library; Version 3.0.2; http://gengo.com/
+     * @untranslatable Gengo PHP Library; Version 3.0.3; http://gengo.com/
      * @untranslatable timeout
      * @untranslatable application/x-www-form-urlencoded
      *
@@ -174,7 +174,7 @@ class Client
         if (self::$http instanceof HTTPclient === false) {
             $config = array(
                    'maxredirects' => 1,
-                   'useragent' => 'Gengo PHP Library; Version 3.0.2; http://gengo.com/',
+                   'useragent' => 'Gengo PHP Library; Version 3.0.3; http://gengo.com/',
                    'timeout' => Config::get('timeout'),
                    'keepalive' => false,
                   );

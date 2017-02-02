@@ -62,7 +62,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
         $job1 = array(
              'type' => 'text',
              'slug' => 'API Liverpool 1',
-             'body_src' => 'Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside.',
+             'body_src' => 'Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside. Johnson & Johnson',
              'lc_src' => 'en',
              'lc_tgt' => 'ja',
              'tier' => 'standard',
@@ -81,7 +81,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
              'type' => 'text',
              'slug' => 'API Job test',
              'body_src' => 'First test.',
-             'comment' => 'Some awsome comment here.',
+             'comment' => 'Some awsome comment here. Johnson & Johnson',
              'url_attachments' => array(
                            array(
                         'url' => 'https://gengo.github.io/style-guide/assets/images/logos/gengo_logo_circle_512.png',
@@ -130,7 +130,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
              'type' => 'text',
              'slug' => 'API Job test',
              'body_src' => 'First test.',
-             'comment' => 'Some awsome comment here.',
+             'comment' => 'Some awsome comment here. Johnson & Johnson',
              'url_attachments' => array('bad attachment'),
              'lc_src' => 'en',
              'lc_tgt' => 'ja',
@@ -158,7 +158,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
              'type' => 'text',
              'slug' => 'API Job test',
              'body_src' => 'First test.',
-             'comment' => 'Some awsome comment here.',
+             'comment' => 'Some awsome comment here. Johnson & Johnson',
              'url_attachments' => array(
                            array(
                         'url' => 'ftp://gengo.github.io/style-guide/assets/images/logos/gengo_logo_circle_512.png',
@@ -192,7 +192,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
              'type' => 'text',
              'slug' => 'API Job test',
              'body_src' => 'First test.',
-             'comment' => 'Some awsome comment here.',
+             'comment' => 'Some awsome comment here. Johnson & Johnson',
              'url_attachments' => array(
                            array(
                         'url' => 'http://gengo.github.io/style-guide/assets/images/logos/gengo_logo_circle_512.png',
@@ -226,7 +226,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
              'type' => 'text',
              'slug' => 'API Job test',
              'body_src' => 'First test.',
-             'comment' => 'Some awsome comment here.',
+             'comment' => 'Some awsome comment here. Johnson & Johnson',
              'url_attachments' => array(
                            array(
                         'url' => 'http://gengo.github.io/style-guide/assets/images/logos/gengo_logo_circle_512.png',
@@ -365,14 +365,14 @@ class JobsTest extends PHPUnit_Framework_TestCase
         $job1 = array(
              'type' => 'file',
              'identifier' => $identifiers[0],
-             'comment' => 'Test comment',
+             'comment' => 'Test comment. Johnson & Johnson',
              'force' => true,
             );
 
         $job2 = array(
              'type' => 'file',
              'identifier' => $identifiers[1],
-             'comment' => 'Test comment',
+             'comment' => 'Test comment. Johnson & Johnson',
              'force' => true,
             );
 
@@ -662,7 +662,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
                     'job_01' => array(
                         'type' => 'text',
                         'slug' => 'API Liverpool 1',
-                        'body_src' => 'Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside.',
+                        'body_src' => 'Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside. Johnson & Johnson',
                         'lc_src' => 'en',
                         'lc_tgt' => 'ja',
                         'tier' => 'standard',
@@ -680,7 +680,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
                     'job_01' => array(
                         'type' => 'text',
                         'slug' => 'API Liverpool 1',
-                        'body_src' => 'Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside.',
+                        'body_src' => 'Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside. Johnson & Johnson',
                         'lc_src' => 'en',
                         'lc_tgt' => 'ja',
                         'tier' => 'standard',
