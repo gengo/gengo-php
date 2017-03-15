@@ -1,5 +1,9 @@
 # Change Log
 
+## [3.0.4] - 15 March 2017
+### Changed
+- fix `getJobs` parameters not applying
+
 ## [3.0.3] - 1 February 2017
 ### Changed
 - test that ampersand in text strings (for comments and jobs) does not cause any issues. Thanks to Nick Ustinov.
