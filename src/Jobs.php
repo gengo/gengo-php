@@ -208,9 +208,7 @@ class Jobs extends ApproveRejectValidator
             $data['count'] = $count;
         }
 
-        $params = (count($data) > 0) ? array('data' => json_encode($data)) : array();
-
-        return $this->storeResponse(Client::get('v2/translate/jobs', $params));
+        return $this->storeResponse(Client::get('v2/translate/jobs', $data));
     } //end getJobs()
 
     /**

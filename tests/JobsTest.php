@@ -272,6 +272,21 @@ class JobsTest extends PHPUnit_Framework_TestCase
     } //end testRetrievesAListOfResourcesForTheMostRecentJobsFilteredByTheGivenParameters()
 
     /**
+     * Test retrieval of list of resources with different count for the most recent jobs filtered by given parameters.
+     */
+    public function testGetJobsCount()
+    {
+        $expectedCount = 15;
+
+        $jobsAPI = new Jobs();
+        $response = json_decode($jobsAPI->getJobs('available', 0, $expectedCount), true);
+        $this->assertEquals('ok', $response['opstat']);
+        $this->assertTrue(isset($response['response']));
+        $this->assertTrue(is_array($response['response']));
+        $this->assertEquals(count($response['response']), $expectedCount);
+    } //end testGetJobsCount()
+
+    /**
      * Test refusal to retrieve a list of resources for the most recent job if wrong status is provided.
      */
     public function testRefusesToRetrieveAListOfResourcesForTheMostRecentJobsIfWrongStatusIsProvided()
