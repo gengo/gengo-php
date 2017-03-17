@@ -284,7 +284,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('ok', $response['opstat']);
         $this->assertTrue(isset($response['response']));
         $this->assertTrue(is_array($response['response']));
-        $this->assertEquals(count($response['response']), $expectedCount)
+        $this->assertEquals(count($response['response']), $expectedCount);
     } //end testGetJobsCount()
 
     /**
