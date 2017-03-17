@@ -271,7 +271,6 @@ class JobsTest extends PHPUnit_Framework_TestCase
         return $jobids;
     } //end testRetrievesAListOfResourcesForTheMostRecentJobsFilteredByTheGivenParameters()
 
-
     /**
      * Test retrieval of list of resources with different count for the most recent jobs filtered by given parameters.
      */
