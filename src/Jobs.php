@@ -75,6 +75,11 @@ class Jobs extends ApproveRejectValidator
             unset($jobs['reference_id']);
         }
 
+        if (isset($jobs['comment']) === true) {
+            $data['comment'] = $jobs['comment'];
+            unset($jobs['comment']);
+        }
+
         $data['jobs'] = $jobs;
 
         $params = array(
