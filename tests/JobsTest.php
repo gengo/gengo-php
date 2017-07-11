@@ -711,7 +711,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
     } //end jobWithReferenceProvider()
 
     /**
-     * Test posting of jobs with order level comment
+     * Test posting of jobs with order level comment.
      */
     public function testJobsWithOrderComment()
     {
