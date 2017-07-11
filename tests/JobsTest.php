@@ -709,4 +709,28 @@ class JobsTest extends PHPUnit_Framework_TestCase
             ),
         );
     } //end jobWithReferenceProvider()
+
+    /**
+     * Test posting of jobs with order level comment.
+     */
+    public function testJobsWithOrderComment()
+    {
+        $jobsAPI = new Jobs();
+        $job1 = array(
+            'type' => 'text',
+            'slug' => 'API Liverpool 1',
+            'body_src' => 'Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside. Johnson & Johnson',
+            'lc_src' => 'en',
+            'lc_tgt' => 'ja',
+            'tier' => 'standard',
+            'force' => 1,
+        );
+
+        $jobs = array('job_01' => $job1);
+        $jobs['comment'] = 'Order level comment';
+
+        $response = json_decode($jobsAPI->postJobs($jobs), true);
+        $this->assertEquals('ok', $response['opstat']);
+        $this->assertTrue(isset($response['response']['order_id']));
+    }
 } //end class
