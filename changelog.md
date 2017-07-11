@@ -1,5 +1,9 @@
 # Change Log
 
+## [3.0.5] - 11 July 2017
+### Changed
+- fix missing order level comments
+
 ## [3.0.4] - 15 March 2017
 ### Changed
 - fix `getJobs` parameters not applying
