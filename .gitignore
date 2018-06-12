@@ -1,2 +1,4 @@
 .*.swp
 vendor/*
+clover.xml
+composer.lock
