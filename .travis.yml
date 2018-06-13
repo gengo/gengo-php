@@ -11,7 +11,7 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 script:
-  - phpunit --coverage-clover clover.xml
+  - vendor/bin/phpunit --coverage-clover clover.xml
   - vendor/bin/php-cs-fixer -v --dry-run --diff --config-file=.php_cs fix
 after_success:
   - if [ "$TRAVIS_BRANCH" == 'master' ] && [ "$TRAVIS_PULL_REQUEST" == 'false' ]; then ./cc-test-reporter after-build -t clover --exit-code $TRAVIS_TEST_RESULT; fi

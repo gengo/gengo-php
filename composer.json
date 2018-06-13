@@ -4,7 +4,7 @@
     "description": "Gengo API client library for PHP",
     "keywords": ["gengo", "translation", "api"],
     "homepage": "http://github.com/gengo/gengo-php",
-    "license": "BSD",
+    "license": "MIT",
     "authors": [
         {
             "name": "Vladimir Bashkirtsev",
@@ -29,7 +29,7 @@
         "ext-gettext": "*",
         "ext-hash": "*",
         "ext-json": "*",
-        "logics/http": "^0.1||dev-trunk"
+        "logics/http": "^0.1"
     },
     "require-dev": {
         "pdepend/pdepend": "^2.2",
