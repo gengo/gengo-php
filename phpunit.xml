@@ -8,14 +8,12 @@
   <php>
     <const name="GENGO_PUBKEY" value="pubkeyfortests"/>
     <const name="GENGO_PRIVKEY" value="privatekeyfortestuserthatcontainsonlyletters"/>
-    <const name="LOGGER_DISABLE" value="true"/>
   </php>
   <filter>
     <whitelist processUncoveredFilesFromWhitelist="true">
       <directory suffix=".php">.</directory>
       <exclude>
         <directory suffix=".php">vendor</directory>
-        <directory suffix=".php">vendor_production</directory>
       </exclude>
     </whitelist>
   </filter>

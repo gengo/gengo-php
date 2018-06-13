@@ -1,4 +1,4 @@
-[![Build Status](https://secure.travis-ci.org/gengo/gengo-php.png?branch=master)](https://travis-ci.org/gengo/gengo-php)
+[![Build Status](https://secure.travis-ci.org/gengo/gengo-php.png?branch=master)](https://travis-ci.org/gengo/gengo-php) [![Maintainability](https://api.codeclimate.com/v1/badges/2e2da0917c71662e619d/maintainability)](https://codeclimate.com/repos/58ad101416506402870032d7/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/2e2da0917c71662e619d/test_coverage)](https://codeclimate.com/repos/58ad101416506402870032d7/test_coverage)
 
 Gengo PHP Library (for the [Gengo API](http://gengo.com/api/))
 ======================================================================================================================================================
@@ -12,6 +12,9 @@ This package contains both a client library for accessing the Gengo Translate AP
 Installation & Requirements
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 Installing the library is simple. Just add it to "require" of your composer.json
+```
+composer require gengo/gengo
+```
 
 Then inside of your code you can call:
 
@@ -20,13 +23,13 @@ Then inside of your code you can call:
 \Gengo\Config::setPrivateKey("your_private_key");
 
 $job1 = array(
- "type"     => "text",
- "slug"     => "API Liverpool 1",
- "body_src" => "Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside.",
- "lc_src"   => "en",
- "lc_tgt"   => "ja",
- "tier"     => "standard",
- "force"    => 1,
+    "type"     => "text",
+    "slug"     => "API Liverpool 1",
+    "body_src" => "Liverpool_1 Football Club is an English Premier League football club based in Liverpool, Merseyside.",
+    "lc_src"   => "en",
+    "lc_tgt"   => "ja",
+    "tier"     => "standard",
+    "force"    => 1,
 );
 
 $jobs = array("job_01" => $job1);
