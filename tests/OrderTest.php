@@ -180,10 +180,5 @@ class OrderTest extends PHPUnit_Framework_TestCase
         $response = json_decode($orderAPI->cancel($orderid), true);
         $this->assertEquals('ok', $response['opstat']);
         $this->assertTrue(isset($response['response']));
-
-        $response = json_decode($orderAPI->getOrder($orderid), true);
-        $this->assertEquals('ok', $response['opstat']);
-        $this->assertTrue(isset($response['response']['order']['total_jobs']));
-        $this->assertEquals(0, $response['response']['order']['total_jobs']);
     } //end testCancelsAllJobsInAnOrder()
 } //end class
