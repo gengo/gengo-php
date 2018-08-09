@@ -42,6 +42,12 @@ class Client
      * @var \GuzzleHttp\Client
      */
     protected static $http = null;
+
+    /**
+     * HTTP response.
+     *
+     * @var \GuzzleHttp\Message\Response
+     */
     protected static $response = null;
 
     /**
@@ -163,10 +169,8 @@ class Client
      *
      * @internal
      */
-    private static function _request($url, $method, array $params, array $files = array())
+    private static function _request($url, $method, array $params, array $files = [])
     {
-        $headers = array('Accept' => 'application/'.Config::get('format'));
-
         $params['ts'] = gmdate('U');
         $params['api_key'] = Config::get('api_key');
         $params['api_sig'] = self::sign($params['ts'], Config::get('private_key'));
@@ -175,7 +179,7 @@ class Client
             self::$http = new HTTPClient([
                 'defaults' => [
                     'timeout' => Config::get('timeout'),
-                    'allow_redirects' => ['max' => 1]
+                    'allow_redirects' => ['max' => 1],
                 ],
                 'base_url' => Config::get('baseurl'),
             ]);
@@ -192,8 +196,6 @@ class Client
         try {
             switch ($method) {
                 case 'DELETE':
-                    $options['headers']['Content-Type'] = 'application/x-www-form-urlencoded';
-                    $options['body'] = $params;
                     self::$response = self::$http->delete($url, $options);
                     break;
                 case 'GET':
@@ -207,7 +209,6 @@ class Client
                     self::$response = self::$http->post($url, $options);
                     break;
                 case 'PUT':
-                    $options['headers']['Content-Type'] = 'application/x-www-form-urlencoded';
                     $options['body'] = $params;
                     self::$response = self::$http->put($url, $options);
                     break;
