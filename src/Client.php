@@ -8,10 +8,10 @@
 
 namespace Gengo;
 
-use \GuzzleHttp\Client as HTTPClient;
-use \GuzzleHttp\Exception\ClientException;
-use \GuzzleHttp\Post\PostFile;
-use \GuzzleHttp\Message\Response;
+use GuzzleHttp\Client as HTTPClient;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Post\PostFile;
+use GuzzleHttp\Message\Response;
 
 /**
  * HTTP client class.
