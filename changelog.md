@@ -1,5 +1,9 @@
 # Change Log
 
+## [3.1.0] - 09 Aug 2018
+### Changed
+- use https://github.com/guzzle/guzzle as http client library
+
 ## [3.0.5] - 11 July 2017
 ### Changed
 - fix missing order level comments
