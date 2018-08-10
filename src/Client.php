@@ -132,7 +132,9 @@ class Client
      */
     public static function getCode()
     {
-        return (self::$response instanceof Response) ? self::$response->getStatusCode() : null;
+        return self::$response instanceof Response
+            ? self::$response->getStatusCode()
+            : null;
     } //end getCode()
 
     /**
@@ -144,7 +146,9 @@ class Client
      */
     public static function getHeaders()
     {
-        return (self::$response instanceof Response) ? self::$response->getHeaders() : null;
+        return self::$response instanceof Response
+            ? self::$response->getHeaders()
+            : null;
     } //end getHeaders()
 
     /**
@@ -181,10 +185,10 @@ class Client
                     'timeout' => Config::get('timeout'),
                     'allow_redirects' => ['max' => 1],
                 ],
-                'base_url' => Config::get('baseurl'),
             ]);
         }
 
+        $url = Config::get('baseurl').$url;
         $options = [
             'query' => $params,
             'headers' => [
