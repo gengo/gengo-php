@@ -188,7 +188,7 @@ class Client
             ]);
         }
 
-        $url = Config::get('baseurl').$url;
+        $url = Config::get('baseurl') . $url;
         $options = [
             'query' => $params,
             'headers' => [
