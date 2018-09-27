@@ -65,7 +65,7 @@ class APITest extends PHPUnit_Framework_TestCase
         $this->assertEquals(200, $code);
 
         $header = $accountAPI->getResponseHeaders();
-        $this->assertEquals('application/json', $header['Content-Type']);
+        $this->assertEquals('application/json', $header['Content-Type'][0]);
     } //end testProvidesResponseBodyAlongWithResponseCodeAndResponseHeaders()
 
     /**

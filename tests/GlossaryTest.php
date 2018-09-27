@@ -72,9 +72,6 @@ class GlossaryTest extends PHPUnit_Framework_TestCase
 
         $response = json_decode($glossaryAPI->getGlossary(123), true);
         $this->assertEquals('error', $response['opstat']);
-        $this->assertTrue(isset($response['err']));
-        $this->assertTrue(isset($response['err']['code']));
-        $this->assertTrue(isset($response['err']['msg']));
         $this->assertEquals('404', $response['err']['code']);
         $this->assertEquals('Requested Resource Not Found', $response['err']['msg']);
     } //end testRetrievesAGlossaryById()

@@ -8,7 +8,10 @@
 
 namespace Gengo;
 
-use Logics\Foundation\HTTP\HTTPclient;
+use GuzzleHttp\Client as HTTPClient;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Post\PostFile;
+use GuzzleHttp\Message\Response;
 
 /**
  * HTTP client class.
@@ -36,9 +39,16 @@ class Client
     /**
      * HTTP client.
      *
-     * @var \Logics\Foundation\Web\HTTPclient
+     * @var \GuzzleHttp\Client
      */
     protected static $http = null;
+
+    /**
+     * HTTP response.
+     *
+     * @var \GuzzleHttp\Message\Response
+     */
+    protected static $response = null;
 
     /**
      * Get request.
@@ -55,7 +65,7 @@ class Client
      */
     public static function get($url, array $params = array())
     {
-        return self::_request(Config::get('baseurl').$url, 'GET', $params);
+        return self::_request($url, 'GET', $params);
     } //end get()
 
     /**
@@ -74,7 +84,7 @@ class Client
      */
     public static function post($url, array $params = array(), array $files = array())
     {
-        return self::_request(Config::get('baseurl').$url, 'POST', $params, $files);
+        return self::_request($url, 'POST', $params, $files);
     } //end post()
 
     /**
@@ -92,7 +102,7 @@ class Client
      */
     public static function put($url, array $params = array())
     {
-        return self::_request(Config::get('baseurl').$url, 'PUT', $params);
+        return self::_request($url, 'PUT', $params);
     } //end put()
 
     /**
@@ -110,7 +120,7 @@ class Client
      */
     public static function delete($url, array $params = array())
     {
-        return self::_request(Config::get('baseurl').$url, 'DELETE', $params);
+        return self::_request($url, 'DELETE', $params);
     } //end delete()
 
     /**
@@ -122,7 +132,9 @@ class Client
      */
     public static function getCode()
     {
-        return (self::$http instanceof HTTPclient === true) ? self::$http->lastcode() : null;
+        return self::$response instanceof Response
+            ? self::$response->getStatusCode()
+            : null;
     } //end getCode()
 
     /**
@@ -134,7 +146,9 @@ class Client
      */
     public static function getHeaders()
     {
-        return (self::$http instanceof HTTPclient === true) ? self::$http->lastheaders() : null;
+        return self::$response instanceof Response
+            ? self::$response->getHeaders()
+            : null;
     } //end getHeaders()
 
     /**
@@ -159,52 +173,55 @@ class Client
      *
      * @internal
      */
-    private static function _request($url, $method, array $params, array $files = array())
+    private static function _request($url, $method, array $params, array $files = [])
     {
-        $headers = array('Accept' => 'application/'.Config::get('format'));
-
         $params['ts'] = gmdate('U');
         $params['api_key'] = Config::get('api_key');
         $params['api_sig'] = self::sign($params['ts'], Config::get('private_key'));
 
-        foreach ($files as $key => $file) {
-            $files[$key] = array('name' => $file);
+        if (self::$http instanceof HTTPClient === false) {
+            self::$http = new HTTPClient([
+                'defaults' => [
+                    'timeout' => Config::get('timeout'),
+                    'allow_redirects' => ['max' => 1],
+                ],
+            ]);
         }
 
-        if (self::$http instanceof HTTPclient === false) {
-            $config = array(
-                   'maxredirects' => 1,
-                   'useragent' => 'Gengo PHP Library; Version 3.0.3; http://gengo.com/',
-                   'timeout' => Config::get('timeout'),
-                   'keepalive' => false,
-                  );
+        $url = Config::get('baseurl').$url;
+        $options = [
+            'query' => $params,
+            'headers' => [
+                'Accept' => 'application/'.Config::get('format'),
+                'User-Agent' => 'Gengo PHP Library; Version 3.0.3; http://gengo.com/',
+            ],
+        ];
 
-            self::$http = new HTTPclient('', array(), array(), $config);
-        }
-
-        $response = '';
-        switch ($method) {
-            case 'DELETE':
-                $headers = array('Content-Type' => 'application/x-www-form-urlencoded');
-                self::$http->setRequest($url, $params, $headers);
-                $response = self::$http->delete();
-                break;
-            case 'GET':
-                self::$http->setRequest($url, $params, $headers);
-                $response = self::$http->get();
-                break;
-            case 'POST':
-                self::$http->setRequest($url, $params, $headers, $files);
-                $response = self::$http->post();
-                break;
-            case 'PUT':
-                $headers = array('Content-Type' => 'application/x-www-form-urlencoded');
-                self::$http->setRequest($url, $params, $headers);
-                $response = self::$http->put();
-                break;
+        try {
+            switch ($method) {
+                case 'DELETE':
+                    self::$response = self::$http->delete($url, $options);
+                    break;
+                case 'GET':
+                    self::$response = self::$http->get($url, $options);
+                    break;
+                case 'POST':
+                    $options['body'] = $params;
+                    foreach ($files as $key => $file) {
+                        $options['body'][$key] = new PostFile($key, fopen($file, 'r'));
+                    }
+                    self::$response = self::$http->post($url, $options);
+                    break;
+                case 'PUT':
+                    $options['body'] = $params;
+                    self::$response = self::$http->put($url, $options);
+                    break;
             } //end switch
+        } catch (ClientException $e) {
+            self::$response = $e->getResponse();
+        }
 
-        return $response;
+        return self::$response->getBody()->getContents();
     } //end _request()
 
     /**
