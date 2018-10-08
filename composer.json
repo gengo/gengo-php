@@ -25,11 +25,11 @@
         "files": [ "src/exceptions.php" ]
     },
     "require": {
-        "php": ">=5.3.0",
+        "php": ">=5.5.0",
         "ext-gettext": "*",
         "ext-hash": "*",
         "ext-json": "*",
-        "guzzlehttp/guzzle": "~5.0"
+        "guzzlehttp/guzzle": "~6.3"
     },
     "require-dev": {
         "pdepend/pdepend": "^2.2",

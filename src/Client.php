@@ -10,8 +10,7 @@ namespace Gengo;
 
 use GuzzleHttp\Client as HTTPClient;
 use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Post\PostFile;
-use GuzzleHttp\Message\Response;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * HTTP client class.
@@ -46,7 +45,7 @@ class Client
     /**
      * HTTP response.
      *
-     * @var \GuzzleHttp\Message\Response
+     * @var ResponseInterface
      */
     protected static $response = null;
 
@@ -132,7 +131,7 @@ class Client
      */
     public static function getCode()
     {
-        return self::$response instanceof Response
+        return self::$response instanceof ResponseInterface
             ? self::$response->getStatusCode()
             : null;
     } //end getCode()
@@ -146,7 +145,7 @@ class Client
      */
     public static function getHeaders()
     {
-        return self::$response instanceof Response
+        return self::$response instanceof ResponseInterface
             ? self::$response->getHeaders()
             : null;
     } //end getHeaders()
@@ -206,14 +205,14 @@ class Client
                     self::$response = self::$http->get($url, $options);
                     break;
                 case 'POST':
-                    $options['body'] = $params;
+                    $options['form_params'] = $params;
                     foreach ($files as $key => $file) {
-                        $options['body'][$key] = new PostFile($key, fopen($file, 'r'));
+                        $options['multipart'][$key] = fopen($file, 'r');
                     }
                     self::$response = self::$http->post($url, $options);
                     break;
                 case 'PUT':
-                    $options['body'] = $params;
+                    $options['form_params'] = $params;
                     self::$response = self::$http->put($url, $options);
                     break;
             } //end switch
