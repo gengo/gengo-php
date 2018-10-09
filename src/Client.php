@@ -10,6 +10,7 @@ namespace Gengo;
 
 use GuzzleHttp\Client as HTTPClient;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -174,24 +175,24 @@ class Client
      */
     private static function _request($url, $method, array $params, array $files = [])
     {
-        $params['ts'] = gmdate('U');
+        $params['ts']      = gmdate('U');
         $params['api_key'] = Config::get('api_key');
         $params['api_sig'] = self::sign($params['ts'], Config::get('private_key'));
 
         if (self::$http instanceof HTTPClient === false) {
             self::$http = new HTTPClient([
                 'defaults' => [
-                    'timeout' => Config::get('timeout'),
+                    'timeout'         => Config::get('timeout'),
                     'allow_redirects' => ['max' => 1],
                 ],
             ]);
         }
 
-        $url = Config::get('baseurl').$url;
+        $url     = Config::get('baseurl') . $url;
         $options = [
-            'query' => $params,
+            'query'   => $params,
             'headers' => [
-                'Accept' => 'application/'.Config::get('format'),
+                'Accept'     => 'application/' . Config::get('format'),
                 'User-Agent' => 'Gengo PHP Library; Version 3.0.3; http://gengo.com/',
             ],
         ];
@@ -205,15 +206,11 @@ class Client
                     self::$response = self::$http->get($url, $options);
                     break;
                 case 'POST':
-                    $options['form_params'] = $params;
-                    foreach ($files as $key => $file) {
-                        $options['multipart'][$key] = fopen($file, 'r');
-                    }
-                    self::$response = self::$http->post($url, $options);
+                    self::$response = self::$http->post($url, self::getPostOptions($files, $params));
                     break;
                 case 'PUT':
-                    $options['form_params'] = $params;
-                    self::$response = self::$http->put($url, $options);
+                    $options[RequestOptions::FORM_PARAMS] = $params;
+                    self::$response                       = self::$http->put($url, $options);
                     break;
             } //end switch
         } catch (ClientException $e) {
@@ -222,6 +219,40 @@ class Client
 
         return self::$response->getBody()->getContents();
     } //end _request()
+
+    /**
+     * Create params for POST request
+     *
+     * @param array $files
+     * @param array $params
+     * @return array
+     */
+    protected static function getPostOptions(array $files, array $params)
+    {
+        if (!count($files)) {
+            return [
+                RequestOptions::FORM_PARAMS => $params
+            ];
+        }
+
+        $options = [];
+
+        foreach ($files as $key => $file) {
+            $options[RequestOptions::MULTIPART][] = [
+                'name'     => $key,
+                'contents' => fopen($file, 'r')
+            ];
+        }
+
+        foreach ($params as $paramKey => $paramValue) {
+            $options[RequestOptions::MULTIPART][] = [
+                'name'     => $paramKey,
+                'contents' => $paramValue,
+            ];
+        }
+
+        return $options;
+    }
 
     /**
      * Sign data with private key.
