@@ -10,8 +10,8 @@ namespace Gengo;
 
 use GuzzleHttp\Client as HTTPClient;
 use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Post\PostFile;
-use GuzzleHttp\Message\Response;
+use GuzzleHttp\RequestOptions;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * HTTP client class.
@@ -46,7 +46,7 @@ class Client
     /**
      * HTTP response.
      *
-     * @var \GuzzleHttp\Message\Response
+     * @var ResponseInterface
      */
     protected static $response = null;
 
@@ -132,7 +132,7 @@ class Client
      */
     public static function getCode()
     {
-        return self::$response instanceof Response
+        return self::$response instanceof ResponseInterface
             ? self::$response->getStatusCode()
             : null;
     } //end getCode()
@@ -146,7 +146,7 @@ class Client
      */
     public static function getHeaders()
     {
-        return self::$response instanceof Response
+        return self::$response instanceof ResponseInterface
             ? self::$response->getHeaders()
             : null;
     } //end getHeaders()
@@ -206,14 +206,10 @@ class Client
                     self::$response = self::$http->get($url, $options);
                     break;
                 case 'POST':
-                    $options['body'] = $params;
-                    foreach ($files as $key => $file) {
-                        $options['body'][$key] = new PostFile($key, fopen($file, 'r'));
-                    }
-                    self::$response = self::$http->post($url, $options);
+                    self::$response = self::$http->post($url, self::getPostOptions($files, $params));
                     break;
                 case 'PUT':
-                    $options['body'] = $params;
+                    $options[RequestOptions::FORM_PARAMS] = $params;
                     self::$response = self::$http->put($url, $options);
                     break;
             } //end switch
@@ -223,6 +219,41 @@ class Client
 
         return self::$response->getBody()->getContents();
     } //end _request()
+
+    /**
+     * Create params for POST request.
+     *
+     * @param array $files
+     * @param array $params
+     *
+     * @return array
+     */
+    protected static function getPostOptions(array $files, array $params)
+    {
+        if (!count($files)) {
+            return [
+                RequestOptions::FORM_PARAMS => $params,
+            ];
+        }
+
+        $options = [];
+
+        foreach ($files as $key => $file) {
+            $options[RequestOptions::MULTIPART][] = [
+                'name' => $key,
+                'contents' => fopen($file, 'r'),
+            ];
+        }
+
+        foreach ($params as $paramKey => $paramValue) {
+            $options[RequestOptions::MULTIPART][] = [
+                'name' => $paramKey,
+                'contents' => $paramValue,
+            ];
+        }
+
+        return $options;
+    }
 
     /**
      * Sign data with private key.
