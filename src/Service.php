@@ -46,8 +46,7 @@ class Service extends API
      */
     public function getLanguagePairs($lcsrc = null)
     {
-        $data = ($lcsrc !== null) ? array('lc_src' => $lcsrc) : array();
-        $params = (count($data) > 0) ? array('data' => json_encode($data)) : array();
+        $params = ($lcsrc !== null) ? array('lc_src' => $lcsrc) : array();
 
         return $this->storeResponse(Client::get('v2/translate/service/language_pairs', $params));
     } //end getLanguagePairs()
