@@ -79,9 +79,6 @@ class ApproveRejectValidator extends API
      * @param array $job Contains the parameters for the rejection:
      *                   reason (required) - "quality", "incomplete", "other"
      *                   comment (required)
-     *                   captcha (required) - the captcha image text. Each job in a "reviewable" state will
-     *                   have a captcha_url value, which is a URL to an image.  This
-     *                   captcha value is required only if a job is to be rejected.
      *                   follow_up (optional) - "requeue" (default) or "cancel"
      *
      * @return array Validated fields
@@ -102,10 +99,9 @@ class ApproveRejectValidator extends API
      */
     protected function validateReject(array $job = array())
     {
-        if (isset($job['reason']) === true && isset($job['comment']) === true && isset($job['captcha']) === true) {
+        if (isset($job['reason']) === true && isset($job['comment']) === true) {
             $reason = $job['reason'];
             $comment = $job['comment'];
-            $captcha = $job['captcha'];
 
             $validreasons = array(
                      'quality',
@@ -122,7 +118,6 @@ class ApproveRejectValidator extends API
             $data = array(
                  'reason' => $reason,
                  'comment' => $comment,
-                 'captcha' => $captcha,
                 );
 
             if (isset($job['follow_up']) === true) {
@@ -141,7 +136,7 @@ class ApproveRejectValidator extends API
             }
         } else {
             throw new \Exception(
-                _('In method').' '.__METHOD__.': '._('job must contain a reason, a comment and a captcha'),
+                _('In method').' '.__METHOD__.': '._('job must contain a reason and a comment'),
                 GENGO_EXCEPTION_REASON_REQUIRED
             );
         } //end if

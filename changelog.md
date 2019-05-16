@@ -1,5 +1,9 @@
 # Change Log
 
+## [3.1.1] - 16 May 2019
+### Changed
+- remove captcha validation on rejecting jobs
+
 ## [3.1.0] - 09 Aug 2018
 ### Changed
 - use https://github.com/guzzle/guzzle as http client library

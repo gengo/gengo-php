@@ -260,10 +260,10 @@ class JobTest extends PHPUnit_Framework_TestCase
     {
         $jobAPI = new Job();
 
-        $response = json_decode($jobAPI->reject($jobid, array('reason' => 'other', 'comment' => 'comment', 'captcha' => 'captcha', 'follow_up' => 'requeue')), true);
+        $response = json_decode($jobAPI->reject($jobid, array('reason' => 'other', 'comment' => 'comment', 'follow_up' => 'requeue')), true);
         $this->assertEquals('error', $response['opstat']);
         $this->assertTrue(isset($response['err']['msg']));
-        $this->assertEquals('invalid captcha challenge', $response['err']['msg']);
+        $this->assertEquals('job is not reviewable', $response['err']['msg']);
     } //end testRejectsTheTranslation()
 
     /**
@@ -280,7 +280,7 @@ class JobTest extends PHPUnit_Framework_TestCase
 
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('job must contain a valid reason');
-        $jobAPI->reject($jobid, array('reason' => 'wrong_reason', 'comment' => 'comment', 'captcha' => 'captcha'));
+        $jobAPI->reject($jobid, array('reason' => 'wrong_reason', 'comment' => 'comment'));
     } //end testRefusesToRejectTheTranslationWithWrongReason()
 
     /**
@@ -297,7 +297,7 @@ class JobTest extends PHPUnit_Framework_TestCase
 
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('if set, job should contain a valid follow up');
-        $jobAPI->reject($jobid, array('reason' => 'other', 'comment' => 'comment', 'captcha' => 'captcha', 'follow_up' => 'wrong_followup'));
+        $jobAPI->reject($jobid, array('reason' => 'other', 'comment' => 'comment', 'follow_up' => 'wrong_followup'));
     } //end testRefusesToRejectTheTranslationWithWrongFollowUp()
 
     /**
@@ -313,7 +313,7 @@ class JobTest extends PHPUnit_Framework_TestCase
         $jobAPI = new Job();
 
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage('job must contain a reason, a comment and a captcha');
+        $this->expectExceptionMessage('job must contain a reason and a comment');
         $jobAPI->reject($jobid, array());
     } //end testRefusesToRejectTheTranslationWithWrongArguments()
 
