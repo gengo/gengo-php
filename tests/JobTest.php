@@ -340,7 +340,9 @@ class JobTest extends PHPUnit_Framework_TestCase
     {
         $jobAPI = new Job();
 
-        $this->assertContains('Bad Request', $jobAPI->archive($jobid));
+        $response = json_decode($jobAPI->archive($jobid), true);
+        $this->assertEquals('error', $response['opstat']);
+        $this->assertEquals('invalid job status', $response['err']['msg']);
     } //end testArchivesApprovedJob()
 
     /**
