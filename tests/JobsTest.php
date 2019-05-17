@@ -593,13 +593,11 @@ class JobsTest extends PHPUnit_Framework_TestCase
               'job_id' => array_shift($jobids),
               'reason' => 'other',
               'comment' => 'comment',
-              'captcha' => 'captcha',
              ),
              array(
               'job_id' => array_shift($jobids),
               'reason' => 'other',
               'comment' => 'comment',
-              'captcha' => 'captcha',
               'follow_up' => 'cancel',
              ),
             );

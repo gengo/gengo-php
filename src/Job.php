@@ -135,9 +135,6 @@ class Job extends ApproveRejectValidator
      * @param array $args Contains the parameters for the rejection:
      *                    reason (required) - "quality", "incomplete", "other"
      *                    comment (required)
-     *                    captcha (required) - the captcha image text. Each job in a "reviewable" state will
-     *                    have a captcha_url value, which is a URL to an image.  This
-     *                    captcha value is required only if a job is to be rejected.
      *                    follow_up (optional) - "requeue" (default) or "cancel"
      *
      * @return string Gengo response

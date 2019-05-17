@@ -331,9 +331,6 @@ class Jobs extends ApproveRejectValidator
      *                        - "job_id" (required) - The ID of the job to reject
      *                        - "reason" (required) - "quality", "incomplete", "other"
      *                        - "comment" (required)
-     *                        - "captcha" (required) - the captcha image text. Each job in a "reviewable" state will
-     *                        have a captcha_url value, which is a URL to an image.  This
-     *                        captcha value is required only if a job is to be rejected.
      *                        - "follow_up" (optional) - "requeue" (default) or "cancel"
      * @param string $comment The comment that will be applied to all of the jobs that don't have one
      *
