@@ -176,4 +176,19 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $this->expectExceptionMessage('Invalid revision ID');
         Config::setRevisionID('wrong_id');
     } //end testRefusesToAcceptInvalidPreconfiguredRevisionId()
+
+
+    public function testSetBaseUrl()
+    {
+        $reflectedClass = new \ReflectionClass('Gengo\Config');
+        $property = $reflectedClass->getProperty('_settings');
+        $property->setAccessible(true);
+
+        $settings = $property->getValue(Config::class);
+        $this->assertEquals($settings['baseurl'], 'https://api.sandbox.gengo.com/');
+
+        Config::setBaseUrl('https://api.test.gengo.com/');
+        $newSettings = $property->getValue(Config::class);
+        $this->assertEquals($newSettings['baseurl'], 'https://api.test.gengo.com/');
+    }
 } //end class

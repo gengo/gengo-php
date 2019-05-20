@@ -183,4 +183,16 @@ class Config
 
         self::$_settings['revision_id'] = $id;
     } //end setRevisionID()
+
+    /**
+     * Set base URL.
+     *
+     * @param string $url URL to be used
+     *
+     * @api
+     */
+    public static function setBaseUrl($url)
+    {
+        self::$_settings['baseurl'] = $url;
+    } //end setBaseUrl()
 } //end class

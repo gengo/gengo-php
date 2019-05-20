@@ -1,10 +1,14 @@
 # Change Log
 
+## [3.2.1] - 20 May 2019
+### Changed
+- Create setBaseUrl method
+
 ## [3.2.0] - 16 May 2019
 ### Changed
 - remove captcha validation on rejecting jobs
 
-## [3.1.1] - 16 May 2019
+## [3.1.1] - 15 Oct 2018
 ### Changed
 - Upgrade guzzle version to 6.3
 
