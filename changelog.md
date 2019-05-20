@@ -1,8 +1,12 @@
 # Change Log
 
-## [3.1.1] - 16 May 2019
+## [3.2.0] - 16 May 2019
 ### Changed
 - remove captcha validation on rejecting jobs
+
+## [3.1.1] - 16 May 2019
+### Changed
+- Upgrade guzzle version to 6.3
 
 ## [3.1.0] - 09 Aug 2018
 ### Changed
