@@ -193,6 +193,6 @@ class Config
      */
     public static function setBaseUrl($url)
     {
-        self::$_settings['baseurl'] = $url;
+        self::$_settings['baseurl'] = rtrim($url, '/').'/';
     } //end setBaseUrl()
 } //end class

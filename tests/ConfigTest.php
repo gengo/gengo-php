@@ -177,8 +177,10 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         Config::setRevisionID('wrong_id');
     } //end testRefusesToAcceptInvalidPreconfiguredRevisionId()
 
-
-    public function testSetBaseUrl()
+    /**
+     * @dataProvider setBaseUrlDataProvider
+     */
+    public function testSetBaseUrl($inputUrl, $expected)
     {
         $reflectedClass = new \ReflectionClass('Gengo\Config');
         $property = $reflectedClass->getProperty('_settings');
@@ -187,8 +189,20 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $settings = $property->getValue(Config::class);
         $this->assertEquals($settings['baseurl'], 'https://api.sandbox.gengo.com/');
 
-        Config::setBaseUrl('https://api.test.gengo.com/');
+        Config::setBaseUrl($inputUrl);
         $newSettings = $property->getValue(Config::class);
-        $this->assertEquals($newSettings['baseurl'], 'https://api.test.gengo.com/');
+        $this->assertEquals($newSettings['baseurl'], $expected);
+    }
+
+    public function setBaseUrlDataProvider()
+    {
+        return [
+            ['https://api.test.gengo.com/', 'https://api.test.gengo.com/'],
+            ['https://api.test.gengo.com', 'https://api.test.gengo.com/'],
+            ['https://api.test.gengo.com//', 'https://api.test.gengo.com/'],
+            ['https://api.test.gengo.com/test/', 'https://api.test.gengo.com/test/'],
+            ['https://api.test.gengo.com/test', 'https://api.test.gengo.com/test/'],
+            ['https://api.sandbox.gengo.com/', 'https://api.sandbox.gengo.com/'],
+        ];
     }
 } //end class
