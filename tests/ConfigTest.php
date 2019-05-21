@@ -176,4 +176,33 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $this->expectExceptionMessage('Invalid revision ID');
         Config::setRevisionID('wrong_id');
     } //end testRefusesToAcceptInvalidPreconfiguredRevisionId()
+
+    /**
+     * @dataProvider setBaseUrlDataProvider
+     */
+    public function testSetBaseUrl($inputUrl, $expected)
+    {
+        $reflectedClass = new \ReflectionClass('Gengo\Config');
+        $property = $reflectedClass->getProperty('_settings');
+        $property->setAccessible(true);
+
+        $settings = $property->getValue(Config::class);
+        $this->assertEquals($settings['baseurl'], 'https://api.sandbox.gengo.com/');
+
+        Config::setBaseUrl($inputUrl);
+        $newSettings = $property->getValue(Config::class);
+        $this->assertEquals($newSettings['baseurl'], $expected);
+    }
+
+    public function setBaseUrlDataProvider()
+    {
+        return [
+            ['https://api.test.gengo.com/', 'https://api.test.gengo.com/'],
+            ['https://api.test.gengo.com', 'https://api.test.gengo.com/'],
+            ['https://api.test.gengo.com//', 'https://api.test.gengo.com/'],
+            ['https://api.test.gengo.com/test/', 'https://api.test.gengo.com/test/'],
+            ['https://api.test.gengo.com/test', 'https://api.test.gengo.com/test/'],
+            ['https://api.sandbox.gengo.com/', 'https://api.sandbox.gengo.com/'],
+        ];
+    }
 } //end class
