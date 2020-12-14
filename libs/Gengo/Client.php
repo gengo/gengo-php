@@ -139,13 +139,6 @@ class Gengo_Client
         }
         try {
             $this->client->setUri($url);
-            if ($this->config->get('debug', false))
-            {
-                $response = $this->client->request($method);
-                echo $this->client->getUri(true) . "\n";
-                echo $this->client->getLastRequest() . "\n";
-                return $response;
-            }
             return $this->client->request($method);
         }
         catch (Exception $ex)
