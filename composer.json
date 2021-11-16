@@ -29,16 +29,8 @@
         "ext-gettext": "*",
         "ext-hash": "*",
         "ext-json": "*",
-        "guzzlehttp/guzzle": "~7.0.1"
+        "guzzlehttp/guzzle": "^7.4.0"
     },
     "require-dev": {
-        "pdepend/pdepend": "^2.2",
-        "phpmd/phpmd": "^2.4",
-        "phploc/phploc": "^2.1",
-        "sebastian/phpcpd": "^2.0",
-        "phpdocumentor/phpdocumentor": "^2.9",
-        "mamuz/php-dependency-analysis": "^0.6",
-        "phpunit/phpunit": "^5.7",
-        "friendsofphp/php-cs-fixer": "^1.0"
     }
 }
