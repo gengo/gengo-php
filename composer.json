@@ -29,7 +29,7 @@
         "ext-gettext": "*",
         "ext-hash": "*",
         "ext-json": "*",
-        "guzzlehttp/guzzle": "~6.3"
+        "guzzlehttp/guzzle": "~7.4"
     },
     "require-dev": {
         "pdepend/pdepend": "^2.2",
