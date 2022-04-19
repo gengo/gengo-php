@@ -10,7 +10,7 @@ namespace Gengo\Tests;
 
 use Gengo\Account;
 use Gengo\Config;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Accounts class tests.
@@ -35,7 +35,7 @@ use PHPUnit_Framework_TestCase;
  *
  * @donottranslate
  */
-class AccountTest extends PHPUnit_Framework_TestCase
+class AccountTest extends TestCase
 {
     /**
      * Set up tests.
@@ -44,7 +44,7 @@ class AccountTest extends PHPUnit_Framework_TestCase
      * @internalconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
      * @internalconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
      */
-    public function setUp()
+    public function setUp(): void
     {
         Config::setAPIkey(GENGO_PUBKEY);
         Config::setPrivateKey(GENGO_PRIVKEY);

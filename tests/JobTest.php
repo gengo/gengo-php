@@ -13,7 +13,7 @@ use Gengo\Config;
 use Gengo\Job;
 use Gengo\Jobs;
 use Gengo\Order;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Job class tests.
@@ -38,7 +38,7 @@ use PHPUnit_Framework_TestCase;
  *
  * @donottranslate
  */
-class JobTest extends PHPUnit_Framework_TestCase
+class JobTest extends TestCase
 {
     /**
      * Set up tests.
@@ -47,7 +47,7 @@ class JobTest extends PHPUnit_Framework_TestCase
      * @internalconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
      * @internalconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
      */
-    public function setUp()
+    public function setUp(): void
     {
         Config::setAPIkey(GENGO_PUBKEY);
         Config::setPrivateKey(GENGO_PRIVKEY);
@@ -192,7 +192,7 @@ class JobTest extends PHPUnit_Framework_TestCase
     {
         $jobAPI = new Job();
 
-        $this->assertContains('unauthorized revision access', $jobAPI->getRevision($jobid, 1));
+        $this->assertStringContainsString('unauthorized revision access', $jobAPI->getRevision($jobid, 1));
     } //end testGetsASpecificRevisionForAJob()
 
     /**

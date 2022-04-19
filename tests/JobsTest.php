@@ -12,7 +12,7 @@ use Exception;
 use Gengo\Config;
 use Gengo\Jobs;
 use Gengo\Service;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Jobs class tests.
@@ -37,7 +37,7 @@ use PHPUnit_Framework_TestCase;
  *
  * @donottranslate
  */
-class JobsTest extends PHPUnit_Framework_TestCase
+class JobsTest extends TestCase
 {
     /**
      * Set up tests.
@@ -46,7 +46,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
      * @internalconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
      * @internalconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
      */
-    public function setUp()
+    public function setUp(): void
     {
         Config::setAPIkey(GENGO_PUBKEY);
         Config::setPrivateKey(GENGO_PRIVKEY);

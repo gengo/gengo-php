@@ -11,7 +11,7 @@ namespace Gengo\Tests;
 use Exception;
 use Gengo\Account;
 use Gengo\Config;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * API class tests.
@@ -40,7 +40,7 @@ use PHPUnit_Framework_TestCase;
  *
  * @donottranslate
  */
-class APITest extends PHPUnit_Framework_TestCase
+class APITest extends TestCase
 {
     /**
      * Test ability to retrieve response body, response code and response headers.

@@ -34,11 +34,10 @@
     "require-dev": {
         "pdepend/pdepend": "^2.2",
         "phpmd/phpmd": "^2.4",
-        "phploc/phploc": "^2.1",
+        "phploc/phploc": "^7.0",
         "sebastian/phpcpd": "^2.0",
-        "phpdocumentor/phpdocumentor": "^2.9",
-        "mamuz/php-dependency-analysis": "^0.6",
-        "phpunit/phpunit": "^5.7",
-        "friendsofphp/php-cs-fixer": "^1.0"
+        "phpdocumentor/phpdocumentor": "3.1",
+        "phpunit/phpunit": "^9.5",
+        "friendsofphp/php-cs-fixer": "3.4"
     }
 }
