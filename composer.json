@@ -25,7 +25,7 @@
         "files": [ "src/exceptions.php" ]
     },
     "require": {
-        "php": ">=5.5.0",
+        "php": ">=8.1",
         "ext-gettext": "*",
         "ext-hash": "*",
         "ext-json": "*",

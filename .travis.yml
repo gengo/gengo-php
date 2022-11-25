@@ -1,5 +1,6 @@
 language: php
 install:
+  - composer config --no-plugins allow-plugins.symfony/flex true
   - composer install
 php:
   - 8.1
