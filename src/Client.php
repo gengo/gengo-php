@@ -213,7 +213,7 @@ class Client
                     self::$response = self::$http->put($url, $options);
                     break;
             } //end switch
-        } catch (ClientException $e) {
+        } catch (ClientException | ServerException $e) {
             self::$response = $e->getResponse();
         }
 
