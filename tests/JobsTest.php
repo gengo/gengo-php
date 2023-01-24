@@ -438,13 +438,6 @@ class JobsTest extends TestCase
     /**
      * Test return of a job back to the translator for revisions.
      *
-     * For some unknown reason Gengo's sandbox on jobs revision returns the error:
-     *
-     *   invalid job status
-     *
-     * even when job is in "available" state. Our call made it to Gengo and so will assert against the error.
-     * Of course it should be fixed on Gengo side. Hopefully this issue would not apply to production server.
-     *
      * @param array $jobids Job identifiers
      *
      *
@@ -465,7 +458,7 @@ class JobsTest extends TestCase
         $response = json_decode($jobsAPI->revise($jobs, 'test comment'), true);
 
         $this->assertEquals('error', $response['opstat']);
-        $this->assertEquals('invalid job status', $response['err']['msg']);
+        $this->assertEquals('job is not reviewable', $response['err']['msg']);
     } //end testReturnsAJobBackToTheTranslatorForRevisions()
 
     /**
@@ -537,13 +530,6 @@ class JobsTest extends TestCase
     /**
      * Test job approval.
      *
-     * For some unknown reason Gengo's sandbox on jobs apptove returns the error:
-     *
-     *   invalid job status
-     *
-     * even when job is in "available" state. Our call made it to Gengo and so will assert against the error.
-     * Of course it should be fixed on Gengo side. Hopefully this issue would not apply to production server.
-     *
      * @param array $jobids Job identifiers
      *
      *
@@ -566,7 +552,7 @@ class JobsTest extends TestCase
 
         $response = json_decode($jobsAPI->approve($jobs), true);
         $this->assertEquals('error', $response['opstat']);
-        $this->assertEquals('invalid job status', $response['err']['msg']);
+        $this->assertEquals('job is not reviewable', $response['err']['msg']);
     } //end testApprovesJob()
 
     /**

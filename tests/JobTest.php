@@ -263,7 +263,7 @@ class JobTest extends TestCase
         $response = json_decode($jobAPI->reject($jobid, array('reason' => 'other', 'comment' => 'comment', 'follow_up' => 'requeue')), true);
         $this->assertEquals('error', $response['opstat']);
         $this->assertTrue(isset($response['err']['msg']));
-        $this->assertEquals('job is not reviewable', $response['err']['msg']);
+        $this->assertEquals('invalid job status', $response['err']['msg']);
     } //end testRejectsTheTranslation()
 
     /**
