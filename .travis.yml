@@ -10,6 +10,6 @@ before_script:
   - ./cc-test-reporter before-build
 script:
   - vendor/bin/phpunit --coverage-clover clover.xml
-  - vendor/bin/php-cs-fixer -v --dry-run --diff --config-file=.php_cs fix
+  - vendor/bin/php-cs-fixer -v --dry-run --diff --config=.php-cs-fixer.php fix
 after_success:
   - if [ "$TRAVIS_BRANCH" == 'master' ] && [ "$TRAVIS_PULL_REQUEST" == 'false' ]; then ./cc-test-reporter after-build -t clover --exit-code $TRAVIS_TEST_RESULT; fi

@@ -596,13 +596,6 @@ class JobsTest extends TestCase
     /**
      * Test archive jobs.
      *
-     * For some unknown reason Gengo's sandbox on jobs archive returns the error:
-     *
-     *   unauthorized job access
-     *
-     * even when job is in "available" state. Our call made it to Gengo and so will assert against the error.
-     * Of course it should be fixed on Gengo side. Hopefully this issue would not apply to production server.
-     *
      * @param array $jobids Job identifiers
      *
      *
@@ -623,7 +616,7 @@ class JobsTest extends TestCase
 
         $response = json_decode($jobsAPI->archive($jobs), true);
         $this->assertEquals('error', $response['opstat']);
-        $this->assertEquals('unauthorized job access', $response['err']['msg']);
+        $this->assertEquals('invalid job status', $response['err']['msg']);
     } //end testArchiveApprovedJob()
 
     /**
