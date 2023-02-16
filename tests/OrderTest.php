@@ -12,7 +12,7 @@ use Exception;
 use Gengo\Config;
 use Gengo\Jobs;
 use Gengo\Order;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Order class tests.
@@ -39,7 +39,7 @@ use PHPUnit_Framework_TestCase;
  *
  * @donottranslate
  */
-class OrderTest extends PHPUnit_Framework_TestCase
+class OrderTest extends TestCase
 {
     /**
      * Set up tests.
@@ -48,7 +48,7 @@ class OrderTest extends PHPUnit_Framework_TestCase
      * @internalconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
      * @internalconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
      */
-    public function setUp()
+    public function setUp(): void
     {
         Config::setAPIkey(GENGO_PUBKEY);
         Config::setPrivateKey(GENGO_PRIVKEY);

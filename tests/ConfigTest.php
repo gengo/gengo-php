@@ -11,7 +11,7 @@ namespace Gengo\Tests;
 use Exception;
 use Gengo\Config;
 use Gengo\Job;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Config class tests.
@@ -38,7 +38,7 @@ use PHPUnit_Framework_TestCase;
  *
  * @donottranslate
  */
-class ConfigTest extends PHPUnit_Framework_TestCase
+class ConfigTest extends TestCase
 {
     /**
      * Test production API.
@@ -135,7 +135,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
 
         $jobAPI = new Job();
 
-        $this->assertContains('unauthorized job access', $jobAPI->getRevision());
+        $this->assertStringContainsString('unauthorized job access', $jobAPI->getRevision());
     } //end testAllowsToPreconfigureJobAndRevisionIdsForUseWithSubsequentJobApiCalls()
 
     /**
@@ -186,11 +186,11 @@ class ConfigTest extends PHPUnit_Framework_TestCase
         $property = $reflectedClass->getProperty('_settings');
         $property->setAccessible(true);
 
-        $settings = $property->getValue(Config::class);
+        $settings = $property->getValue(new Config);
         $this->assertEquals($settings['baseurl'], 'https://api.sandbox.gengo.com/');
 
         Config::setBaseUrl($inputUrl);
-        $newSettings = $property->getValue(Config::class);
+        $newSettings = $property->getValue(new Config);
         $this->assertEquals($newSettings['baseurl'], $expected);
     }
 

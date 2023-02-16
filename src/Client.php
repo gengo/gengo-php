@@ -209,8 +209,7 @@ class Client
                     self::$response = self::$http->post($url, self::getPostOptions($files, $params));
                     break;
                 case 'PUT':
-                    $options[RequestOptions::FORM_PARAMS] = $params;
-                    self::$response = self::$http->put($url, $options);
+                    self::$response = self::$http->put($url, self::getPostOptions($files, $params));
                     break;
             } //end switch
         } catch (ClientException $e) {
@@ -246,6 +245,7 @@ class Client
         }
 
         foreach ($params as $paramKey => $paramValue) {
+            $options[RequestOptions::QUERY][$paramKey] = $paramValue;
             $options[RequestOptions::MULTIPART][] = [
                 'name' => $paramKey,
                 'contents' => $paramValue,

@@ -12,7 +12,7 @@ use Exception;
 use Gengo\Config;
 use Gengo\Jobs;
 use Gengo\Service;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Jobs class tests.
@@ -37,7 +37,7 @@ use PHPUnit_Framework_TestCase;
  *
  * @donottranslate
  */
-class JobsTest extends PHPUnit_Framework_TestCase
+class JobsTest extends TestCase
 {
     /**
      * Set up tests.
@@ -46,7 +46,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
      * @internalconst GENGO_PUBKEY  "pubkeyfortests"                               Gengo test public key
      * @internalconst GENGO_PRIVKEY "privatekeyfortestuserthatcontainsonlyletters" Gengo test private key
      */
-    public function setUp()
+    public function setUp(): void
     {
         Config::setAPIkey(GENGO_PUBKEY);
         Config::setPrivateKey(GENGO_PRIVKEY);
@@ -438,13 +438,6 @@ class JobsTest extends PHPUnit_Framework_TestCase
     /**
      * Test return of a job back to the translator for revisions.
      *
-     * For some unknown reason Gengo's sandbox on jobs revision returns the error:
-     *
-     *   invalid job status
-     *
-     * even when job is in "available" state. Our call made it to Gengo and so will assert against the error.
-     * Of course it should be fixed on Gengo side. Hopefully this issue would not apply to production server.
-     *
      * @param array $jobids Job identifiers
      *
      *
@@ -465,7 +458,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
         $response = json_decode($jobsAPI->revise($jobs, 'test comment'), true);
 
         $this->assertEquals('error', $response['opstat']);
-        $this->assertEquals('invalid job status', $response['err']['msg']);
+        $this->assertEquals('job is not reviewable', $response['err']['msg']);
     } //end testReturnsAJobBackToTheTranslatorForRevisions()
 
     /**
@@ -537,13 +530,6 @@ class JobsTest extends PHPUnit_Framework_TestCase
     /**
      * Test job approval.
      *
-     * For some unknown reason Gengo's sandbox on jobs apptove returns the error:
-     *
-     *   invalid job status
-     *
-     * even when job is in "available" state. Our call made it to Gengo and so will assert against the error.
-     * Of course it should be fixed on Gengo side. Hopefully this issue would not apply to production server.
-     *
      * @param array $jobids Job identifiers
      *
      *
@@ -566,7 +552,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
 
         $response = json_decode($jobsAPI->approve($jobs), true);
         $this->assertEquals('error', $response['opstat']);
-        $this->assertEquals('invalid job status', $response['err']['msg']);
+        $this->assertEquals('job is not reviewable', $response['err']['msg']);
     } //end testApprovesJob()
 
     /**
@@ -610,13 +596,6 @@ class JobsTest extends PHPUnit_Framework_TestCase
     /**
      * Test archive jobs.
      *
-     * For some unknown reason Gengo's sandbox on jobs archive returns the error:
-     *
-     *   unauthorized job access
-     *
-     * even when job is in "available" state. Our call made it to Gengo and so will assert against the error.
-     * Of course it should be fixed on Gengo side. Hopefully this issue would not apply to production server.
-     *
      * @param array $jobids Job identifiers
      *
      *
@@ -637,7 +616,7 @@ class JobsTest extends PHPUnit_Framework_TestCase
 
         $response = json_decode($jobsAPI->archive($jobs), true);
         $this->assertEquals('error', $response['opstat']);
-        $this->assertEquals('unauthorized job access', $response['err']['msg']);
+        $this->assertEquals('invalid job status', $response['err']['msg']);
     } //end testArchiveApprovedJob()
 
     /**

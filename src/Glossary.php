@@ -64,4 +64,73 @@ class Glossary extends API
     {
         return $this->storeResponse(Client::get('v2/translate/glossary/'.$glossaryid));
     } //end getGlossary()
+
+    /**
+     * Retrieves a full representation of a glossary object.
+     *
+     * Calls glossary (GET)
+     *
+     * @param int $glossary_id The ID of the glossary to return.
+     *
+     * @return string Gengo response
+     */
+    public function getGlossaryDetails($glossary_id)
+    {
+        return $this->storeResponse(Client::get('glossary/'.$glossary_id));
+    } //end getGlossaryDetails()
+
+    /**
+     * Creates a new glossary from a given CSV file (POST)
+     *
+     * Calls glossary (POST)
+     *
+     * @param string $file_path The path of the glossary file
+     *
+     * @return string Gengo response
+     */
+    public function postGlossary($file_path)
+    {
+        $params = array(
+            '_method' => 'post',
+        );
+        $files = array(
+            'file_path' => $file_path
+        );
+
+        return $this->storeResponse(Client::post('glossary/', $params, $files));
+    } //end postGlossary()
+
+    /**
+     * Updates the glossary with the given ID with given CSV file.
+     *
+     * Calls glossary (PUT)
+     *
+     * @param int $glossary_id The ID of the glossary to return.
+     * @param string $file_path The path of the glossary file
+     *
+     * @return string Gengo response
+     */
+    public function putGlossary($glossary_id, $file_path)
+    {
+        $params = array(
+            '_method' => 'put',
+        );
+        $files = array(
+            'file_path' => $file_path
+        );
+
+        return $this->storeResponse(Client::put('glossary/'.$glossary_id, $params, $files));
+    } //end putGlossary()
+
+    /**
+     * Deletes a glossary with the given ID.
+     *
+     * Calls glossary (DELETE)
+     *
+     * @param int $glossary_id The ID of the glossary to delete.
+     */
+    public function deleteGlossary($glossary_id)
+    {
+        return $this->storeResponse(Client::delete('glossary/'.$glossary_id));
+    } //end deleteGlossary()
 } //end class
